@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116596166-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116596166-1');
+</script>
+
+<meta charset="utf-8" />
+<meta name="author" content="" />
+<meta name="description" content="Kevin Norman - or kn100 - a software engineer from London who likes to play about with embedded systems and sometimes blog about it. You&#39;ll find me playing around with Arduino, ESP32, Linux, and more. " />
+<meta name="keywords" content="kn100, tech, golang, redis, software engineering, computer science" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.80.0" />
+
+<link rel="canonical" href="https://kn100.me/where-embedded-meets-the-internet-building-your-own-air-quality-meter/">
+<meta property="og:title" content="Embedded Meets the Internet: Build Your Own Air Quality Meter" />
+<meta property="og:description" content="Combine the ESP32, Bosch BME680, Raspberry Pi, and a fancy LCD to monitor air quality in your home" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kn100.me/where-embedded-meets-the-internet-building-your-own-air-quality-meter/" />
+<meta property="og:image" content="https://kn100.me/arduair-graphs.png" />
+<meta property="article:published_time" content="2020-07-05T00:25:47+01:00" />
+<meta property="article:modified_time" content="2020-07-05T00:25:47+01:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kn100.me/arduair-graphs.png"/>
+
+<meta name="twitter:title" content="Embedded Meets the Internet: Build Your Own Air Quality Meter"/>
+<meta name="twitter:description" content="Combine the ESP32, Bosch BME680, Raspberry Pi, and a fancy LCD to monitor air quality in your home"/>
+
+
+<meta itemprop="name" content="Embedded Meets the Internet: Build Your Own Air Quality Meter">
+<meta itemprop="description" content="Combine the ESP32, Bosch BME680, Raspberry Pi, and a fancy LCD to monitor air quality in your home">
+<meta itemprop="datePublished" content="2020-07-05T00:25:47+01:00" />
+<meta itemprop="dateModified" content="2020-07-05T00:25:47+01:00" />
+<meta itemprop="wordCount" content="5442">
+<meta itemprop="image" content="https://kn100.me/arduair-graphs.png">
+
+
+
+<meta itemprop="keywords" content="Projects,ESP32," />
+
+
+<link rel="stylesheet" href="/css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+a { color: #000000; }
+
+pre {
+  background: #EEEEEE;
+  border: 1px solid #000000;
+  border-radius: 5px;
+}
+
+code {
+  background-color: transparent;
+}
+
+blockquote {
+  background: #EEEEEE;
+  border-left: 3px solid #000000;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #000000;
+}
+
+th {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.siteTitle a { color: #0d5a91; }
+
+.post .content h1{ color: #0d5a91; }
+.post .content h2{ color: #0d5a91; }
+.post .content h3{ color: #0d5a91; }
+.post .content h4{ color: #0d5a91; }
+.post .content h5{ color: #0d5a91; }
+.post .content h6{ color: #0d5a91; }
+.post .content a:hover { color: #0d5a91; }
+.social-link:hover { color: #0d5a91; }
+.nav-item-title:hover { color: #0d5a91; }
+.tag a:hover { color: #0d5a91; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #0d5a91; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #0d5a91;
+}
+.post-list .title { color: #0d5a91; }
+.rmore { color: #000000; }
+.rmore:hover { color: #0d5a91; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #0d5a91;
+}
+
+</style>
+
+
+
+<title>
+
+
+     Embedded Meets the Internet: Build Your Own Air Quality Meter 
+
+</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://kn100.me/">
+        <img class="logo" src="/nulogo.png" alt="KN100 | Kevin Norman">
+      </a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="/about/"><div class="nav-item-title">About me</div></a>
+    
+    <a class="nav-item" href="/tags/"><div class="nav-item-title">Tags</div></a>
+    
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+</div>
+ 
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> Embedded Meets the Internet: Build Your Own Air Quality Meter </h1>
+    <div class="content"> <figure>
+    <img src="/arduair-artsy.jpg"/> <figcaption>
+            <h4>The Finished Product - quite rustic!</h4>
+        </figcaption>
+</figure>
+
+<p>This article was recently featured in <a href="https://hackaday.com/2020/07/20/a-portable-home-air-quality-meter-with-the-esp32/">Hackaday</a> and <a href="https://diyodemag.com/features/sense_of_smell_esp32-based_air_quality_meter">Diyode</a>!</p>
+<p>I&rsquo;m bored. I&rsquo;m sure you are too. I&rsquo;m personally very thankful that I can still work through this strange period - but there are still hours in the day to fill. I wanted a personal project, so I thought about remote working and the health impacts. Most offices here have air handling units, air conditioners, and fans to keep air circulating. Most residential flats like the one I rent do not. Given I now spend close to 24 hours a day sat in this flat, air quality seems important. I looked up the cost of air quality meters and they&rsquo;re either fairly pricy or fairly useless. I wanted one that I could graph over time. I decided to DIY one! This wasn&rsquo;t intended to be a super serious project, just a bit of fun and an opportunity to learn more about embedded systems.</p>
+<p>In the end, I built a little unit I think looks pretty nice given my limited DIY skills that:</p>
+<ul>
+<li>Displays realtime air quality data on a LCD</li>
+<li>Reports realtime air quality data to a MQTT broker</li>
+<li>Allows realtime monitoring on any device that can do MQTT.</li>
+</ul>
+<p>I also involved a Raspberry Pi in this party that:</p>
+<ul>
+<li>Persists data to an InfluxDB instance</li>
+<li>Hosts a Grafana instance</li>
+<li>Reboots occasionally and crashes if you look at it funny - just Raspberry Pi things.</li>
+</ul>
+<figure>
+    <img src="/arduair-graphs.png"/> <figcaption>
+            <h4>The IMO super pretty graphs it makes in Grafana - that huge dip in temperature is when I took it outside to take photos of it for this article!</h4>
+        </figcaption>
+</figure>
+
+<h1 id="the-parts">The Parts</h1>
+<h2 id="4mb-flash-miini-wemos-d1-lolin32-esp32-dev-board">4MB Flash MIINI WEMOS D1 Lolin32 ESP32 Dev Board</h2>
+<p>I have worked with Arduino in the past - and have always found them to be a really fun tool to have in the arsenal. They&rsquo;re cheap as hell and very useful in many electronics projects. I wanted something that was similar to work with in capability, but wanted more - namely I wanted to connect it to the internet! There are ways to connect an Arduino to the internet, but a far more seamless solution presented itself inside a gift my lovely fiance got for me a few months back - the Odroid Go! The Odroid Go is portable games console styled after the Gameboy and is capable of playing the games of many retro consoles. It also has a pretty prolific hacker community - since it is powered by a somewhat custom ESP32.</p>
+<p>The ESP32 sounded incredible! two 240MHz cores + a third &lsquo;low power&rsquo; core to keep things ticking while it&rsquo;s asleep, 520KB of SRAM, WiFi, Bluetooth, 34 GPIO Pins, 12 bit ADC, SPI and I2C support - it really sounded like the perfect hacker board. Even the esp32 data-sheet does a good job of selling the applications of a solution like this, listing IoT Sensor Hub as its top application. Best of all, it&rsquo;s unreasonably cheap! I picked up what I am pretty sure is a clone of another dev board manufactured by WEMOS from eBay for 7GBP delivered.</p>
+<p>You can write code for the ESP32 in numerous ways - but the way that I was interested in was using the Arduino IDE - since I already had some experience with it in the past.</p>
+<h2 id="2004-i2c-lcd-display">2004 I2C LCD Display</h2>
+<p>I wanted to have some sort of external display that would show the realtime values at all times. I considered going for a full colour display here, but decided that for simplicities sake I&rsquo;d go for one of the old fashioned, text only ones that was probably intended to go into some industrial control hardware or a VCR. It also has the benefit of being fairly low power in comparison to a permanently backlit full colour TFT display.</p>
+<p>The one I got has a lovely interface board already soldered on that allows you to talk to it using I2C - and also has a bright green backlight that my fiance has lovingly nicknamed the &lsquo;Shrek&rsquo; lamp.</p>
+<h2 id="cjmcu-680-bme680-module">CJMCU-680 BME680 Module</h2>
+<p>This component it what sparked this whole project off. My phones assistant fairly regularly notifies me of Kickstarter or IndieGoGo projects that are fundraising - and this time the advertised product looked fairly interesting. It was the Metriful Sense board - an Indoor Environment Monitor board. It features a Light sensor, microphone, and the Bosch BME680. I was considering backing the <a href="https://www.kickstarter.com/projects/metriful/sense-indoor-environment-monitor/faqs">Metriful Kickstarter</a> and I&rsquo;d encourage you to do so if this sounds good to you - however I decided I didn&rsquo;t care about light and sound, didn&rsquo;t want to wait months for it to shop, and only really cared about air quality, so I went to eBay and found that the BME680 is being sold on breakout boards for around 15GBP - shipped first class, so I got that instead. This component is actually the most expensive part of the build (I paid 16GBP) - but it is a pretty cool sensor.</p>
+<p>The BME680 measures temperature, pressure, humidity, and gas resistance (how conductive the gas is) - and can offer you these values raw, or you can use a closed source Bosch library called BSEC which uses these 4 values and some magic sensor fusion tech to compute an Air Quality Index, as well as a guess at the Co2 and VOC concentrations in the room.</p>
+<h2 id="enclosure">Enclosure</h2>
+<p>For an enclosure, I decided I wanted something fairly roomy - having been burned by trying to make miniature projects in the past. I wanted something that would fit the aesthetic of my flat, and something that was fairly easy to work with. I ended up settling on a plastic lunchbox which has a lovely wooden lid that press fits into the plastic from a shop called Flying Tiger. Really, any box that will fit the components and you can drill will work. I think it turned out pretty nice even with my absolutely terrible woodworking skills.</p>
+<h2 id="battery-choices">Battery Choices</h2>
+<p>I wanted to be able to transport this meter around the house and have it continuously measure for a period after it was unplugged. I wanted it to have reasonably good battery life. I also try to reuse things I have that would be &lsquo;e-waste&rsquo; otherwise and I settled on a 3000mAh 18650 battery that I had lying around that was in use for a high current application prior, but now had developed too high of an internal resistance to really push amps. Perfect for this project then, since the entire project will sip around 80mA in its completely unoptimised form, and this could easily be significantly reduced. In reality, the battery lasts around 30 hours. All I needed to purchase here was an 18650 holder.</p>
+<h2 id="raspberry-pi-or-other-server-you-control">Raspberry Pi or other server you control</h2>
+<p>The ESP32 is a very powerful dev board, but in order to persist large amounts of data and to make it accessible in something like Grafana we&rsquo;re going to need something a bit more powerful! I had a Raspberry Pi 3b+ sitting in the &lsquo;one day I&rsquo;ll find a use for you&rsquo; box I have and decided this was a perfect use. It can be my MQTT broker. It can even perform double duty and host Grafana for me. I did consider hosting all of this on the server that hosts this very website (A Scaleway instance) - but didn&rsquo;t want to pollute that environment too much if I ended up getting bored of this project.</p>
+<p>I&rsquo;d like to stress here something that I learned the hard way - a <em>good quality</em> power supply is an absolute requirement for any Raspberry Pi. Lower quality power supplies just aren&rsquo;t beefy enough to really supply the Pi when things really get going and you&rsquo;ll find yourself chasing ghosts. Get a decent power supply!</p>
+<h1 id="the-build">The Build</h1>
+<h2 id="i2c-components">I2C Components</h2>
+<p>I&rsquo;ll provide a quick and dirty primer on I2C: It&rsquo;s a way of attaching peripherals to microprocessors over short distances. It&rsquo;s pretty slow topping out at 5 Mbps - but is nice since it has extremely simple wiring (just 2 data wires!) and you can chain devices. Effectively, we just need to connect the SDA and SCL pins (along with power) between the components and the esp32 and the hardware portion is finished. When we want to connect two devices, we just connect all 3 in a chain (connect all the SDAs together, connect all the SCLs together). The only other thing we realistically need to take into account is the address. Each I2C Peripheral will have an address that identifies it on the bus. These addresses are not unique. If you purchase two of the same peripheral, you&rsquo;ll probably find they have the same address in their default configuration. This means that you cannot &lsquo;talk&rsquo; to each device independently if they&rsquo;re on the same bus. There are a couple of solutions to this problem: the simplest being peripherals that feature an &lsquo;address select&rsquo; jumper which will allow you to select a secondary address to use instead of the first, and other peripherals will be reprogrammable so you can change the address freely. YMMV.</p>
+<p>So, to connect our I2C components up, just connect all the SDAs together, and all the SCLs together. Pretty simple!</p>
+<figure>
+    <img src="/arduair-conx.jpg"/> <figcaption>
+            <h4>Connections - basically connect all the SDAs up, connect all the SCLs up, connect VIN of the BME680 to the 3v pin on the esp32, connect the VIN of the LCD to the positive lead of your battery, connect the battery to the Lipo battery connector on the esp32, and wire up the grounds! Diagrams really aren&#39;t my strong suit.</h4>
+        </figcaption>
+</figure>
+
+<p>Once we&rsquo;ve done this, it&rsquo;s time to power them.</p>
+<h2 id="power-considerations">Power considerations</h2>
+<p>In order to figure out how to power this all, I needed to know the power requirements of each component. In the case of the ESP32 - I am using a dev board which will have its own power draws on top of the ESP32 itself for things like the serial to USB chip as well as for the charging circuitry since it features a LiPo charging circuit, so the current requirement is from the ESP32 data sheet directly - since this weird clone board I got doesn&rsquo;t seem to have a datasheet that exactly matches it. Same goes for the LCD and the CJMCU-680. This is the downside of buying strange boards from Aliexpress I guess! For this specific project, I experimented a little and did some voltage/current testing and got these values.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>Component</strong></th>
+<th style="text-align:center">** Input Voltage Requirement**</th>
+<th style="text-align:center">** Current requirement**</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ESP32 Board</td>
+<td style="text-align:center">3.7v from LiPo input</td>
+<td style="text-align:center">70mA</td>
+</tr>
+<tr>
+<td style="text-align:center">2004 LCD</td>
+<td style="text-align:center">5v but runs fine at LiPo voltages too in my case</td>
+<td style="text-align:center">50mA with backlight</td>
+</tr>
+<tr>
+<td style="text-align:center">CJMCU-680</td>
+<td style="text-align:center">3.3v</td>
+<td style="text-align:center">10mA</td>
+</tr>
+</tbody>
+</table>
+<p>Let&rsquo;s start with the CJMCU-680. It runs at 3.3v and needs 10mA, but only very briefly. As far as I can tell, gas resistivity sensors like the one found in the BME680 heat up a plate inside the component to &lsquo;activate&rsquo; some material that reacts with various gasses - changing the resistance of this sensing material. The measurement of this resistance is how the sensor determines the gas resistivity. The initial heating phase which happens in less than 0.1s according to the datasheet is the highest current phase, at which point the current draw drops dramatically. I connected this component to the 3.3v and GND pins on the ESP32 and it seemed to work so that&rsquo;s how I left it.</p>
+<p>Next up is the ESP32 itself. The dev board I got helpfully provides two ways to power it. You can either just connect a USB power supply to the onboard MicroUSB port which powers the whole lot, or you can connect a Lipo cell to the onboard battery connector, at which point the onboard MicroUSB port doubles as a pretty bad battery charger. The charger on my board seems to charge the battery at around 400mA with all other components attached and working - which means it&rsquo;s probably supplying 500mA max (respecting the USB spec for once!). I went with the Lipo option, but this has a small downside - the 5v rail that the board supplies then just doesn&rsquo;t seem to supply enough current to power the LCD.</p>
+<p>For the LCD, what you&rsquo;d probably want to do is engineer your own power solution that bypasses the crappy one found on the dev board. You might get your own step up converter that will take the 3.7v from the Lipo and boost it to 5v with some current rating that makes sense (1 amp is more than sufficient). You can then also get your own LiPo charging circuitry that will charge the Lipo at whichever rate you like rather than the rather slow but safe 500mA charging rate. You could go belt and braces and add on a low dropout circuit which cuts the battery connection if its voltage drops below something like 3v - since anything below this and you&rsquo;ll start to enter explodey battery territory. In fact, you can buy a single circuit board that will do all of this for you in a single integrated solution. Something like <a href="https://www.aliexpress.com/item/4000048982405.html">this 5v power bank module</a> or <a href="https://www.aliexpress.com/item/892907292.html">this LiPo charge circuit</a> would likely do. What I did and do not recommend you do is just connect the LCD directly to the LiPo. This means I have completely worked around the low dropout protection the ESP32 already has which is a Bad Thing(tm) - but for my given use case (almost always plugged in, rarely without power for more than 12 hours, very large battery) - I&rsquo;m happy with it. In either case, make sure you connect the ground of the LCD to a ground on the ESP32 - you must always common (connect) grounds when using something like I2C.</p>
+<p>Onto the battery! As previously discussed, I used an 18650 I had lying around along with an <a href="https://www.aliexpress.com/item/4001079428851.html?">18650 battery holder</a>.</p>
+<h2 id="enclosure-1">Enclosure</h2>
+<figure>
+    <img src="/arduair-internal.jpg"/> <figcaption>
+            <h4>Messy internals never really bothered me!</h4>
+        </figcaption>
+</figure>
+
+<p>Quick note: Woodwork is NOT my strong suit, so please forgive the tragic method that I describe. I purchased a lunchbox that is a plastic box with a piece of wood that fits into the plastic box as a lid. I cut a small hole in the bottom so the BME680 sensor could breathe by heating a drill bit and slowly drilling through the plastic. I cut another three of these holes on the back, one sort of MicroUSB shaped, another for a toggle switch that I use to toggle the backlight of the LCD, and another push button switch that pulls io0 low so that my dev board goes into flash mode. The hole I cut in the wooden lid is rough as hell because I do not own a jigsaw nor did I want to buy one. Instead, what I did was I drilled holes all along the edges of the wood I wanted to cut out, and then stuck a hacksaw blade through these holes and cut using the hacksaw. It took forever and there was probably a better way available to me, but this method worked in the end. Several minutes of sanding to get the LCD to press fit into the hole, and it was finished.</p>
+<p>I glued the BME680 in place using a adhesive rubber furniture foot thing because that&rsquo;s what I had to hand. If this is a permanent installation, you may want to invest in some standoffs and screws so you can mount yours properly. I found on eBay a MicroUSB &lsquo;extender&rsquo; cable, that has a male MicroUSB port on one side and a female MicroUSB port on the other. I epoxied the female side to the microUSB shaped hole, and plugged the male side into the ESP32. I superglued the 18650 battery holder in place. The ESP32 is currently just floating about on the inside of the case since I still frequently access pins on it.</p>
+<p>It goes without saying, internally this is a bit of a mess. I don&rsquo;t really mind this as it is purely a hacker project for me, something to keep me sane during Covidpocalypse. It works well and externally I&rsquo;ve grown to like how it looks.</p>
+<figure>
+    <img src="/arduair-internal-2.jpg"/> <figcaption>
+            <h4>The epoxied in microUSB connector, along with the backlight control switch, the &#39;put it into flash mode&#39; switch, and the 18650 cell in its holder</h4>
+        </figcaption>
+</figure>
+
+<figure>
+    <img src="/arduair-back.jpg"/> <figcaption>
+            <h4>The MicroUSB hole didn&#39;t quite go exactly to plan...</h4>
+        </figcaption>
+</figure>
+
+<h1 id="esp32-software">ESP32 Software</h1>
+<p>Next up, we should write the code that runs the show on the ESP32. As previously discussed, I wanted to use the Arduino IDE initially since that papers over a lot of the horribleness of working with embedded systems such as this one. There is a fair bit of horribleness still - which I shall elaborate on. Due to incompatibilities between the BSEC Library and the Arduino IDE, I recommend installing Arduino IDE v1.8.10. This one works for me. Once you&rsquo;ve got the Arduino IDE installed, you&rsquo;re going to want to install the board tools for your board. <a href="https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/">This blog post covers installing the ESP32 dev tools</a>. Ensure you are able to write software to the board. On my first attempt with this, the ESP32 point blank refused to accept code. I&rsquo;d constantly get &ldquo;ESP32: Timed out&hellip; Connecting&hellip;&rdquo;. All the instructions everywhere told me to press the &lsquo;Boot&rsquo; or &lsquo;EN&rsquo; buttons, but my board only had one button labelled &lsquo;reset&rsquo; and that didn&rsquo;t help. What did help (and I can&rsquo;t remember how or where I found to try this!) was while you are in that &lsquo;Connecting&hellip;&rsquo; phase briefly connect the IO0 pin to ground. This seemed to kick it into &lsquo;flash mode&rsquo;, and it flashes correctly every time.</p>
+<p>Here is a list of the libraries I used:</p>
+<ul>
+<li><a href="https://github.com/BoschSensortec/BSEC-Arduino-library">BSEC Library by Bosch Sensortec (v1.5.1474)</a></li>
+<li><a href="https://github.com/knolleary/pubsubclient/">PubSubClient by Nick O&rsquo;Leary (v2.8.0)</a></li>
+<li><a href="https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library">LiquidCrystal I2C by Frank de Brabander (v1.1.2)</a></li>
+</ul>
+<h2 id="talking-to-the-bme680">Talking to the BME680</h2>
+<p>Getting the BSEC library set up is a bit of a pain. Once you&rsquo;ve successfully got ESP32 code building and flashing, you&rsquo;ll need to add the BME680 library to your IDE (Download the release as a zip from the above Github Link and add it to the Arduino IDE by selecting &lsquo;Sketch&rsquo; from the menu bar, then head to &lsquo;Include Library&rsquo;, and then &lsquo;Add .ZIP Library&hellip;'). Once you&rsquo;ve done this, close out of the Arduino IDE, navigate to where your Arduino IDE saved the ESP32 platform (usually ~/Arduino/Hardware/expressif/esp32), and then open the platform.txt in a text editor (I suggest saving a copy elsewhere so you can restore if needed!). Look for a section that looks something like the below:</p>
+<pre><code>compiler.c.extra_flags=
+compiler.c.elf.extra_flags=
+#compiler.c.elf.extra_flags=-v
+compiler.cpp.extra_flags=
+compiler.S.extra_flags=
+compiler.ar.extra_flags=
+compiler.elf2hex.extra_flags=
+</code></pre><p>At the bottom of this section, add this line:</p>
+<pre><code>compiler.libraries.ldflags=
+</code></pre><p>Now that we&rsquo;ve added ldflags, we need to reference them. Find the line that starts with <code>recipe.c.combine.pattern</code> and replace it with this:</p>
+<pre><code>## Combine gc-sections, archives, and objects
+recipe.c.combine.pattern=&quot;{compiler.path}{compiler.c.elf.cmd}&quot; {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -Wl,--start-group {object_files} &quot;{archive_file_path}&quot; {compiler.c.elf.libs} {compiler.libraries.ldflags} -Wl,--end-group -Wl,-EL -o &quot;{build.path}/{build.project_name}.elf&quot;
+</code></pre><p>Once you have done all of this, you can select one of the now available to you BSEC Example sketches (File &gt; Examples &gt; BSEC Software Library) and check it compiles and uploads to your board. Then consult the serial monitor to see if it works as you expected. You&rsquo;ll probably find it doesn&rsquo;t because nothing in life is easy and life is suffering. You should at least get an error code. If you haven&rsquo;t, there is something more serious wrong. Here are a few pointers to get it working assuming you got a BSEC Error code. Well aren&rsquo;t you lucky you at least get an error code! It&rsquo;s nice to get an error code since you can go and look up the error code. In the documentation. Oh theres no error codes there? How about in the code? It&rsquo;s closed source? Crap.</p>
+<p>Firstly, you&rsquo;ll most likely have to initialise the &lsquo;Wire&rsquo; library with specific pins. This is easy enough, just find the <code>Wire.begin()</code> line and specify your pins in here:</p>
+<pre><code># At the top of your sketch, below the #include lines
+#define PIN_I2C_SDA 21
+#define PIN_I2C_SCL 22
+# Further down, in the setup() method
+Wire.begin(PIN_I2C_SDA, PIN_I2C_SCL);
+</code></pre><p>Secondly, my particular BME680 breakout board was for some reason configured to use the secondary I2C address, so I had to explicitly tell the BSEC library to use the secondary I2C address. Again, easy enough, find the line that contains <code>BME680_I2C_ADDR_PRIMARY</code> and replace it with <code>BME680_I2C_ADDR_SECONDARY</code>. Nice.</p>
+<h2 id="talking-to-the-lcd">Talking to the LCD</h2>
+<p>This was simpler. Once again, you can head to the example code for the LCD to get a feel for what the library can do (File &gt; Examples &gt; INCOMPATIBLE &gt; LiquidCrystal I2C) (the library doesn&rsquo;t explicitly support the esp32 but it seems to work fine for me!).</p>
+<h2 id="example-code-i-wrote---arduair">Example code I wrote - Arduair</h2>
+<p>Onto the good bit. I am not an Arduino expert, and <a href="https://www.youtube.com/watch?v=i2fhNVQPb5I">I am not a C programmer</a>, so I can&rsquo;t promise this code is good. It works for me for now and I would like to tidy it up, but I present it in its current form below. It borrows code from both the BSEC Examples and the LCD examples. I&rsquo;ve tried to document it with comments as well as possible.</p>
+<figure>
+    <img src="/arduair-connecting.jpg"/> <figcaption>
+            <h4>Something super satisfying seeing an oldschool LCD display an IP address...</h4>
+        </figcaption>
+</figure>
+
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ino" data-lang="ino"><span style="color:#999;font-style:italic">// kn100.me - Arduairs
+</span><span style="color:#999;font-style:italic">// Available on Github: https://github.com/kn100/arduairs
+</span><span style="color:#999;font-style:italic">// Note: This code is provided as an example only - it does not implement authentication, TLS or anything even remotely close to security. It&#39;s probably fine if all your infrastructure lives on your local network, but you might want to consider looking into security.
+</span><span style="color:#999;font-style:italic"></span>
+<span style="color:#cd2828;font-weight:bold">#include</span> <span style="color:#cd2828;font-weight:bold">&lt;PubSubClient.h&gt;</span><span style="color:#cd2828;font-weight:bold">
+</span><span style="color:#cd2828;font-weight:bold"></span>
+<span style="color:#cd2828;font-weight:bold">#include</span> <span style="color:#cd2828;font-weight:bold">&#34;bsec.h&#34;</span><span style="color:#cd2828;font-weight:bold">
+</span><span style="color:#cd2828;font-weight:bold">#include</span> <span style="color:#cd2828;font-weight:bold">&lt;LiquidCrystal_I2C.h&gt;</span><span style="color:#cd2828;font-weight:bold">
+</span><span style="color:#cd2828;font-weight:bold">#include</span> <span style="color:#cd2828;font-weight:bold">&lt;WiFi.h&gt;</span><span style="color:#cd2828;font-weight:bold">
+</span><span style="color:#cd2828;font-weight:bold">#include</span> <span style="color:#cd2828;font-weight:bold">&lt;EEPROM.h&gt;</span><span style="color:#cd2828;font-weight:bold">
+</span><span style="color:#cd2828;font-weight:bold"></span>
+<span style="color:#999;font-style:italic">// Controls which pins are the I2C ones.
+</span><span style="color:#999;font-style:italic"></span><span style="color:#cd2828;font-weight:bold">#define PIN_I2C_SDA 21
+</span><span style="color:#cd2828;font-weight:bold">#define PIN_I2C_SCL 22
+</span><span style="color:#cd2828;font-weight:bold"></span>
+<span style="color:#999;font-style:italic">// Controls how often the code persists the BSEC Calibration data
+</span><span style="color:#999;font-style:italic"></span><span style="color:#cd2828;font-weight:bold">#define STATE_SAVE_PERIOD  UINT32_C(60 * 60 * 1000) </span><span style="color:#999;font-style:italic">// every 60 minutes
+</span><span style="color:#999;font-style:italic"></span>
+<span style="color:#6ab825;font-weight:bold">const</span> <span style="color:#6ab825;font-weight:bold">char</span>* mqtt_server = <span style="color:#ed9d13">&#34;&lt;your-mqtt-server-IP&gt;&#34;</span>;
+<span style="color:#6ab825;font-weight:bold">const</span> <span style="color:#6ab825;font-weight:bold">char</span>* ssid = <span style="color:#ed9d13">&#34;&lt;your-wifi-SSID&gt;&#34;</span>;
+<span style="color:#6ab825;font-weight:bold">const</span> <span style="color:#6ab825;font-weight:bold">char</span>* passphrase = <span style="color:#ed9d13">&#34;&lt;your-wifi-password&gt;&#34;</span>;
+
+<span style="color:#999;font-style:italic">// Controls the offset for the temperature sensor. My BME680 was reading 4 degrees higher than another thermometer I trusted more, so my offset is 4.0.
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">const</span> <span style="color:#6ab825;font-weight:bold">float</span> tempOffset = <span style="color:#3677a9">4.0</span>;
+
+<span style="color:#999;font-style:italic">// Configuration data for the BSEC library - telling it it is running on a 3.3v supply, that it is read from every 3 seconds, and that the sensor should take into account the last 4 days worth of data for calibration purposes.
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">const</span> <span style="color:#6ab825;font-weight:bold">uint8_t</span> bsec_config_iaq[] = {
+<span style="color:#cd2828;font-weight:bold">#include</span> <span style="color:#cd2828;font-weight:bold">&#34;config/generic_33v_3s_4d/bsec_iaq.txt&#34;</span><span style="color:#cd2828;font-weight:bold">
+</span><span style="color:#cd2828;font-weight:bold"></span>};
+
+<span style="color:#999;font-style:italic">// Create an object of the class Bsec
+</span><span style="color:#999;font-style:italic"></span>Bsec iaqSensor;
+
+<span style="color:#6ab825;font-weight:bold">String</span> output;
+
+<span style="color:#999;font-style:italic">// This stores a question mark and is eventually replaced with a space character once the BSEC library has decided it has enough calibration data to persist. It is displayed in the bottom right of the LCD as a kind of debug symbol. 
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">String</span> sensorPersisted = <span style="color:#ed9d13">&#34;?&#34;</span>;
+
+<span style="color:#6ab825;font-weight:bold">uint8_t</span> bsecState[BSEC_MAX_STATE_BLOB_SIZE] = {<span style="color:#3677a9">0</span>};
+<span style="color:#6ab825;font-weight:bold">uint16_t</span> stateUpdateCounter = <span style="color:#3677a9">0</span>;
+
+<span style="color:#447fcf;text-decoration:underline">WiFiClient</span> espClient;
+PubSubClient <span style="color:#447fcf">broker</span>(espClient);
+
+<span style="color:#999;font-style:italic">// The I2C address of your LCD, it will likely either be 0x27 or 0x3F
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">const</span> <span style="color:#6ab825;font-weight:bold">uint8_t</span> LCD_ADDR = <span style="color:#3677a9">0x27</span>;
+
+<span style="color:#999;font-style:italic">// 20 characters across, 4 lines deep
+</span><span style="color:#999;font-style:italic"></span>LiquidCrystal_I2C <span style="color:#447fcf">lcd</span>(LCD_ADDR, <span style="color:#3677a9">20</span>, <span style="color:#3677a9">4</span>);
+
+<span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">setup</span>(<span style="color:#6ab825;font-weight:bold">void</span>)
+{
+  <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">begin</span>(<span style="color:#3677a9">115200</span>);
+  broker.setServer(mqtt_server, <span style="color:#3677a9">1883</span>);
+
+  <span style="color:#447fcf;text-decoration:underline">Wire</span>.<span style="color:#447fcf">begin</span>(PIN_I2C_SDA, PIN_I2C_SCL);
+  <span style="color:#999;font-style:italic">// Your module MAY use the primary address, which is available as BME680_I2C_ADDR_PRIMARY
+</span><span style="color:#999;font-style:italic"></span>  iaqSensor.<span style="color:#447fcf">begin</span>(BME680_I2C_ADDR_SECONDARY, <span style="color:#447fcf;text-decoration:underline">Wire</span>);
+  output = <span style="color:#ed9d13">&#34;</span><span style="color:#ed9d13">\n</span><span style="color:#ed9d13">BSEC library version &#34;</span> + <span style="color:#6ab825;font-weight:bold">String</span>(iaqSensor.version.major) + <span style="color:#ed9d13">&#34;.&#34;</span> + <span style="color:#6ab825;font-weight:bold">String</span>(iaqSensor.version.minor) + <span style="color:#ed9d13">&#34;.&#34;</span> + <span style="color:#6ab825;font-weight:bold">String</span>(iaqSensor.version.major_bugfix) + <span style="color:#ed9d13">&#34;.&#34;</span> + <span style="color:#6ab825;font-weight:bold">String</span>(iaqSensor.version.minor_bugfix);
+  <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">println</span>(output);
+  checkIaqSensorStatus();
+  iaqSensor.setConfig(bsec_config_iaq);
+
+  <span style="color:#999;font-style:italic">//loadState here refers to the BSEC Calibration state.
+</span><span style="color:#999;font-style:italic"></span>  loadState();
+
+  <span style="color:#999;font-style:italic">// List all the sensors we want the bsec library to give us data for
+</span><span style="color:#999;font-style:italic"></span>  bsec_virtual_sensor_t sensorList[<span style="color:#3677a9">10</span>] = {
+    BSEC_OUTPUT_RAW_TEMPERATURE,
+    BSEC_OUTPUT_RAW_PRESSURE,
+    BSEC_OUTPUT_RAW_HUMIDITY,
+    BSEC_OUTPUT_RAW_GAS,
+    BSEC_OUTPUT_IAQ,
+    BSEC_OUTPUT_STATIC_IAQ,
+    BSEC_OUTPUT_CO2_EQUIVALENT,
+    BSEC_OUTPUT_BREATH_VOC_EQUIVALENT,
+    BSEC_OUTPUT_SENSOR_HEAT_COMPENSATED_TEMPERATURE,
+    BSEC_OUTPUT_SENSOR_HEAT_COMPENSATED_HUMIDITY,
+  };
+
+  iaqSensor.setTemperatureOffset(tempOffset);
+  
+  <span style="color:#999;font-style:italic">// Receive data from sensor list above at BSEC_SAMPLE_RATE_LP rate (every 3 seconds). There is also BSEC_SAMPLE_RATE_ULP - which requires a configuration change above.
+</span><span style="color:#999;font-style:italic"></span>  iaqSensor.updateSubscription(sensorList, <span style="color:#3677a9">10</span>, BSEC_SAMPLE_RATE_LP);
+  checkIaqSensorStatus();
+
+  lcd.init();
+  lcd.backlight();
+  <span style="color:#999;font-style:italic">// I wanted some iconography, so this function creates some icons in the LCDs memory. They were created using Maxpromers LCD Character Creator
+</span><span style="color:#999;font-style:italic"></span>  createLCDSymbols();
+  connectToNetwork();
+}
+
+<span style="color:#999;font-style:italic">// Function that is looped forever
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">loop</span>(<span style="color:#6ab825;font-weight:bold">void</span>)
+{
+  <span style="color:#6ab825;font-weight:bold">if</span> (!broker.<span style="color:#447fcf">connected</span>()) {
+    reconnectToBroker();
+  }
+  broker.<span style="color:#6ab825;font-weight:bold">loop</span>();
+  <span style="color:#999;font-style:italic">// iaqSensor.run() will return true once new data becomes available
+</span><span style="color:#999;font-style:italic"></span>  <span style="color:#6ab825;font-weight:bold">if</span> (iaqSensor.<span style="color:#447fcf">run</span>()) {
+    lcd.<span style="color:#447fcf">clear</span>();
+    displayIAQ(<span style="color:#6ab825;font-weight:bold">String</span>(iaqSensor.staticIaq));
+    displayTemp(<span style="color:#6ab825;font-weight:bold">String</span>(iaqSensor.temperature));
+    displayHumidity(<span style="color:#6ab825;font-weight:bold">String</span>(iaqSensor.humidity));
+    displayPressure(<span style="color:#6ab825;font-weight:bold">String</span>(iaqSensor.pressure/<span style="color:#3677a9">100</span>));
+    displayCO2(<span style="color:#6ab825;font-weight:bold">String</span>(iaqSensor.co2Equivalent));
+    displayVOC(<span style="color:#6ab825;font-weight:bold">String</span>(iaqSensor.breathVocEquivalent));
+    displaySensorPersisted();
+    updateState();
+  } <span style="color:#6ab825;font-weight:bold">else</span> {
+    checkIaqSensorStatus();
+  }
+}
+
+<span style="color:#999;font-style:italic">// checks to make sure the BME680 Sensor is working correctly.
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">checkIaqSensorStatus</span>(<span style="color:#6ab825;font-weight:bold">void</span>)
+{
+  <span style="color:#6ab825;font-weight:bold">if</span> (iaqSensor.status != BSEC_OK) {
+    lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">0</span>, <span style="color:#3677a9">0</span>);
+    lcd.<span style="color:#447fcf">print</span>(<span style="color:#ed9d13">&#34;Sensor error&#34;</span>);
+    <span style="color:#6ab825;font-weight:bold">if</span> (iaqSensor.status &lt; BSEC_OK) {
+      output = <span style="color:#ed9d13">&#34;BSEC error code : &#34;</span> + <span style="color:#6ab825;font-weight:bold">String</span>(iaqSensor.status);
+      <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">println</span>(output);
+    } <span style="color:#6ab825;font-weight:bold">else</span> {
+      output = <span style="color:#ed9d13">&#34;BSEC warning code : &#34;</span> + <span style="color:#6ab825;font-weight:bold">String</span>(iaqSensor.status);
+      <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">println</span>(output);
+    }
+    <span style="color:#447fcf">delay</span>(<span style="color:#3677a9">5000</span>);
+    lcd.<span style="color:#447fcf">clear</span>();
+    checkIaqSensorStatus();
+  }
+
+  <span style="color:#6ab825;font-weight:bold">if</span> (iaqSensor.bme680Status != BME680_OK) {
+    lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">0</span>, <span style="color:#3677a9">0</span>);
+    lcd.<span style="color:#447fcf">print</span>(<span style="color:#ed9d13">&#34;Sensor error&#34;</span>);
+    <span style="color:#6ab825;font-weight:bold">if</span> (iaqSensor.bme680Status &lt; BME680_OK) {
+      output = <span style="color:#ed9d13">&#34;BME680 error code : &#34;</span> + <span style="color:#6ab825;font-weight:bold">String</span>(iaqSensor.bme680Status);
+      <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">println</span>(output);
+    } <span style="color:#6ab825;font-weight:bold">else</span> {
+      output = <span style="color:#ed9d13">&#34;BME680 warning code : &#34;</span> + <span style="color:#6ab825;font-weight:bold">String</span>(iaqSensor.bme680Status);
+      <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">println</span>(output);
+    }
+    <span style="color:#447fcf">delay</span>(<span style="color:#3677a9">5000</span>);
+    lcd.<span style="color:#447fcf">clear</span>();
+  }
+}
+
+<span style="color:#999;font-style:italic">// The below display functions display data as well as publishing it to the MQTT broker. They expect the area that they are rendering to to be free of characters.
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">displayIAQ</span>(<span style="color:#6ab825;font-weight:bold">String</span> iaq)
+{
+  lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">0</span>, <span style="color:#3677a9">0</span>);
+  lcd.<span style="color:#447fcf">write</span>(<span style="color:#3677a9">0</span>);
+  lcd.<span style="color:#447fcf">print</span>(iaq);
+  <span style="color:#6ab825;font-weight:bold">char</span> carr[iaq.<span style="color:#447fcf">length</span>()];
+  iaq.<span style="color:#447fcf">toCharArray</span>(carr, iaq.<span style="color:#447fcf">length</span>());
+  broker.publish(<span style="color:#ed9d13">&#34;bme680/iaq&#34;</span>, carr);
+}
+
+<span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">displayTemp</span>(<span style="color:#6ab825;font-weight:bold">String</span> tmp)
+{
+  lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">14</span>, <span style="color:#3677a9">0</span>);
+  lcd.<span style="color:#447fcf">print</span>(tmp);
+  lcd.<span style="color:#447fcf">write</span>(<span style="color:#3677a9">1</span>);
+  <span style="color:#6ab825;font-weight:bold">char</span> carr[tmp.<span style="color:#447fcf">length</span>()];
+  tmp.<span style="color:#447fcf">toCharArray</span>(carr, tmp.<span style="color:#447fcf">length</span>());
+  broker.publish(<span style="color:#ed9d13">&#34;bme680/temperature&#34;</span>, carr);
+}
+
+<span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">displayHumidity</span>(<span style="color:#6ab825;font-weight:bold">String</span> humidity)
+{
+  lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">0</span>, <span style="color:#3677a9">1</span>);
+  lcd.<span style="color:#447fcf">write</span>(<span style="color:#3677a9">2</span>);
+  lcd.<span style="color:#447fcf">print</span>(humidity + <span style="color:#ed9d13">&#34;%&#34;</span>);
+  <span style="color:#6ab825;font-weight:bold">char</span> carr[humidity.<span style="color:#447fcf">length</span>()];
+  humidity.<span style="color:#447fcf">toCharArray</span>(carr, humidity.<span style="color:#447fcf">length</span>());
+  broker.publish(<span style="color:#ed9d13">&#34;bme680/humidity&#34;</span>, carr);
+}
+
+<span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">displayPressure</span>(<span style="color:#6ab825;font-weight:bold">String</span> pressure)
+{
+  lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">12</span>, <span style="color:#3677a9">1</span>);
+  lcd.<span style="color:#447fcf">print</span>(pressure);
+  lcd.<span style="color:#447fcf">write</span>(<span style="color:#3677a9">3</span>);
+  <span style="color:#6ab825;font-weight:bold">char</span> carr[pressure.<span style="color:#447fcf">length</span>()];
+  pressure.<span style="color:#447fcf">toCharArray</span>(carr, pressure.<span style="color:#447fcf">length</span>());
+  broker.publish(<span style="color:#ed9d13">&#34;bme680/pressure&#34;</span>, carr);
+}
+
+<span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">displayCO2</span>(<span style="color:#6ab825;font-weight:bold">String</span> co)
+{
+  lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">0</span>, <span style="color:#3677a9">3</span>);
+  lcd.<span style="color:#447fcf">print</span>(<span style="color:#ed9d13">&#34;CO2 &#34;</span> + co + <span style="color:#ed9d13">&#34;ppm&#34;</span>);
+  <span style="color:#6ab825;font-weight:bold">char</span> carr[co.<span style="color:#447fcf">length</span>()];
+  co.<span style="color:#447fcf">toCharArray</span>(carr, co.<span style="color:#447fcf">length</span>());
+  broker.publish(<span style="color:#ed9d13">&#34;bme680/co&#34;</span>, carr);
+}
+
+<span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">displayVOC</span>(<span style="color:#6ab825;font-weight:bold">String</span> voc)
+{
+  lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">0</span>, <span style="color:#3677a9">2</span>);
+  lcd.<span style="color:#447fcf">print</span>(<span style="color:#ed9d13">&#34;VOC &#34;</span> + voc + <span style="color:#ed9d13">&#34;ppm&#34;</span>);
+  <span style="color:#6ab825;font-weight:bold">char</span> carr[voc.<span style="color:#447fcf">length</span>()];
+  voc.<span style="color:#447fcf">toCharArray</span>(carr, voc.<span style="color:#447fcf">length</span>());
+  broker.publish(<span style="color:#ed9d13">&#34;bme680/voc&#34;</span>, carr);
+}
+
+<span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">displaySensorPersisted</span>()
+{
+  lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">19</span>,<span style="color:#3677a9">3</span>);
+  lcd.<span style="color:#447fcf">print</span>(sensorPersisted);
+}
+
+<span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">connectToNetwork</span>() {
+  lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">0</span>, <span style="color:#3677a9">0</span>);
+  lcd.<span style="color:#447fcf">print</span>(<span style="color:#ed9d13">&#34;Connecting to&#34;</span>);
+  lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">0</span>, <span style="color:#3677a9">1</span>);
+  lcd.<span style="color:#447fcf">print</span>(ssid);
+  <span style="color:#447fcf;text-decoration:underline">WiFi</span>.mode(WIFI_STA);
+  <span style="color:#447fcf;text-decoration:underline">WiFi</span>.<span style="color:#447fcf">begin</span>(ssid, passphrase);
+ 
+  <span style="color:#6ab825;font-weight:bold">while</span> (<span style="color:#447fcf;text-decoration:underline">WiFi</span>.status() != WL_CONNECTED) {
+    <span style="color:#447fcf">delay</span>(<span style="color:#3677a9">1000</span>);
+    <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">println</span>(<span style="color:#ed9d13">&#34;Establishing connection to WiFi..&#34;</span>);
+  }
+  lcd.<span style="color:#447fcf">clear</span>();
+  lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">0</span>, <span style="color:#3677a9">0</span>);
+  lcd.<span style="color:#447fcf">print</span>(<span style="color:#ed9d13">&#34;Connected&#34;</span>);
+  <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">println</span>(<span style="color:#ed9d13">&#34;Connected to network&#34;</span>);
+  <span style="color:#447fcf">delay</span>(<span style="color:#3677a9">1000</span>);
+  lcd.<span style="color:#447fcf">clear</span>();
+}
+
+<span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">reconnectToBroker</span>() {
+  <span style="color:#999;font-style:italic">// Loop until we&#39;re reconnected
+</span><span style="color:#999;font-style:italic"></span>  <span style="color:#6ab825;font-weight:bold">while</span> (!broker.<span style="color:#447fcf">connected</span>()) {
+    lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">0</span>, <span style="color:#3677a9">0</span>);
+    lcd.<span style="color:#447fcf">print</span>(<span style="color:#ed9d13">&#34;Connecting MQTT&#34;</span>);
+    lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">0</span>, <span style="color:#3677a9">1</span>);
+    lcd.<span style="color:#447fcf">print</span>(mqtt_server);
+    <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">print</span>(<span style="color:#ed9d13">&#34;Attempting MQTT connection...&#34;</span>);
+    <span style="color:#999;font-style:italic">// Create a random client ID
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#6ab825;font-weight:bold">String</span> clientId = <span style="color:#ed9d13">&#34;aqm-&#34;</span>;
+    clientId += <span style="color:#6ab825;font-weight:bold">String</span>(<span style="color:#447fcf">random</span>(<span style="color:#3677a9">0xffff</span>), <span style="color:#6ab825;font-weight:bold">HEX</span>);
+    <span style="color:#999;font-style:italic">// Attempt to connect
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#6ab825;font-weight:bold">if</span> (broker.<span style="color:#447fcf">connect</span>(clientId.c_str())) {
+      <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">println</span>(<span style="color:#ed9d13">&#34;connected to broker&#34;</span>);
+      lcd.<span style="color:#447fcf">clear</span>();
+      lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">0</span>, <span style="color:#3677a9">0</span>);
+      lcd.<span style="color:#447fcf">print</span>(<span style="color:#ed9d13">&#34;Connected&#34;</span>);
+      <span style="color:#447fcf">delay</span>(<span style="color:#3677a9">1000</span>);
+    } <span style="color:#6ab825;font-weight:bold">else</span> {
+      lcd.<span style="color:#447fcf">setCursor</span>(<span style="color:#3677a9">0</span>,<span style="color:#3677a9">2</span>);
+      lcd.<span style="color:#447fcf">print</span>(<span style="color:#ed9d13">&#34;Broker failed&#34;</span>);
+      <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">print</span>(<span style="color:#ed9d13">&#34;failed connecting to broker, rc=&#34;</span>);
+      <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">print</span>(broker.state());
+      <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">println</span>(<span style="color:#ed9d13">&#34; try again in 5 seconds&#34;</span>);
+      <span style="color:#999;font-style:italic">// Wait 5 seconds before retrying
+</span><span style="color:#999;font-style:italic"></span>      <span style="color:#447fcf">delay</span>(<span style="color:#3677a9">5000</span>);
+    }
+    lcd.<span style="color:#447fcf">clear</span>();
+  }
+}
+
+<span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">createLCDSymbols</span>() {
+    <span style="color:#6ab825;font-weight:bold">byte</span> iaqsymbol[] = {
+    <span style="color:#3677a9">0x04</span>,
+    <span style="color:#3677a9">0x0A</span>,
+    <span style="color:#3677a9">0x1F</span>,
+    <span style="color:#3677a9">0x11</span>,
+    <span style="color:#3677a9">0x0E</span>,
+    <span style="color:#3677a9">0x0A</span>,
+    <span style="color:#3677a9">0x0E</span>,
+    <span style="color:#3677a9">0x02</span>
+  };
+  lcd.<span style="color:#447fcf">createChar</span>(<span style="color:#3677a9">0</span>, iaqsymbol);
+  <span style="color:#6ab825;font-weight:bold">byte</span> tempSymbol[] = {
+    <span style="color:#3677a9">0x18</span>,
+    <span style="color:#3677a9">0x18</span>,
+    <span style="color:#3677a9">0x07</span>,
+    <span style="color:#3677a9">0x04</span>,
+    <span style="color:#3677a9">0x04</span>,
+    <span style="color:#3677a9">0x04</span>,
+    <span style="color:#3677a9">0x04</span>,
+    <span style="color:#3677a9">0x07</span>
+  };
+  lcd.<span style="color:#447fcf">createChar</span>(<span style="color:#3677a9">1</span>, tempSymbol);
+  <span style="color:#6ab825;font-weight:bold">byte</span> humiditySymbol[] = {
+    <span style="color:#3677a9">0x04</span>,
+    <span style="color:#3677a9">0x04</span>,
+    <span style="color:#3677a9">0x0A</span>,
+    <span style="color:#3677a9">0x0A</span>,
+    <span style="color:#3677a9">0x11</span>,
+    <span style="color:#3677a9">0x11</span>,
+    <span style="color:#3677a9">0x0A</span>,
+    <span style="color:#3677a9">0x04</span>
+  };
+  lcd.<span style="color:#447fcf">createChar</span>(<span style="color:#3677a9">2</span>, humiditySymbol);
+  <span style="color:#6ab825;font-weight:bold">byte</span> airPressureSymbol[] = {
+    <span style="color:#3677a9">0x04</span>,
+    <span style="color:#3677a9">0x15</span>,
+    <span style="color:#3677a9">0x0E</span>,
+    <span style="color:#3677a9">0x04</span>,
+    <span style="color:#3677a9">0x01</span>,
+    <span style="color:#3677a9">0x1E</span>,
+    <span style="color:#3677a9">0x01</span>,
+    <span style="color:#3677a9">0x1E</span>
+  };
+  lcd.<span style="color:#447fcf">createChar</span>(<span style="color:#3677a9">3</span>, airPressureSymbol);
+}
+
+<span style="color:#999;font-style:italic">// loadState attempts to read the BSEC state from the EEPROM. If the state isn&#39;t there yet - it wipes that area of the EEPROM ready to be written to in the future. It&#39;ll also set the global variable &#39;sensorPersisted&#39; to a space, so that the question mark disappears forever from the LCD.
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">loadState</span>(<span style="color:#6ab825;font-weight:bold">void</span>)
+{
+  <span style="color:#6ab825;font-weight:bold">if</span> (<span style="color:#447fcf;text-decoration:underline">EEPROM</span>.<span style="color:#447fcf">read</span>(<span style="color:#3677a9">0</span>) == BSEC_MAX_STATE_BLOB_SIZE) {
+    <span style="color:#999;font-style:italic">// Existing state in EEPROM
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">println</span>(<span style="color:#ed9d13">&#34;Reading state from EEPROM&#34;</span>);
+
+    <span style="color:#6ab825;font-weight:bold">for</span> (<span style="color:#6ab825;font-weight:bold">uint8_t</span> i = <span style="color:#3677a9">0</span>; i &lt; BSEC_MAX_STATE_BLOB_SIZE; i++) {
+      bsecState[i] = <span style="color:#447fcf;text-decoration:underline">EEPROM</span>.<span style="color:#447fcf">read</span>(i + <span style="color:#3677a9">1</span>);
+      <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">println</span>(bsecState[i], <span style="color:#6ab825;font-weight:bold">HEX</span>);
+    }
+    sensorPersisted = <span style="color:#ed9d13">&#34; &#34;</span>;
+    iaqSensor.setState(bsecState);
+    checkIaqSensorStatus();
+  } <span style="color:#6ab825;font-weight:bold">else</span> {
+    <span style="color:#999;font-style:italic">// Erase the EEPROM with zeroes
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">println</span>(<span style="color:#ed9d13">&#34;Erasing EEPROM&#34;</span>);
+
+    <span style="color:#6ab825;font-weight:bold">for</span> (<span style="color:#6ab825;font-weight:bold">uint8_t</span> i = <span style="color:#3677a9">0</span>; i &lt; BSEC_MAX_STATE_BLOB_SIZE + <span style="color:#3677a9">1</span>; i++)
+      <span style="color:#447fcf;text-decoration:underline">EEPROM</span>.<span style="color:#447fcf">write</span>(i, <span style="color:#3677a9">0</span>);
+
+    <span style="color:#447fcf;text-decoration:underline">EEPROM</span>.commit();
+  }
+}
+
+<span style="color:#999;font-style:italic">// updateState waits for the in air quality accuracy to hit &#39;3&#39; - and will then write the state to the EEPROM. Then on every STATE_SAVE_PERIOD, it&#39;ll update the state.
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">void</span> <span style="color:#447fcf">updateState</span>(<span style="color:#6ab825;font-weight:bold">void</span>)
+{
+  <span style="color:#6ab825;font-weight:bold">bool</span> update = <span style="color:#24909d">false</span>;
+  <span style="color:#999;font-style:italic">/* Set a trigger to save the state. Here, the state is saved every STATE_SAVE_PERIOD with the first state being saved once the algorithm achieves full calibration, i.e. iaqAccuracy = 3 */</span>
+  <span style="color:#6ab825;font-weight:bold">if</span> (stateUpdateCounter == <span style="color:#3677a9">0</span>) {
+    <span style="color:#6ab825;font-weight:bold">if</span> (iaqSensor.iaqAccuracy &gt;= <span style="color:#3677a9">3</span>) {
+      update = <span style="color:#24909d">true</span>;
+      stateUpdateCounter++;
+    }
+  } <span style="color:#6ab825;font-weight:bold">else</span> {
+    <span style="color:#999;font-style:italic">/* Update every STATE_SAVE_PERIOD milliseconds */</span>
+    <span style="color:#6ab825;font-weight:bold">if</span> ((stateUpdateCounter * STATE_SAVE_PERIOD) &lt; <span style="color:#447fcf">millis</span>()) {
+      update = <span style="color:#24909d">true</span>;
+      stateUpdateCounter++;
+    }
+  }
+
+  <span style="color:#6ab825;font-weight:bold">if</span> (update) {
+    iaqSensor.getState(bsecState);
+    checkIaqSensorStatus();
+
+    <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">println</span>(<span style="color:#ed9d13">&#34;Writing state to EEPROM&#34;</span>);
+
+    <span style="color:#6ab825;font-weight:bold">for</span> (<span style="color:#6ab825;font-weight:bold">uint8_t</span> i = <span style="color:#3677a9">0</span>; i &lt; BSEC_MAX_STATE_BLOB_SIZE ; i++) {
+      <span style="color:#447fcf;text-decoration:underline">EEPROM</span>.<span style="color:#447fcf">write</span>(i + <span style="color:#3677a9">1</span>, bsecState[i]);
+      <span style="color:#447fcf;text-decoration:underline">Serial</span>.<span style="color:#447fcf">println</span>(bsecState[i], <span style="color:#6ab825;font-weight:bold">HEX</span>);
+    }
+
+    <span style="color:#447fcf;text-decoration:underline">EEPROM</span>.<span style="color:#447fcf">write</span>(<span style="color:#3677a9">0</span>, BSEC_MAX_STATE_BLOB_SIZE);
+    <span style="color:#447fcf;text-decoration:underline">EEPROM</span>.commit();
+  }
+}
+</code></pre></div>
+<h1 id="server-software">Server Software</h1>
+<h2 id="mqtt">MQTT</h2>
+<p>If you&rsquo;re using the code above, you&rsquo;re going to need a MQTT broker somewhere to publish to. Assuming you have a Raspberry Pi or something set up on your local network, you want to <a href="https://appcodelabs.com/introduction-to-iot-build-an-mqtt-server-using-raspberry-pi">install Mosquitto</a>. Once you&rsquo;ve confirmed you can publish and subscribe to Mosquitto, you can put the IP of the MQTT broker into the code above. You should then be able to run the ESP32 code above and have it start displaying stuff to the LCD and from another machine on your network that has the Mosquitto client installed do <code>mosquitto_sub -h &lt;mqtt-broker-ip-address&gt; -t &quot;bme680/#&quot;</code> and have it return the same data as is displayed on the LCD!</p>
+<p>From this point, you could install an app on your phone like <a href="https://play.google.com/store/apps/details?id=net.routix.mqttdash&amp;hl=en_GB">MQTT Dash</a> which you can then configure with details of your MQTT broker so you can display your air quality data in real time on your phone.</p>
+<h2 id="persisting-data-with-influxdb">Persisting data with Influxdb</h2>
+<p>I wanted persistence, and that&rsquo;s where Influxdb comes in. Install <a href="https://pimylifeup.com/raspberry-pi-influxdb/">Influxdb</a> on your server and confirm that you can access your Influxdb instance (the <code>influx</code> command should result in an Influxdb shell).</p>
+<p>Now you&rsquo;ll need some way to:</p>
+<ol>
+<li>Subscribe to your MQTT broker and receive events relating to the bme680 topic</li>
+<li>Connect to Influxdb</li>
+<li>Write this point data to Influxdb.</li>
+</ol>
+<p>I provide example code I wrote in Golang below. it is also available on Github - <a href="https://github.com/kn100/mqtt680influxbridge">See the mqtt680influxbridge project</a>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#6ab825;font-weight:bold">package</span> main
+<span style="color:#999;font-style:italic">// kn100.me - Arduairs
+</span><span style="color:#999;font-style:italic">// Available on Github: https://github.com/kn100/mqtt680influxbridge
+</span><span style="color:#999;font-style:italic">// Note: This code is provided as an example only - it does not implement authentication, TLS or anything even remotely close to security. It&#39;s probably fine if all your infrastructure lives on your local network, but you might want to consider looking into security.
+</span><span style="color:#999;font-style:italic"></span>
+<span style="color:#6ab825;font-weight:bold">import</span> (
+	<span style="color:#ed9d13">&#34;fmt&#34;</span>
+	<span style="color:#ed9d13">&#34;log&#34;</span>
+	<span style="color:#ed9d13">&#34;os&#34;</span>
+	<span style="color:#ed9d13">&#34;os/signal&#34;</span>
+	<span style="color:#ed9d13">&#34;strconv&#34;</span>
+	<span style="color:#ed9d13">&#34;syscall&#34;</span>
+	<span style="color:#ed9d13">&#34;time&#34;</span>
+
+	mqtt <span style="color:#ed9d13">&#34;github.com/eclipse/paho.mqtt.golang&#34;</span>
+	influx <span style="color:#ed9d13">&#34;github.com/influxdata/influxdb1-client/v2&#34;</span>
+)
+
+<span style="color:#6ab825;font-weight:bold">func</span> <span style="color:#447fcf">main</span>() {
+	<span style="color:#6ab825;font-weight:bold">var</span> (
+		mqttAddress     = <span style="color:#447fcf">envString</span>(<span style="color:#ed9d13">&#34;MQTT_ADDRESS&#34;</span>, <span style="color:#ed9d13">&#34;127.0.0.1&#34;</span>)
+		mqttPort        = <span style="color:#447fcf">envString</span>(<span style="color:#ed9d13">&#34;MQTT_ADDRESS&#34;</span>, <span style="color:#ed9d13">&#34;1883&#34;</span>)
+		mqttTopic       = <span style="color:#447fcf">envString</span>(<span style="color:#ed9d13">&#34;MQTT_TOPIC&#34;</span>, <span style="color:#ed9d13">&#34;bme680/+&#34;</span>)
+		influxDbAddress = <span style="color:#447fcf">envString</span>(<span style="color:#ed9d13">&#34;INFLUXDB_ADDRESS&#34;</span>, <span style="color:#ed9d13">&#34;127.0.0.1&#34;</span>)
+		influxDbDb      = <span style="color:#447fcf">envString</span>(<span style="color:#ed9d13">&#34;INFLUXDB_DB&#34;</span>, <span style="color:#ed9d13">&#34;bme680&#34;</span>)
+	)
+
+	sigs := <span style="color:#24909d">make</span>(<span style="color:#6ab825;font-weight:bold">chan</span> os.Signal, <span style="color:#3677a9">1</span>)
+	signal.<span style="color:#447fcf">Notify</span>(sigs, syscall.SIGINT, syscall.SIGTERM)
+
+	influxHost := fmt.<span style="color:#447fcf">Sprintf</span>(<span style="color:#ed9d13">&#34;http://%s:%d&#34;</span>, influxDbAddress, <span style="color:#3677a9">8086</span>)
+
+	influxClient, err := influx.<span style="color:#447fcf">NewHTTPClient</span>(influx.HTTPConfig{Addr: influxHost, Timeout: <span style="color:#3677a9">5</span> * time.Second})
+	<span style="color:#6ab825;font-weight:bold">if</span> err != <span style="color:#6ab825;font-weight:bold">nil</span> {
+		log.<span style="color:#447fcf">Fatal</span>(err)
+	}
+
+	opts := mqtt.<span style="color:#447fcf">NewClientOptions</span>().<span style="color:#447fcf">AddBroker</span>(fmt.<span style="color:#447fcf">Sprintf</span>(<span style="color:#ed9d13">&#34;tcp://%s:%s&#34;</span>, mqttAddress, mqttPort))
+	mqttClient := mqtt.<span style="color:#447fcf">NewClient</span>(opts)
+	<span style="color:#6ab825;font-weight:bold">if</span> token := mqttClient.<span style="color:#447fcf">Connect</span>(); token.<span style="color:#447fcf">Wait</span>() &amp;&amp; token.<span style="color:#447fcf">Error</span>() != <span style="color:#6ab825;font-weight:bold">nil</span> {
+		<span style="color:#24909d">panic</span>(token.<span style="color:#447fcf">Error</span>())
+	}
+
+	<span style="color:#6ab825;font-weight:bold">var</span> f mqtt.MessageHandler = <span style="color:#6ab825;font-weight:bold">func</span>(client mqtt.Client, message mqtt.Message) {
+		log.<span style="color:#447fcf">Printf</span>(<span style="color:#ed9d13">&#34;received message on topic: %s - message: %s\n&#34;</span>, message.<span style="color:#447fcf">Topic</span>(), message.<span style="color:#447fcf">Payload</span>())
+		topic := message.<span style="color:#447fcf">Topic</span>()
+		val, err := strconv.<span style="color:#447fcf">ParseFloat</span>(<span style="color:#24909d">string</span>(message.<span style="color:#447fcf">Payload</span>()), <span style="color:#3677a9">32</span>)
+		<span style="color:#6ab825;font-weight:bold">if</span> err != <span style="color:#6ab825;font-weight:bold">nil</span> {
+			log.<span style="color:#447fcf">Println</span>(<span style="color:#ed9d13">&#34;invalid point data received from broker, ignoring&#34;</span>)
+			<span style="color:#6ab825;font-weight:bold">return</span>
+		}
+		fields := <span style="color:#6ab825;font-weight:bold">map</span>[<span style="color:#6ab825;font-weight:bold">string</span>]<span style="color:#6ab825;font-weight:bold">interface</span>{}{
+			topic: val,
+		}
+		influxPoint, err := influx.<span style="color:#447fcf">NewPoint</span>(message.<span style="color:#447fcf">Topic</span>(), <span style="color:#6ab825;font-weight:bold">nil</span>, fields, time.<span style="color:#447fcf">Now</span>())
+
+		bp, err := influx.<span style="color:#447fcf">NewBatchPoints</span>(influx.BatchPointsConfig{
+			Database:        influxDbDb,
+			Precision:       <span style="color:#ed9d13">&#34;s&#34;</span>,
+			RetentionPolicy: <span style="color:#ed9d13">&#34;30_days&#34;</span>,
+		})
+
+		<span style="color:#6ab825;font-weight:bold">if</span> err != <span style="color:#6ab825;font-weight:bold">nil</span> {
+			log.<span style="color:#447fcf">Fatalln</span>(<span style="color:#ed9d13">&#34;Error: &#34;</span>, err)
+		}
+
+		bp.<span style="color:#447fcf">AddPoint</span>(influxPoint)
+		err = influxClient.<span style="color:#447fcf">Write</span>(bp)
+		<span style="color:#6ab825;font-weight:bold">if</span> err != <span style="color:#6ab825;font-weight:bold">nil</span> {
+			log.<span style="color:#447fcf">Println</span>(<span style="color:#ed9d13">&#34;couldn&#39;t write to influx for some reason - ignored&#34;</span>, err)
+			<span style="color:#6ab825;font-weight:bold">return</span>
+		}
+		log.<span style="color:#447fcf">Println</span>(<span style="color:#ed9d13">&#34;data written to influx&#34;</span>)
+	}
+
+	<span style="color:#6ab825;font-weight:bold">if</span> token := mqttClient.<span style="color:#447fcf">Subscribe</span>(mqttTopic, <span style="color:#3677a9">0</span>, f); token.<span style="color:#447fcf">Wait</span>() &amp;&amp; token.<span style="color:#447fcf">Error</span>() != <span style="color:#6ab825;font-weight:bold">nil</span> {
+		log.<span style="color:#447fcf">Fatal</span>(token.<span style="color:#447fcf">Error</span>())
+	}
+	&lt;-sigs
+	log.<span style="color:#447fcf">Println</span>(<span style="color:#ed9d13">&#34;Exiting&#34;</span>)
+}
+
+<span style="color:#6ab825;font-weight:bold">func</span> <span style="color:#447fcf">envString</span>(key, fallback <span style="color:#6ab825;font-weight:bold">string</span>) <span style="color:#6ab825;font-weight:bold">string</span> {
+	<span style="color:#6ab825;font-weight:bold">if</span> s := os.<span style="color:#447fcf">Getenv</span>(key); s != <span style="color:#ed9d13">&#34;&#34;</span> {
+		<span style="color:#6ab825;font-weight:bold">return</span> s
+	}
+
+	<span style="color:#6ab825;font-weight:bold">return</span> fallback
+}
+</code></pre></div></p>
+<p>This code is the most basic possible bridge I could think of. It immediately writes every data point that it gets from the subscription to Influx, completely ignoring the helpful batching logic that the library provides. A significant improvement to this code would be to do batching properly. I couldn&rsquo;t be bothered for now, maybe in a future blog post.</p>
+<p>As soon as you&rsquo;ve gotten this code logging that is is writing to Influx, it&rsquo;s time to move onto Grafana.</p>
+<h2 id="look-at-this-graphhttpswwwyoutubecomwatchvsilnivxpins---grafana"><a href="https://www.youtube.com/watch?v=sIlNIVXpIns">Look at this graph</a> - Grafana</h2>
+<p>Grafana is nice. You give it a database connection, it&rsquo;ll provide you with a nice visual query builder that you can use to build graphs. You probably want to install Grafana on the same instance that is hosting your Influxdb. <a href="https://pimylifeup.com/raspberry-pi-grafana/">Here&rsquo;s a nice tutorial</a> on getting Grafana set up.</p>
+<p>I provide my Dashboard model below, which you are free to take and import into your Grafana instance. You&rsquo;ll firstly need to add your Influxdb as a data source to Grafana. On the left, select the cog wheel, and then Data sources. Then select &lsquo;Add data source&rsquo; and configure exactly as below other than the URL (this should either be localhost or the host where your InfluxDB instance lives.</p>
+<figure>
+    <img src="/arduair-influx-ds-settings.png"/> <figcaption>
+            <h4>The settings you&#39;ll need for the Influxdb connection</h4>
+        </figcaption>
+</figure>
+
+<p>Then create a new dashboard. On that blank dashboard, select the cog wheel in the top right, and paste <a href="https://gist.github.com/kn100/a004de9c66a515b72da347230509b7c0">this</a> in JSON Model. when you head back to your dashboard, you now should see some pretty graphs that look somewhat like what I promised.</p>
+<p>Let me know how you got on!</p>
+ </div>
+    <footer class="post-footer">
+  <hr/>
+  <p> <b>Enjoyed this blog post?</b> Check out some of my other writing:</p>
+  <ul>
+    <li><a href="/usb-hub-bs">Why doesn't my computer boot with a USB Hub connected?</a></li>
+    <li><a href="/making-breaking-changes-in-go">How to make breaking changes in Golang</a></li>
+    <li><a href="/those-damn-romanians">Those damn romanians</a></li>
+    <li><a href="/redis-pipelining"> Beating Round-Trip Latency With Redis Pipelining </a></li>
+    <li><a href="/where-embedded-meets-the-internet-building-your-own-air-quality-meter">Use the ESP32 and BME680 to build your own Air Quality Meter</a></li>
+    <li><a href="/the-accidental-domain-squatter">Why suspect us?</a></li>
+    <li><a href="/exploiting-upnp-literally-childsplay">UPNP is insecure</a></li>
+    <li><a href="/">Or check out all of my writing</a></li>
+  </ul>
+
+  <p><b>Or, let me know what you thought!</b> Tweet me at <a href="https://twitter.com/normankev141">@normankev141</a> - I'd appreciate it!</p>
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="/tags/projects">#Projects</a>
+      </div>
+    
+      <div class="tag">
+        <a href="/tags/esp32">#ESP32</a>
+      </div>
+    
+</div>
+
+    <div class="date"> 5 Jul 2020 </div>
+  </div>
+<a href="#">Back to top</a>
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+  <div class="social-link">
+  <a href="https://kn100.me/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright">  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

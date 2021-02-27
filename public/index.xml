@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>KN100 | Kevin Norman</title>
+    <link>https://kn100.me/</link>
+    <description>Recent content on KN100 | Kevin Norman</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Mon, 01 Feb 2021 00:00:00 +0100</lastBuildDate><atom:link href="https://kn100.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Declouding my life - Replacing Google Photos</title>
+      <link>https://kn100.me/declouding-replacing-google-photos-part-1/</link>
+      <pubDate>Mon, 01 Feb 2021 00:00:00 +0100</pubDate>
+      
+      <guid>https://kn100.me/declouding-replacing-google-photos-part-1/</guid>
+      <description>Links to Amazon in this blog post are affiliate links - and I will potentially earn commission on you clicking them. Please bear that in mind!
+Over the last couple of years, I&amp;rsquo;ve been trying to reduce my dependence on cloud services. This is purely ideological, I have no real reason to distrust the cloud, nor am I going to attempt to convince you to. I just made a decision a while ago that all my mission critical/sensitive stuff needed to be moved off of centralised cloud storage.</description>
+    </item>
+    
+    <item>
+      <title>Declouding Chinese WIFi plugs</title>
+      <link>https://kn100.me/declouding-chinese-wifi-plugs/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0100</pubDate>
+      
+      <guid>https://kn100.me/declouding-chinese-wifi-plugs/</guid>
+      <description>So, it turns out that a lot of smart gear from many manufacturers, including ones you&amp;rsquo;ve almost certainly heard of, comes from a company called Tuya. They seem to make all sorts of fun IOT gear, which all connects to the Tuya cloud. What Tuya seem to do is sell whitelabeled &amp;lsquo;versions&amp;rsquo; of their products to various brands who then sell them as if they&amp;rsquo;d manufactured them themselves. Very interesting right?</description>
+    </item>
+    
+    <item>
+      <title>Improving Bluetooth Audio Quality on Ubuntu Linux</title>
+      <link>https://kn100.me/improving-bluetooth-audio-linux/</link>
+      <pubDate>Mon, 12 Oct 2020 00:25:47 +0100</pubDate>
+      
+      <guid>https://kn100.me/improving-bluetooth-audio-linux/</guid>
+      <description>Hacker News Discussion | Reddit Discussion
+Bluetooth Audio is generally considered convenient, but not &amp;lsquo;audiophile&amp;rsquo;. Any self respecting audiophile is probably connecting their fancy headphones to some Digital to Analog Converter/Amp combo which might be connected to their computer using some fancy gold plated USB Cable. More power to them, I am not self respecting. I made a decision a few months ago to switch entirely to Bluetooth Audio as the convenience and tidiness of having a wireless headset just appealed to me so much.</description>
+    </item>
+    
+    <item>
+      <title>Why Does My Computer Not Boot with a USB Hub Attached?</title>
+      <link>https://kn100.me/usb-hub-bs/</link>
+      <pubDate>Thu, 01 Oct 2020 21:00:00 +0100</pubDate>
+      
+      <guid>https://kn100.me/usb-hub-bs/</guid>
+      <description>My trusty old USB 3 hub has failed. It was only around a year old, but it was cheap and it worked. It wasn&amp;rsquo;t powered, but most of the time it didn&amp;rsquo;t need to be. One day I began having very strange issues with USB on my computer. Devices randomly disconnecting, devices never connecting until the computer was rebooted and so on. I eventually narrowed it down to the hub. I tossed it out after a quick internal inspection had revealed nothing obviously wrong, and went shopping for a new hub.</description>
+    </item>
+    
+    <item>
+      <title>Diyode.com published a feature about the air quality meter!</title>
+      <link>https://kn100.me/diyode-air-quality-meter/</link>
+      <pubDate>Tue, 01 Sep 2020 10:00:00 +0100</pubDate>
+      
+      <guid>https://kn100.me/diyode-air-quality-meter/</guid>
+      <description>The introductory page   You may have seen my article on the air quality meter I built a while ago. Diyode, a print magazine in Australia kindly published an article discussing the process I took to create the thing! It&amp;rsquo;s a really cool feeling to be featured somewhere like this. The article is a great read, check it out over on Diyode: Sense of Smell.</description>
+    </item>
+    
+    <item>
+      <title>Embedded Meets the Internet: Build Your Own Air Quality Meter</title>
+      <link>https://kn100.me/where-embedded-meets-the-internet-building-your-own-air-quality-meter/</link>
+      <pubDate>Sun, 05 Jul 2020 00:25:47 +0100</pubDate>
+      
+      <guid>https://kn100.me/where-embedded-meets-the-internet-building-your-own-air-quality-meter/</guid>
+      <description>The Finished Product - quite rustic!   This article was recently featured in Hackaday and Diyode!
+I&amp;rsquo;m bored. I&amp;rsquo;m sure you are too. I&amp;rsquo;m personally very thankful that I can still work through this strange period - but there are still hours in the day to fill. I wanted a personal project, so I thought about remote working and the health impacts. Most offices here have air handling units, air conditioners, and fans to keep air circulating.</description>
+    </item>
+    
+    <item>
+      <title>Gnome Shell Stuttering Caused by AppIndicator</title>
+      <link>https://kn100.me/gnome-shell-stuttering-caused-by-appindicator/</link>
+      <pubDate>Tue, 19 May 2020 17:51:48 +0100</pubDate>
+      
+      <guid>https://kn100.me/gnome-shell-stuttering-caused-by-appindicator/</guid>
+      <description>I recently installed Pop!_OS on my new desktop machine and have been loving it, but have been suffering with this really strange issue where the entire UI would stutter roughly every second for a few milliseconds. This got really, really annoying so I had a little dig around and found out the cause was actually a strange interaction between Ubuntu AppIndicator (a bundled extension for Gnome Shell in Pop!_OS) and YTMDesktop - an electron wrapper for Youtube Music.</description>
+    </item>
+    
+    <item>
+      <title>What My First ‘Real’ Software Engineering Job Taught Me</title>
+      <link>https://kn100.me/whirlwind-what-my-first-real-software-engineering-job-taught-me/</link>
+      <pubDate>Sun, 08 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://kn100.me/whirlwind-what-my-first-real-software-engineering-job-taught-me/</guid>
+      <description>Having speed makes others happy in the short term. Having velocity makes you happy in the long term. One of the biggest lessons I learned was to prioritise &amp;lsquo;velocity&amp;rsquo; over &amp;lsquo;speed&amp;rsquo;. This probably sounds meaningless to you, but allow me to explain. At some point around a year ago, during my one to ones with my manager, we were discussing the fact that I was heavily distracted and finding it tough to concentrate on tasks I wanted to work on.</description>
+    </item>
+    
+    <item>
+      <title>How Do I Make Breaking Changes in Go Without Annoying People?</title>
+      <link>https://kn100.me/making-breaking-changes-in-go/</link>
+      <pubDate>Mon, 22 Jul 2019 10:19:34 +0000</pubDate>
+      
+      <guid>https://kn100.me/making-breaking-changes-in-go/</guid>
+      <description>Knowing when and how to make breaking changes is tough. It is even tougher in the Go ecosystem. After being burned by making a breaking change and annoying people, I&amp;rsquo;m going to investigate how best to mitigate this annoyance.
+ Disclaimer: This is mostly opinion, and only my opinion. This post is not associated with my employer in any way. You can contact me @normankev141
+ What even is a breaking change, anyway A simple definition of a breaking change is any change you make to your code that could break other code which directly or indirectly depends on it.</description>
+    </item>
+    
+    <item>
+      <title>Exploiting UPnP, Literally Childsplay.</title>
+      <link>https://kn100.me/exploiting-upnp-literally-childsplay/</link>
+      <pubDate>Fri, 05 Jul 2019 14:20:41 +0000</pubDate>
+      
+      <guid>https://kn100.me/exploiting-upnp-literally-childsplay/</guid>
+      <description>As a kid, I used to love playing Minecraft. I was technically precocious from a fairly young age, and naturally gravitated to attempting to host my own Minecraft server for me and my band of geeky pals to play on. The problem was, I had no idea what port forwarding was, nor how to log into a router. The solution I found was about as novel as it was dumb.</description>
+    </item>
+    
+    <item>
+      <title>Those Damn Romanians and Their Damn Data Protection Laws.</title>
+      <link>https://kn100.me/those-damn-romanians/</link>
+      <pubDate>Wed, 24 Apr 2019 18:00:00 +0000</pubDate>
+      
+      <guid>https://kn100.me/those-damn-romanians/</guid>
+      <description>A long time ago I worked for an ISP as Tier 1 technical support. This is just one of many stories I have from my time here. These were originally published elsewhere on the internet, but are being reworked and republished here.
+Sometimes, the degree of insanity in a conversation can reach such a fever pitch that it is hard to recover. Sometimes, people can say things that leave you so flabbergasted that you aren&amp;rsquo;t sure if you&amp;rsquo;re being trolled or not.</description>
+    </item>
+    
+    <item>
+      <title>Beating Round-Trip Latency With Redis Pipelining</title>
+      <link>https://kn100.me/redis-pipelining/</link>
+      <pubDate>Tue, 16 Apr 2019 19:59:23 +0000</pubDate>
+      
+      <guid>https://kn100.me/redis-pipelining/</guid>
+      <description>I worked on a task which involved checking every single value in a Redis instance, and modifying ones which matched a certain format. This script needed to run in a fairly timely fashion, as it would need to be run frequently. Making requests sequentially didn&amp;rsquo;t cut it, so I learned about pipelining. This simple optimization meant that a script which I originally calculated to take over 50 hours to run ran in under 4 minutes.</description>
+    </item>
+    
+    <item>
+      <title>That Time a Sticker Made Me an Accidental Domain Squatter</title>
+      <link>https://kn100.me/the-accidental-domain-squatter/</link>
+      <pubDate>Wed, 10 Apr 2019 22:56:28 +0000</pubDate>
+      
+      <guid>https://kn100.me/the-accidental-domain-squatter/</guid>
+      <description>It all started with my noticing of these stickers absolutely everywhere all over London. I&amp;rsquo;d also seen them in other European cities. I was never curious enough to actually search for it, so I just noticed and moved on. The method by which I discovered their true meaning was something I never expected.
+  The sticker in question
+  Every now and then I&amp;rsquo;d come across one and the question would briefly pop back into my head, but it&amp;rsquo;s surprising how high the barrier to looking something up is for me.</description>
+    </item>
+    
+    <item>
+      <title>Initiative Q - Get Rich Quick in 2018?!</title>
+      <link>https://kn100.me/initiative-q-get-rich-quick-for-2018/</link>
+      <pubDate>Thu, 25 Oct 2018 02:52:15 +0000</pubDate>
+      
+      <guid>https://kn100.me/initiative-q-get-rich-quick-for-2018/</guid>
+      <description>I personally don&amp;rsquo;t pay a massive amount of my attention to cryptocurrency. This isn&amp;rsquo;t because I dislike them, more because they&amp;rsquo;re just not that interesting to me at the moment. I&amp;rsquo;ll occasionally hear about Bitcoin rallying or some Etherium app getting hacked, but other than that I avoid it.
+Recently, I&amp;rsquo;ve had a bunch of people who wouldn&amp;rsquo;t normally be interested in such things ping me about Initiative Q, asking what I thought of it.</description>
+    </item>
+    
+    <item>
+      <title>News in the Morning: A Simple Hack</title>
+      <link>https://kn100.me/news-in-the-morning-a-simple-hack/</link>
+      <pubDate>Sun, 03 Jun 2018 19:43:56 +0000</pubDate>
+      
+      <guid>https://kn100.me/news-in-the-morning-a-simple-hack/</guid>
+      <description>Like many people, I find it difficult to wake up in the morning. I want to automate some of the things I do in the morning in order to continue to hack away at my laziness.
+To this effect, I want my television to switch on and over to BBC news in the morning. Unfortunately, Hisense do not provide a way to control the television remotely as far as I can tell, and nmapping it doesn&amp;rsquo;t give me anything too interesting.</description>
+    </item>
+    
+    <item>
+      <title>NotSoEducated – A Project From a While Ago</title>
+      <link>https://kn100.me/notsoeducated-a-project-from-a-while-ago/</link>
+      <pubDate>Sat, 02 Jun 2018 21:22:22 +0000</pubDate>
+      
+      <guid>https://kn100.me/notsoeducated-a-project-from-a-while-ago/</guid>
+      <description>A while ago, I and a friend of mine got rather annoyed at a ridiculous propaganda attempt regarding e-cigarettes, so we countered it by parodying the complete lies with a well cited, truthful account. They&amp;rsquo;ve long since taken the site down, I suspect in response, but you can somewhat experience it thanks to the Wayback Machine.
+  A poster designed for the project   </description>
+    </item>
+    
+    <item>
+      <title>Wear OS Is Upsetting, and I’m Gonna Rant About It</title>
+      <link>https://kn100.me/wear-os-is-upsetting/</link>
+      <pubDate>Thu, 05 Apr 2018 07:57:39 +0000</pubDate>
+      
+      <guid>https://kn100.me/wear-os-is-upsetting/</guid>
+      <description>I&amp;rsquo;ve personally been maintaining a policy that generally dumber tech is better. I don&amp;rsquo;t own any smart speakers because they creep me out, I don&amp;rsquo;t own any smart lightbulbs because i&amp;rsquo;m genuinely terrified of the prospect of having a web server in a lightbulb socket, and I definitely don&amp;rsquo;t own any smart cameras or the such for the same reason. I&amp;rsquo;m not opposed to such things existing, I just think they&amp;rsquo;ve got a long way to go before I&amp;rsquo;d trust them.</description>
+    </item>
+    
+    <item>
+      <title>The Cybiko, a Forgotten Gem</title>
+      <link>https://kn100.me/the-cybiko-a-forgotten-gem/</link>
+      <pubDate>Thu, 29 Mar 2018 11:59:49 +0000</pubDate>
+      
+      <guid>https://kn100.me/the-cybiko-a-forgotten-gem/</guid>
+      <description>Few remember the Cybiko. In the year 2000, a Russian company unveiled a very strange looking device, adorned with a comically small keyboard and a retro antenna. They called it a handheld computer. They marketed it towards teens with some of themost insane advertising I&amp;rsquo;d personally ever seen.
+The device was an interesting one, and to describe just how far ahead of its time it really was, it will be useful to draw comparisons against smartphones of today.</description>
+    </item>
+    
+    <item>
+      <title>About me</title>
+      <link>https://kn100.me/about/</link>
+      <pubDate>Thu, 29 Mar 2018 00:54:08 +0000</pubDate>
+      
+      <guid>https://kn100.me/about/</guid>
+      <description>Hi, I&amp;rsquo;m Kevin! I am a Software Engineer, currently working with Mo, building out a Microservices architecture. Previously, I&amp;rsquo;ve worked with Pusher, scaling their flagship product, Channels.
+I&amp;rsquo;m a friendly, driven, &amp;ldquo;get things done&amp;rdquo; engineer who finds enjoyment in delivering software that makes clients smile. I&amp;rsquo;m far more interested in solving real problems than I am faffing about with untested tools. I&amp;rsquo;m also a proud Stem Cell donor.
+My interests I am mainly interested in building next generation web applications and APIS.</description>
+    </item>
+    
+    <item>
+      <title>Spooky Ghost on a Pi, Because Why Not?</title>
+      <link>https://kn100.me/ghost-on-a-pi-because-why-not/</link>
+      <pubDate>Thu, 29 Mar 2018 00:24:13 +0000</pubDate>
+      
+      <guid>https://kn100.me/ghost-on-a-pi-because-why-not/</guid>
+      <description>This is a description of how this blog is currently hosted. Hopefully, I&amp;rsquo;d like to do more interesting stuff with the Pi and post about it here.
+Hardware The system currently hosting this blog is a Raspberry Pi 3b+. This is the (at the current time) latest revision of the single board computer, and features a slightly higher clock rate over the 3b, as well as better network performance. This is attached to a pretty standard 2 amp capable wall wart.</description>
+    </item>
+    
+    <item>
+      <title>World Explorer</title>
+      <link>https://kn100.me/world-explorer/</link>
+      <pubDate>Wed, 22 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://kn100.me/world-explorer/</guid>
+      <description>World Explorer This project provides you with two main scripts. The first is a player controller which was designed with the Oculus Rift DK2 in mind, but should work perfectly with more modern hardware. This player controller will attempt to keep the player locked to the surface of whatever three dimensional shape they are walking on, similar to Super Mario Galaxy. ##Video demos For some video demos of it in action, please see these three videos:     Assets A player controller that:  Allows for forwards, backwards, and rotation motion Keeps the player locked to the surface of any given geometry, provided that it has a mesh collider (Think Super Mario Galaxy) Is compatible with VR headsets - tested with Oculus Home and Rift DK2.</description>
+    </item>
+    
+  </channel>
+</rss>

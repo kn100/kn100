@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>VR on KN100 | Kevin Norman</title>
+    <link>https://kn100.me/categories/vr/</link>
+    <description>Recent content in VR on KN100 | Kevin Norman</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 22 Jun 2016 00:00:00 +0000</lastBuildDate><atom:link href="https://kn100.me/categories/vr/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>World Explorer</title>
+      <link>https://kn100.me/world-explorer/</link>
+      <pubDate>Wed, 22 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://kn100.me/world-explorer/</guid>
+      <description>World Explorer This project provides you with two main scripts. The first is a player controller which was designed with the Oculus Rift DK2 in mind, but should work perfectly with more modern hardware. This player controller will attempt to keep the player locked to the surface of whatever three dimensional shape they are walking on, similar to Super Mario Galaxy. ##Video demos For some video demos of it in action, please see these three videos:     Assets A player controller that:  Allows for forwards, backwards, and rotation motion Keeps the player locked to the surface of any given geometry, provided that it has a mesh collider (Think Super Mario Galaxy) Is compatible with VR headsets - tested with Oculus Home and Rift DK2.</description>
+    </item>
+    
+  </channel>
+</rss>

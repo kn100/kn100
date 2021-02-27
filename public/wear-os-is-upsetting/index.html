@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116596166-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116596166-1');
+</script>
+
+<meta charset="utf-8" />
+<meta name="author" content="" />
+<meta name="description" content="Kevin Norman - or kn100 - a software engineer from London who likes to play about with embedded systems and sometimes blog about it. You&#39;ll find me playing around with Arduino, ESP32, Linux, and more. " />
+<meta name="keywords" content="kn100, tech, golang, redis, software engineering, computer science" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.80.0" />
+
+<link rel="canonical" href="https://kn100.me/wear-os-is-upsetting/">
+<meta property="og:title" content="Wear OS Is Upsetting, and I’m Gonna Rant About It" />
+<meta property="og:description" content="I&rsquo;ve personally been maintaining a policy that generally dumber tech is better. I don&rsquo;t own any smart speakers because they creep me out, I don&rsquo;t own any smart lightbulbs because i&rsquo;m genuinely terrified of the prospect of having a web server in a lightbulb socket, and I definitely don&rsquo;t own any smart cameras or the such for the same reason. I&rsquo;m not opposed to such things existing, I just think they&rsquo;ve got a long way to go before I&rsquo;d trust them." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kn100.me/wear-os-is-upsetting/" />
+<meta property="article:published_time" content="2018-04-05T07:57:39+00:00" />
+<meta property="article:modified_time" content="2018-04-05T07:57:39+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Wear OS Is Upsetting, and I’m Gonna Rant About It"/>
+<meta name="twitter:description" content="I&rsquo;ve personally been maintaining a policy that generally dumber tech is better. I don&rsquo;t own any smart speakers because they creep me out, I don&rsquo;t own any smart lightbulbs because i&rsquo;m genuinely terrified of the prospect of having a web server in a lightbulb socket, and I definitely don&rsquo;t own any smart cameras or the such for the same reason. I&rsquo;m not opposed to such things existing, I just think they&rsquo;ve got a long way to go before I&rsquo;d trust them."/>
+
+
+<meta itemprop="name" content="Wear OS Is Upsetting, and I’m Gonna Rant About It">
+<meta itemprop="description" content="I&rsquo;ve personally been maintaining a policy that generally dumber tech is better. I don&rsquo;t own any smart speakers because they creep me out, I don&rsquo;t own any smart lightbulbs because i&rsquo;m genuinely terrified of the prospect of having a web server in a lightbulb socket, and I definitely don&rsquo;t own any smart cameras or the such for the same reason. I&rsquo;m not opposed to such things existing, I just think they&rsquo;ve got a long way to go before I&rsquo;d trust them.">
+<meta itemprop="datePublished" content="2018-04-05T07:57:39+00:00" />
+<meta itemprop="dateModified" content="2018-04-05T07:57:39+00:00" />
+<meta itemprop="wordCount" content="1165">
+
+
+
+<meta itemprop="keywords" content="" />
+
+
+<link rel="stylesheet" href="/css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+a { color: #000000; }
+
+pre {
+  background: #EEEEEE;
+  border: 1px solid #000000;
+  border-radius: 5px;
+}
+
+code {
+  background-color: transparent;
+}
+
+blockquote {
+  background: #EEEEEE;
+  border-left: 3px solid #000000;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #000000;
+}
+
+th {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.siteTitle a { color: #0d5a91; }
+
+.post .content h1{ color: #0d5a91; }
+.post .content h2{ color: #0d5a91; }
+.post .content h3{ color: #0d5a91; }
+.post .content h4{ color: #0d5a91; }
+.post .content h5{ color: #0d5a91; }
+.post .content h6{ color: #0d5a91; }
+.post .content a:hover { color: #0d5a91; }
+.social-link:hover { color: #0d5a91; }
+.nav-item-title:hover { color: #0d5a91; }
+.tag a:hover { color: #0d5a91; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #0d5a91; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #0d5a91;
+}
+.post-list .title { color: #0d5a91; }
+.rmore { color: #000000; }
+.rmore:hover { color: #0d5a91; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #0d5a91;
+}
+
+</style>
+
+
+
+<title>
+
+
+     Wear OS Is Upsetting, and I’m Gonna Rant About It 
+
+</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://kn100.me/">
+        <img class="logo" src="/nulogo.png" alt="KN100 | Kevin Norman">
+      </a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="/about/"><div class="nav-item-title">About me</div></a>
+    
+    <a class="nav-item" href="/tags/"><div class="nav-item-title">Tags</div></a>
+    
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+</div>
+ 
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> Wear OS Is Upsetting, and I’m Gonna Rant About It </h1>
+    <div class="content"> <p>I&rsquo;ve personally been maintaining a policy that generally dumber tech is better. I don&rsquo;t own any smart speakers because they creep me out, I don&rsquo;t own any smart lightbulbs because i&rsquo;m genuinely terrified of the prospect of having a web server in a lightbulb socket, and I definitely don&rsquo;t own any smart cameras or the such for the same reason. I&rsquo;m not opposed to such things existing, I just think they&rsquo;ve got a long way to go before I&rsquo;d trust them.</p>
+<p>I did however somewhat break this trend with an impulsive purchase of the Huawei Watch 2, which at the time, and still is one of the best (technically speaking) Wear OS smartwatches on the market. I thought &ldquo;Hey, it&rsquo;s a Google product, how bad can it be?!&rdquo;. As I&rsquo;d learn over the course of owning the damn thing, quite bad.</p>
+<p>The first thing I noticed about the watch was just how poor the performance was. Considering the fact that the processor inside of it is roughly equivalent to a Nexus 4, the performance was appalling. Even just swiping through the various menus caused frame drops and stuttering. Then, I attempted using the watch for the first thing I thought it would be useful for; music.</p>
+<p>One install of Google Play Music later, and I begin to wonder why I bothered. The app takes around 20-30 seconds to launch fully (I swear I&rsquo;m not making this up!) and you&rsquo;re booted into a very spartan interface that is functional at best. Then, once you hit play on a particular song, another 10-15 second pause, and&hellip;what&rsquo;s this?! The music is coming out of my watch! I&rsquo;ve got a set of headphones connected to my phone, yet the watch decides the best thing to do is blast said music out of its own speaker! What use case does this serve? I&rsquo;ve never seen a single person listening to music literally through their watch, so why is this the default!</p>
+<p>I later learned the intention is to pair your Bluetooth headset up to the watch, so that it can play independent of the phone. My question is why the hell would I want to do that? I&rsquo;ve got 3000+ MAh in whatever smartphone I&rsquo;m carrying, why not use some of that battery power?! In order to control the music on your phone, you first have to take the phone out, start playing music, and then you&rsquo;re presented with some incredibly basic back/forward/play/pause type controls in a notification. None of the nice navigation through playlists or stations. Wonderful.</p>
+<p>Even more hilariously broken is the Google Assistant. I&rsquo;m in the gym working out and the music coming out of my headphones could do with being a little louder. I hold the Google Assistant button on the watch, and around 5 seconds later it chugs into life. I ask it to turn the volume up. What does it do? Google &ldquo;turn the volume up&rdquo;. I&rsquo;m at home and I want to be woken up in the morning, so I hold the button, wait the customary 5 seconds for it to finish mining Bitcoin or whatever the watch is doing, and ask it to set an alarm for whatever-O&rsquo;clock I wanted it set for. Wonderful, it did set an alarm! I take the watch off, stick it on its charger and go to sleep. Unsurprisingly, I sleep through the alarm because once again the watch decided that the phone wasn&rsquo;t worth notifying and set the alarm on the watch itself, a device that is substantially quieter.</p>
+<p>Another fun aspect of Wear OS is the app development ecosystem. It&rsquo;s Android! This sounds great if you&rsquo;ve ever messed about with Android Development in the past, and in some ways this is nice, but frankly it feels incredibly bloated and wasteful considering the majority of the apps on the watch are garbage anyway.</p>
+<p>The common theme with all of these problems is this insistence on the watch being independent from the phone, and I just don&rsquo;t understand it. Surely, it would be better to treat the watch as an alternative method of interacting with the phone, where it makes sense for this to be the case? Why, when I ask the Google Assistant a question, does it deal with the query itself? Why not forward it to the Google Assistant that is running on the phone itself? There&rsquo;s only so many times you can ask the assistant how tall the Eiffel Tower is before you stick it in the useless pile. Why, when I have headphones plugged into my phone, does the watch assume the best audio output available for music is the watch?</p>
+<p>One example I can point to of this being done right is the Citymapper Wear OS app. In the morning, my phone pops up telling me that it&rsquo;s calculated my route to work for that day. I tap the notification, and immediately my watch vibrates and starts displaying the route information. It sounds ridiculous, but that interaction there is surprisingly rare.</p>
+<p>Comparing and contrasting the Citymapper app to the Google Maps app, it&rsquo;s almost comical. Remember that these devices have screens that aren&rsquo;t much larger than a two pence piece. Opening the Citymapper app on the Android Wear device offers you two options, &ldquo;Get me to work&rdquo; and &ldquo;Get me home&rdquo;. Anything more than that, you&rsquo;re going to need to pull your phone out. It opens pretty immediately, and that&rsquo;s virtually it. Open Google Maps however and you&rsquo;ll be waiting approximately 7-8 seconds for it to literally load a street level map onto your wrist. Dragging the map around like you would on your phone stutters and skips frames. Can you get directions to your home or work through this App? Of course you can&rsquo;t! You can, however, search for places nearby, and get navigation directions to those places, if they&rsquo;re in the list. Why, in Gods name, would anyone <strong>want</strong> to look at a two pence piece sized version of the world? If I wanted to see a map, I&rsquo;d have looked at my phone! Admittedly, this can have its uses, but surely the first thing you see when you open the app could be more helpful?</p>
+<p>I think that Wear OS would be so much better off if instead of marching to put a phone on your wrist, it was designed to be auxiliary to the ridiculously powerful slab of glass you already almost certainly have in your pocket. While I don&rsquo;t regret the purchase, and to Googles credit things do seem to be very slowly improving, I certainly won&rsquo;t be buying another Wear OS device. Companies like Xiaomi are releasing devices like the Amazfit, which while nowhere near as versatile as Wear OS, give me the main things I care about: Seeing and responding to notifications, tracking fitness/sleep, controlling music, and telling the damn time. It also gives a month of battery life, and isn&rsquo;t trying to do literally everything the phone in my pocket does better than it.</p>
+ </div>
+    <footer class="post-footer">
+  <hr/>
+  <p> <b>Enjoyed this blog post?</b> Check out some of my other writing:</p>
+  <ul>
+    <li><a href="/usb-hub-bs">Why doesn't my computer boot with a USB Hub connected?</a></li>
+    <li><a href="/making-breaking-changes-in-go">How to make breaking changes in Golang</a></li>
+    <li><a href="/those-damn-romanians">Those damn romanians</a></li>
+    <li><a href="/redis-pipelining"> Beating Round-Trip Latency With Redis Pipelining </a></li>
+    <li><a href="/where-embedded-meets-the-internet-building-your-own-air-quality-meter">Use the ESP32 and BME680 to build your own Air Quality Meter</a></li>
+    <li><a href="/the-accidental-domain-squatter">Why suspect us?</a></li>
+    <li><a href="/exploiting-upnp-literally-childsplay">UPNP is insecure</a></li>
+    <li><a href="/">Or check out all of my writing</a></li>
+  </ul>
+
+  <p><b>Or, let me know what you thought!</b> Tweet me at <a href="https://twitter.com/normankev141">@normankev141</a> - I'd appreciate it!</p>
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+</div>
+
+    <div class="date"> 5 Apr 2018 </div>
+  </div>
+<a href="#">Back to top</a>
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+  <div class="social-link">
+  <a href="https://kn100.me/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright">  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

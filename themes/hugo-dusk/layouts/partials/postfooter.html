@@ -1,0 +1,25 @@
+<footer class="post-footer">
+  <hr/>
+  <p> <b>Enjoyed this blog post?</b> Check out some of my other writing:</p>
+  <ul>
+    <li><a href="/usb-hub-bs">Why doesn't my computer boot with a USB Hub connected?</a></li>
+    <li><a href="/making-breaking-changes-in-go">How to make breaking changes in Golang</a></li>
+    <li><a href="/those-damn-romanians">Those damn romanians</a></li>
+    <li><a href="/redis-pipelining"> Beating Round-Trip Latency With Redis Pipelining </a></li>
+    <li><a href="/where-embedded-meets-the-internet-building-your-own-air-quality-meter">Use the ESP32 and BME680 to build your own Air Quality Meter</a></li>
+    <li><a href="/the-accidental-domain-squatter">Why suspect us?</a></li>
+    <li><a href="/exploiting-upnp-literally-childsplay">UPNP is insecure</a></li>
+    <li><a href="/">Or check out all of my writing</a></li>
+  </ul>
+
+  <p><b>Or, let me know what you thought!</b> Tweet me at <a href="https://twitter.com/normankev141">@normankev141</a> - I'd appreciate it!</p>
+  <div class="post-footer-data">
+    {{ partial "tags.html" . }}
+    <div class="date"> {{ .Date.Format "2 Jan 2006" }} </div>
+  </div>
+<a href="#">Back to top</a>
+</footer>
+
+{{ if eq .Type "post" }}
+  {{ template "_internal/disqus.html" . }}
+{{ end }}

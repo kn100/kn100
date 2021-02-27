@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>funny on KN100 | Kevin Norman</title>
+    <link>https://kn100.me/categories/funny/</link>
+    <description>Recent content in funny on KN100 | Kevin Norman</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Fri, 05 Jul 2019 14:20:41 +0000</lastBuildDate><atom:link href="https://kn100.me/categories/funny/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exploiting UPnP, Literally Childsplay.</title>
+      <link>https://kn100.me/exploiting-upnp-literally-childsplay/</link>
+      <pubDate>Fri, 05 Jul 2019 14:20:41 +0000</pubDate>
+      
+      <guid>https://kn100.me/exploiting-upnp-literally-childsplay/</guid>
+      <description>As a kid, I used to love playing Minecraft. I was technically precocious from a fairly young age, and naturally gravitated to attempting to host my own Minecraft server for me and my band of geeky pals to play on. The problem was, I had no idea what port forwarding was, nor how to log into a router. The solution I found was about as novel as it was dumb.</description>
+    </item>
+    
+    <item>
+      <title>Those Damn Romanians and Their Damn Data Protection Laws.</title>
+      <link>https://kn100.me/those-damn-romanians/</link>
+      <pubDate>Wed, 24 Apr 2019 18:00:00 +0000</pubDate>
+      
+      <guid>https://kn100.me/those-damn-romanians/</guid>
+      <description>A long time ago I worked for an ISP as Tier 1 technical support. This is just one of many stories I have from my time here. These were originally published elsewhere on the internet, but are being reworked and republished here.
+Sometimes, the degree of insanity in a conversation can reach such a fever pitch that it is hard to recover. Sometimes, people can say things that leave you so flabbergasted that you aren&amp;rsquo;t sure if you&amp;rsquo;re being trolled or not.</description>
+    </item>
+    
+  </channel>
+</rss>

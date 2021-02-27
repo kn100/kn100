@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116596166-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116596166-1');
+</script>
+
+<meta charset="utf-8" />
+<meta name="author" content="" />
+<meta name="description" content="Kevin Norman - or kn100 - a software engineer from London who likes to play about with embedded systems and sometimes blog about it. You&#39;ll find me playing around with Arduino, ESP32, Linux, and more. " />
+<meta name="keywords" content="kn100, tech, golang, redis, software engineering, computer science" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.80.0" />
+
+<link rel="canonical" href="https://kn100.me/whirlwind-what-my-first-real-software-engineering-job-taught-me/">
+<meta property="og:title" content="What My First ‘Real’ Software Engineering Job Taught Me" />
+<meta property="og:description" content="My first software engineering job taught me a lot of invaluable things I wish I had learned about in University. Here, I attempt to share with you some of those lessons." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kn100.me/whirlwind-what-my-first-real-software-engineering-job-taught-me/" />
+<meta property="article:published_time" content="2019-09-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-09-08T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="What My First ‘Real’ Software Engineering Job Taught Me"/>
+<meta name="twitter:description" content="My first software engineering job taught me a lot of invaluable things I wish I had learned about in University. Here, I attempt to share with you some of those lessons."/>
+
+
+<meta itemprop="name" content="What My First ‘Real’ Software Engineering Job Taught Me">
+<meta itemprop="description" content="My first software engineering job taught me a lot of invaluable things I wish I had learned about in University. Here, I attempt to share with you some of those lessons.">
+<meta itemprop="datePublished" content="2019-09-08T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2019-09-08T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2863">
+
+
+
+<meta itemprop="keywords" content="" />
+
+
+<link rel="stylesheet" href="/css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+a { color: #000000; }
+
+pre {
+  background: #EEEEEE;
+  border: 1px solid #000000;
+  border-radius: 5px;
+}
+
+code {
+  background-color: transparent;
+}
+
+blockquote {
+  background: #EEEEEE;
+  border-left: 3px solid #000000;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #000000;
+}
+
+th {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.siteTitle a { color: #0d5a91; }
+
+.post .content h1{ color: #0d5a91; }
+.post .content h2{ color: #0d5a91; }
+.post .content h3{ color: #0d5a91; }
+.post .content h4{ color: #0d5a91; }
+.post .content h5{ color: #0d5a91; }
+.post .content h6{ color: #0d5a91; }
+.post .content a:hover { color: #0d5a91; }
+.social-link:hover { color: #0d5a91; }
+.nav-item-title:hover { color: #0d5a91; }
+.tag a:hover { color: #0d5a91; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #0d5a91; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #0d5a91;
+}
+.post-list .title { color: #0d5a91; }
+.rmore { color: #000000; }
+.rmore:hover { color: #0d5a91; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #0d5a91;
+}
+
+</style>
+
+
+
+<title>
+
+
+     What My First ‘Real’ Software Engineering Job Taught Me 
+
+</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://kn100.me/">
+        <img class="logo" src="/nulogo.png" alt="KN100 | Kevin Norman">
+      </a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="/about/"><div class="nav-item-title">About me</div></a>
+    
+    <a class="nav-item" href="/tags/"><div class="nav-item-title">Tags</div></a>
+    
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+</div>
+ 
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> What My First ‘Real’ Software Engineering Job Taught Me </h1>
+    <div class="content"> <h1 id="having-speed-makes-others-happy-in-the-short-term-having-velocity-makes-you-happy-in-the-long-term">Having speed makes others happy in the short term. Having velocity makes you happy in the long term.</h1>
+<p>One of the biggest lessons I learned was to prioritise &lsquo;velocity&rsquo; over &lsquo;speed&rsquo;. This probably sounds meaningless to you, but allow me to explain. At some point around a year ago, during my one to ones with my manager, we were discussing the fact that I was heavily distracted and finding it tough to concentrate on tasks I wanted to work on. We established that one of the main causes of this was the fact that I would agree to help anyone who happened to ask for my help. Sales has an issue with something? Yes sure I&rsquo;ll look now! Marketing wants some data on something else? Why not, I&rsquo;ll look now. A more junior engineer would like help in a particular area of the codebase that I happen to be more familiar with? Sure, no problem, lets pair! I had high &lsquo;speed&rsquo;. I was helping others to accomplish their goals with no consideration for how to prioritize tasks to provide my team and the wider company with the maximum value I could provide.</p>
+<p>Learning to prioritize, knowing when and how to say no, and most importantly when to say yes are crucial skills in improving your &lsquo;velocity&rsquo;. Velocity in this sense is being used to describe the pace at which you are delivering your maximum value. By constantly saying yes to others requests for assistance, I was failing to perform a value judgement comparing whether helping them to continuing with the task I was originally doing. As we all know, context switching is expensive. This led me to be known as one of the most helpful people at the company (I had more high fives than anyone else at the company!), but I also became known for being constantly busy and giving bad time estimates.</p>
+<p>I believe it is innate in most of us to be helpful, however being helpful can actually reduce <em>your</em> overall effectiveness as an engineer. The best advice I can offer on this is best given in the form of a proverb of highly contested origin: &ldquo;Give a man a fish, and you feed him for a day. Teach a man to fish, and you feed him for a lifetime.&rdquo;.</p>
+<h1 id="code-bases-that-have-been-around-for-a-while-might-look-weird-but-they-might-just-be-solving-problems-youre-not-yet-aware-of">Code bases that have been around for a while might look weird, but they might just be solving problems you&rsquo;re not yet aware of.</h1>
+<p>I&rsquo;m sure every single fresh-out-of-university experience-lacking engineer has had that moment where they join a company and see the code that powers it for the first time. Seemingly simple routines seem more complex than they need to be. Seemingly small problems have huge solutions. Craziness, in short. It can be terrifying. You&rsquo;re fresh out of school, looking at this codebase, wondering what the heck is going on? Why is everything so complex?</p>
+<p>It turns out that managing a huge codebase is a hard problem, and a junior engineer is rarely a good judge of the scale or scope of a given problem. It&rsquo;s not that there isn&rsquo;t bad code in the codebase, its just more likely that any junior engineer with 3 months on the clock has most likely not seen enough of the system to fully understand the problems it is solving.</p>
+<p>As time went on, I learned more about the actual problems this codebase was addressing. What I perceived as overcomplications turned out to be problems I wasn&rsquo;t aware of being solved. What I thought was badly designed code was actually just code I didn&rsquo;t understand. It&rsquo;s intimidating to work on such a large system, especially when the most ambitious project you&rsquo;ve worked on prior to it was several orders of magnitude smaller and not subjected to the brutality of customers, but if you&rsquo;re anything like me, you&rsquo;ll learn ridiculously quickly.</p>
+<h1 id="team-culture-is-a-real-not-bullshit-thing">Team culture is a real not-bullshit thing.</h1>
+<p>By far my favourite thing about my first job was the learning opportunities around me. I was surrounded by massively intelligent, kind, determined people who all were more than willing to help me get up to speed.</p>
+<p>I believe this environment didn&rsquo;t happen accidentally. The company was very careful to create a culture where this kind of collaboration could happen. Much more senior engineers spent probably weeks of their lives showing me the ropes and teaching me about anything and everything I wanted to know, work related or not. Every single one of these people was hugely passionate about what they do and loved to share their knowledge.</p>
+<p>Outside of work, these people held clubs and sessions relating to areas of interest to them personally. I was particularly fond of but sadly nowhere near involved enough in an electronics session - the last activity of which was to build Tetris with nothing but &lsquo;nand&rsquo; logic gates! This environment is perfect for a junior engineer to thrive in, and I am hugely grateful to have had a job where the conditions were so ripe for it.</p>
+<p>As I became more and more established and newer members of the team were hired, I found myself in a position to pay it forward, if you will. What I learned during these encounters was that the educational aspect of it goes both ways. The field is such a vast one that everybody probably knows something somebody else doesn&rsquo;t, so learning new things from these engineers was a common occurrence for me. The learning wasn&rsquo;t always technical either. I developed people skills I didn&rsquo;t have before. I began delegating. I grasped the best attitude to have towards people and the problems we faced together.</p>
+<p>You, as much as anyone else, foster this spirit of reciprocal learning. Represent and grow it the best way you can.</p>
+<h1 id="look-for-opportunities-to-lead-a-project-and-just-do-it">Look for opportunities to lead a project, and just do it.</h1>
+<p>The average engineer at a startup seems to have to wear many hats. I found myself working on the core of the system in one language and on the billing system in another within the same week. I maintained SDKs in multiple different languages. I worked on our frontend as well as backend. This is a natural requirement at a startup; there just aren&rsquo;t enough people to cleanly define peoples roles and have them stick to them. I think its fair to say anyone in this position will gain a diverse set of skills that don&rsquo;t necessarily join up neatly. It also provides many opportunities for identifying problems with areas of the system that others just haven&rsquo;t looked at recently.</p>
+<p>These are amazing opportunities for the ambitious engineer. It is possible to pick one of these areas and become the leader of a project in a startup environment.</p>
+<p>If you wish to succeed in convincing your team that the problem you&rsquo;ve identified is worth solving, you&rsquo;re going to want to become the domain expert on the topic. Read up on other solutions to the problem you&rsquo;ve found. Talk to other engineers in the company about whether they&rsquo;re aware of it or even if they&rsquo;ve attempted to solve it before. Quantify the problem. The most effective metrics I&rsquo;ve found are monetary savings or developer efficiency improvements. The question you should be answering is why it is valuable for <em>you</em> to spend <em>your</em> time on this project rather than something, or someone else. You&rsquo;re not solving a problem; you&rsquo;re instead executing on an opportunity you&rsquo;ve identified.</p>
+<p>It is important to remember here though not to outgrow your boots. This fresh into the field you can easily find yourself chasing rabbits and trying to solve huge problems that much more experienced engineers would struggle with. The best opportunities are the low hanging fruit.</p>
+<h1 id="imposter-syndrome-is-real-and-it-sucks">Imposter syndrome is real, and it sucks.</h1>
+<p>I&rsquo;m not going to write much about this since so much has been written on the topic already. In my experience everybody suffering from it likely thinks that <em>they&rsquo;re</em> not the ones suffering with imposter syndrome; they&rsquo;re actually imposters! They&rsquo;re somehow flying under the radar, holding on by the skin of their teeth.</p>
+<p>This is most likely not the case. Think about it logically. This field is generally well paid. The company is paying you for your time. In order for it to make sense for them to do so, you must be delivering value to the company in one form or another. You&rsquo;re probably not special. You&rsquo;re not fooling anyone. You&rsquo;re a junior engineer who has probably passed through their probationary period and is doing their job well enough to warrant the money you receive.</p>
+<h1 id="in-the-first-few-months-focus-on-a-year-from-now">In the first few months, focus on a year from now.</h1>
+<p>At a startup, you&rsquo;re likely being brought on to wear many hats. Different kinds of work require different levels of context and different levels of experience. Its natural to gravitate towards tasks that require lower context and little experience, since these are the ones you&rsquo;re most likely to deliver results on quickly. If you&rsquo;re like me, you&rsquo;ll feel that for the first few months you aren&rsquo;t really delivering all that much value to the company, and you may even feel a little guilty about it. Why are they paying me to sit here and not know what I&rsquo;m doing?!</p>
+<p>It turns out that you aren&rsquo;t the first software engineer hired fresh out of university, and they&rsquo;re as aware as you are of your lack of experience. There&rsquo;s no reasonable way you could contribute immediately. It takes time to acclimate to the &lsquo;real world&rsquo; and to learn the code and company well enough to be able to deliver quickly.</p>
+<p>Don&rsquo;t make the same mistake I did and just focus on delivering as much as possible as early as possible. This pays off early but hurts you in the long run, since you&rsquo;re not giving yourself the chance to properly dig into the code. Spend this early time figuring out what interests <em>you</em> in the code and how you can deliver value to <em>yourself</em> while delivering for the company. This might involve learning a type of system you&rsquo;ve never seen before, or a programming language you didn&rsquo;t know before. This is okay! That is what this period is for. You&rsquo;re focussing on your own personal development in this time so that later you can deliver significantly more value.</p>
+<p>If you instead continue on the path of delivering as much as possible as quickly as possible, you&rsquo;ll reap the rewards early on but you&rsquo;ll probably lose motivation as you continually work on projects that don&rsquo;t get you excited.</p>
+<h1 id="own-your-fuckups-theyre-probably-okay">Own your fuckups. They&rsquo;re probably okay.</h1>
+<p>Every engineer is likely to do something that negatively impacts other engineers or customers. I personally recall accidentally leaving debug logging on a service which caused that service to use much more CPU and run slower for a bit. Thankfully we had CPU to spare, but this really shook me up. What surprised me was the completely accepting atmosphere I found myself in. I wasn&rsquo;t told off, and instead was asked to look into making a mistake like this impossible to repeat. This meant what was a very minor mistake with no impact to anything really except the heat output of a data center turned into a real reliability improvement - since mistakes like this could very well turn into very serious issues if not mitigated.</p>
+<p>I get that not every work environment is going to be like this, but if yours is, lucky you. Go forth, make new mistakes.</p>
+<h1 id="productivity-is-not-what-you-likely-think-it-is">Productivity is not what you likely think it is.</h1>
+<p>Productivity in Engineering is really difficult to quantify. Lines of Code is not a good measure. Neither are commits. Your days where you write no code can be massively productive.</p>
+<p>This may sound obvious, however it took a conversation between me and a colleague, <a href="https://jameshfisher.com/">Jim</a> to realise this.</p>
+<p>One day a year or so ago, I was having an extremely hectic day. I was all over the place. I was pairing with Engineers who had just joined the team to get them up to speed. I was writing docs. I was managing a contractor. I was participating in meetings  As the day wore on, I became more and more aware of the fact I&rsquo;d made <em>very</em> little progress towards the goals I&rsquo;d set myself. I&rsquo;d written zero code.</p>
+<p>I ranted to Jim about how I felt like I had got nothing done. He then told me in no uncertain terms that if all I was valued for was LoC, I&rsquo;d be a code monkey, and that in fact I&rsquo;d had a hugely productive day. This conversation made me think. Other colleagues who I thought of as massively productive rarely wrote code too! Maybe I really was productive!</p>
+<h1 id="communication-is-hard">Communication is HARD.</h1>
+<p>I&rsquo;d like to think that I am a good communicator. I have the gift of the gab and will talk for Wales if given the opportunity. I&rsquo;m well known for being immensely friendly and constantly happy. I found regularly that I was misunderstood however. How could that be? This job taught me that it is possible to over-communicate. I was talking a lot, but not conveying much meaningful concrete information. When it came to collaborating with other engineers, I was great at talking about what we were doing but terrible at co-ordinating the work we were doing.</p>
+<p>The way I began to solve this was pretty simple. I decided that any concrete decisions needed to be communicated in as few words as possible via writing. Anything more visionary could be discussed in person, but the outcomes needed to be written down. If there was stuff to be done, I assigned people to action them. If there was stuff that needed to be discussed, I scheduled a meeting and had an agenda. Not exactly rocket science, but an extremely useful lesson to learn.</p>
+<p>This led to less words, more effectively spoken.</p>
+<h1 id="giving-talks-is-a-great-way-to-bring-up-others-perceived-value-of-you">Giving talks is a great way to bring up others perceived value of you.</h1>
+<p>This links closely with the communication point I discussed above. I started giving talks to introduce others to what I was doing, and to open lines of communication that weren&rsquo;t previously there.</p>
+<p>One time, I gave a talk on a project I was working on related to Terraform. I was working on importing AWS resources into Terraform so that we wouldn&rsquo;t have to recreate infra. This task was tricky, and involved many fiddly parts that didn&rsquo;t quite work properly. Terraform is not really suited to import massive amounts of old infra. After the talk, a member of another team offered his assistance to me as he&rsquo;d been working on Terraform recently too. I had no idea that others had experience with Terraform, and his assistance proved invaluable.</p>
+<p>Other ways this is incredibly useful is to get the rest of an organisation excited about what it is that <strong>you</strong> do. It&rsquo;s all well and good having your direct team-mates understanding the value of your work, but what about the salespeople? Marketing? The quickest way to pique their interest in my estimation was a talk.</p>
+<p>When giving a talk to people who aren&rsquo;t directly related to the tech you&rsquo;re working on, it&rsquo;s important to remember they likely don&rsquo;t care that much or understand that well the &ldquo;how&rdquo;. They want the &ldquo;what&rdquo;, &ldquo;why&rdquo;, &ldquo;who&rdquo;, and &ldquo;when&rdquo;. Put yourself in the shoes of the audience member you most want to get through to. Ask these questions.</p>
+<ul>
+<li>What is this work to me?</li>
+<li>Why should <em>I</em> and those <em>I</em> communicate with care about this?</li>
+<li>Who does this benefit?</li>
+<li>When is it available?</li>
+</ul>
+<p>Your talk doesn&rsquo;t even necessarily need to be about what you&rsquo;re doing. I gave a talk once on Silicon bugs. This was pretty irrelevant to the day-to-day, but people found it very interesting and that sparked a few conversations with people around the business I had never spoken to before. These cross-business links can prove invaluable.</p>
+<h1 id="at-some-points-you-might-be-the-most-knowledgeable">At some points, you might be the most knowledgeable.</h1>
+<p>This is a scary realisation. As you dig more and more into the problems you&rsquo;re solving, you&rsquo;ll begin to specialise in particular areas of the product. As a junior engineer, you&rsquo;re likely used to the comfort of having a senior engineer behind you to tell you when you&rsquo;re doing well and when you&rsquo;re not.  Your specialties in understanding develop, and suddenly your senior engineer tells you that they don&rsquo;t know! They&rsquo;ve got useful general advice, but whether your approach is correct or not, they don&rsquo;t know. You look up, and there is nobody to defer to now.</p>
+<p>At this moment, you are probably the most knowledgeable on the topic at hand. You become responsible for seeking the answer.</p>
+<p>Even more scary is when more junior engineers than you start to look up to you in the way you looked up to your senior engineer in the past. You look up again, and there&rsquo;s nobody to ask for specifics! This is when you try to pass on to the junior engineers useful ways of figuring out the answer that you developed when you first realised there&rsquo;s nobody to look up to anymore. These can range from simple &ldquo;how to use stackoverflow&rdquo; to more specific &ldquo;what&rsquo;s enough due diligence to verify you&rsquo;re not going to break production?&rdquo;.</p>
+ </div>
+    <footer class="post-footer">
+  <hr/>
+  <p> <b>Enjoyed this blog post?</b> Check out some of my other writing:</p>
+  <ul>
+    <li><a href="/usb-hub-bs">Why doesn't my computer boot with a USB Hub connected?</a></li>
+    <li><a href="/making-breaking-changes-in-go">How to make breaking changes in Golang</a></li>
+    <li><a href="/those-damn-romanians">Those damn romanians</a></li>
+    <li><a href="/redis-pipelining"> Beating Round-Trip Latency With Redis Pipelining </a></li>
+    <li><a href="/where-embedded-meets-the-internet-building-your-own-air-quality-meter">Use the ESP32 and BME680 to build your own Air Quality Meter</a></li>
+    <li><a href="/the-accidental-domain-squatter">Why suspect us?</a></li>
+    <li><a href="/exploiting-upnp-literally-childsplay">UPNP is insecure</a></li>
+    <li><a href="/">Or check out all of my writing</a></li>
+  </ul>
+
+  <p><b>Or, let me know what you thought!</b> Tweet me at <a href="https://twitter.com/normankev141">@normankev141</a> - I'd appreciate it!</p>
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+</div>
+
+    <div class="date"> 8 Sep 2019 </div>
+  </div>
+<a href="#">Back to top</a>
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+  <div class="social-link">
+  <a href="https://kn100.me/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright">  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

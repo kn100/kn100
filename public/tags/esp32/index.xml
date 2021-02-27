@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ESP32 on KN100 | Kevin Norman</title>
+    <link>https://kn100.me/tags/esp32/</link>
+    <description>Recent content in ESP32 on KN100 | Kevin Norman</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 01 Nov 2020 00:00:00 +0100</lastBuildDate><atom:link href="https://kn100.me/tags/esp32/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Declouding Chinese WIFi plugs</title>
+      <link>https://kn100.me/declouding-chinese-wifi-plugs/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0100</pubDate>
+      
+      <guid>https://kn100.me/declouding-chinese-wifi-plugs/</guid>
+      <description>So, it turns out that a lot of smart gear from many manufacturers, including ones you&amp;rsquo;ve almost certainly heard of, comes from a company called Tuya. They seem to make all sorts of fun IOT gear, which all connects to the Tuya cloud. What Tuya seem to do is sell whitelabeled &amp;lsquo;versions&amp;rsquo; of their products to various brands who then sell them as if they&amp;rsquo;d manufactured them themselves. Very interesting right?</description>
+    </item>
+    
+    <item>
+      <title>Diyode.com published a feature about the air quality meter!</title>
+      <link>https://kn100.me/diyode-air-quality-meter/</link>
+      <pubDate>Tue, 01 Sep 2020 10:00:00 +0100</pubDate>
+      
+      <guid>https://kn100.me/diyode-air-quality-meter/</guid>
+      <description>The introductory page   You may have seen my article on the air quality meter I built a while ago. Diyode, a print magazine in Australia kindly published an article discussing the process I took to create the thing! It&amp;rsquo;s a really cool feeling to be featured somewhere like this. The article is a great read, check it out over on Diyode: Sense of Smell.</description>
+    </item>
+    
+    <item>
+      <title>Embedded Meets the Internet: Build Your Own Air Quality Meter</title>
+      <link>https://kn100.me/where-embedded-meets-the-internet-building-your-own-air-quality-meter/</link>
+      <pubDate>Sun, 05 Jul 2020 00:25:47 +0100</pubDate>
+      
+      <guid>https://kn100.me/where-embedded-meets-the-internet-building-your-own-air-quality-meter/</guid>
+      <description>The Finished Product - quite rustic!   This article was recently featured in Hackaday and Diyode!
+I&amp;rsquo;m bored. I&amp;rsquo;m sure you are too. I&amp;rsquo;m personally very thankful that I can still work through this strange period - but there are still hours in the day to fill. I wanted a personal project, so I thought about remote working and the health impacts. Most offices here have air handling units, air conditioners, and fans to keep air circulating.</description>
+    </item>
+    
+  </channel>
+</rss>

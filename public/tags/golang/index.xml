@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang on KN100 | Kevin Norman</title>
+    <link>https://kn100.me/tags/golang/</link>
+    <description>Recent content in Golang on KN100 | Kevin Norman</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Mon, 22 Jul 2019 10:19:34 +0000</lastBuildDate><atom:link href="https://kn100.me/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How Do I Make Breaking Changes in Go Without Annoying People?</title>
+      <link>https://kn100.me/making-breaking-changes-in-go/</link>
+      <pubDate>Mon, 22 Jul 2019 10:19:34 +0000</pubDate>
+      
+      <guid>https://kn100.me/making-breaking-changes-in-go/</guid>
+      <description>Knowing when and how to make breaking changes is tough. It is even tougher in the Go ecosystem. After being burned by making a breaking change and annoying people, I&amp;rsquo;m going to investigate how best to mitigate this annoyance.
+ Disclaimer: This is mostly opinion, and only my opinion. This post is not associated with my employer in any way. You can contact me @normankev141
+ What even is a breaking change, anyway A simple definition of a breaking change is any change you make to your code that could break other code which directly or indirectly depends on it.</description>
+    </item>
+    
+  </channel>
+</rss>

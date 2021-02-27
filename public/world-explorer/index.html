@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116596166-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116596166-1');
+</script>
+
+<meta charset="utf-8" />
+<meta name="author" content="" />
+<meta name="description" content="Kevin Norman - or kn100 - a software engineer from London who likes to play about with embedded systems and sometimes blog about it. You&#39;ll find me playing around with Arduino, ESP32, Linux, and more. " />
+<meta name="keywords" content="kn100, tech, golang, redis, software engineering, computer science" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.80.0" />
+
+<link rel="canonical" href="https://kn100.me/world-explorer/">
+<meta property="og:title" content="World Explorer" />
+<meta property="og:description" content="World Explorer This project provides you with two main scripts. The first is a player controller which was designed with the Oculus Rift DK2 in mind, but should work perfectly with more modern hardware. This player controller will attempt to keep the player locked to the surface of whatever three dimensional shape they are walking on, similar to Super Mario Galaxy. ##Video demos For some video demos of it in action, please see these three videos:     Assets A player controller that:  Allows for forwards, backwards, and rotation motion Keeps the player locked to the surface of any given geometry, provided that it has a mesh collider (Think Super Mario Galaxy) Is compatible with VR headsets - tested with Oculus Home and Rift DK2." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kn100.me/world-explorer/" />
+<meta property="article:published_time" content="2016-06-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-06-22T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="World Explorer"/>
+<meta name="twitter:description" content="World Explorer This project provides you with two main scripts. The first is a player controller which was designed with the Oculus Rift DK2 in mind, but should work perfectly with more modern hardware. This player controller will attempt to keep the player locked to the surface of whatever three dimensional shape they are walking on, similar to Super Mario Galaxy. ##Video demos For some video demos of it in action, please see these three videos:     Assets A player controller that:  Allows for forwards, backwards, and rotation motion Keeps the player locked to the surface of any given geometry, provided that it has a mesh collider (Think Super Mario Galaxy) Is compatible with VR headsets - tested with Oculus Home and Rift DK2."/>
+
+
+<meta itemprop="name" content="World Explorer">
+<meta itemprop="description" content="World Explorer This project provides you with two main scripts. The first is a player controller which was designed with the Oculus Rift DK2 in mind, but should work perfectly with more modern hardware. This player controller will attempt to keep the player locked to the surface of whatever three dimensional shape they are walking on, similar to Super Mario Galaxy. ##Video demos For some video demos of it in action, please see these three videos:     Assets A player controller that:  Allows for forwards, backwards, and rotation motion Keeps the player locked to the surface of any given geometry, provided that it has a mesh collider (Think Super Mario Galaxy) Is compatible with VR headsets - tested with Oculus Home and Rift DK2.">
+<meta itemprop="datePublished" content="2016-06-22T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2016-06-22T00:00:00+00:00" />
+<meta itemprop="wordCount" content="617">
+
+
+
+<meta itemprop="keywords" content="Projects,VR," />
+
+
+<link rel="stylesheet" href="/css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+a { color: #000000; }
+
+pre {
+  background: #EEEEEE;
+  border: 1px solid #000000;
+  border-radius: 5px;
+}
+
+code {
+  background-color: transparent;
+}
+
+blockquote {
+  background: #EEEEEE;
+  border-left: 3px solid #000000;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #000000;
+}
+
+th {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.siteTitle a { color: #0d5a91; }
+
+.post .content h1{ color: #0d5a91; }
+.post .content h2{ color: #0d5a91; }
+.post .content h3{ color: #0d5a91; }
+.post .content h4{ color: #0d5a91; }
+.post .content h5{ color: #0d5a91; }
+.post .content h6{ color: #0d5a91; }
+.post .content a:hover { color: #0d5a91; }
+.social-link:hover { color: #0d5a91; }
+.nav-item-title:hover { color: #0d5a91; }
+.tag a:hover { color: #0d5a91; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #0d5a91; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #0d5a91;
+}
+.post-list .title { color: #0d5a91; }
+.rmore { color: #000000; }
+.rmore:hover { color: #0d5a91; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #0d5a91;
+}
+
+</style>
+
+
+
+<title>
+
+
+     World Explorer 
+
+</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://kn100.me/">
+        <img class="logo" src="/nulogo.png" alt="KN100 | Kevin Norman">
+      </a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="/about/"><div class="nav-item-title">About me</div></a>
+    
+    <a class="nav-item" href="/tags/"><div class="nav-item-title">Tags</div></a>
+    
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+</div>
+ 
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> World Explorer </h1>
+    <div class="content"> <h1 id="world-explorer">World Explorer</h1>
+<p>This project provides you with two main scripts. The first is a player controller which was designed with the Oculus Rift DK2 in mind, but should work perfectly with more modern hardware. This player controller will attempt to keep the player locked to the surface of whatever three dimensional shape they are walking on, similar to Super Mario Galaxy.
+##Video demos
+For some video demos of it in action, please see these three videos:
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/SDkdGDm5BXc" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+</p>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/tIEHX5wSVyE" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<h2 id="assets">Assets</h2>
+<h3 id="a-player-controller-that">A player controller that:</h3>
+<ul>
+<li>Allows for forwards, backwards, and rotation motion</li>
+<li>Keeps the player locked to the surface of any given geometry, provided that it has a mesh collider (Think Super Mario Galaxy)</li>
+<li>Is compatible with VR headsets - tested with Oculus Home and Rift DK2.</li>
+</ul>
+<h3 id="a-virtual-reality-user-interface-controller-script-that">A Virtual Reality User Interface controller script that:</h3>
+<ul>
+<li>Implements a gaze pointer type interface, where the user looks at three dimensional objects in order to select them</li>
+<li>Follows Googles' guidelines on VR interfaces</li>
+<li>Describes an interface (IObjectAction) that can be implemented in scripts attached to 3D objects either generated during development or pragmatically, to allow for totally new interfaces</li>
+<li>Implements a non-blocking timer that is used to decide if the user has been looking at an element long enough</li>
+<li>Displays said timer in three dimensional space to the user wearing the headset.</li>
+</ul>
+<h2 id="quickstart">Quickstart</h2>
+<p>To get started</p>
+<ol>
+<li>Clone this repository</li>
+<li>Open the &lsquo;World Explorer&rsquo; folder within the repo as a project with Unity.</li>
+<li>Hit Play in Unity and use your standard method of control! Feel free to build on this scene.</li>
+</ol>
+<h2 id="implementation-details">Implementation details</h2>
+<h3 id="creating-a-new-scene">Creating a new scene</h3>
+<ol>
+<li>Create a Capsule, and give it a Rigidbody, disabling Gravity. Add a Camera as a child of this Capsule and ensure its' position is set sensibly; (0,0,0) is usually a good bet.</li>
+<li>Attach the genericWalker script provided to this Capsule.</li>
+<li>If user interface is desired, Firstly attach CameraLookAtUI to the player camera.</li>
+<li>Tag the game object you wish to do something if the user looks at it with either &ldquo;Major&rdquo; or &ldquo;Minor&rdquo;. This distinction allows you to set two separate activation delays for these two different classes of object.</li>
+<li>To define the action you want to take place when the game object is looked at, Create a new C# script called whatever you like, and implement IObjectAction, concretely defining activate() - where your action takes place.
+####Example</li>
+</ol>
+<pre><code>    Example which selects a different scene:
+
+    using UnityEngine;
+    using System.Collections;
+    using UnityEngine.SceneManagement;
+
+    public class goHome : MonoBehaviour,IObjectAction
+    {
+	// Use this for initialization
+	void Start () {
+    }
+	
+	// Update is called once per frame
+	void Update () {
+        
+    }
+    public void activate()
+    {
+        SceneManager.LoadScene(0);
+    }
+</code></pre><h2 id="licence">Licence</h2>
+<pre><code>    Copyright (c) 2016 Kevin Norman.
+
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the &quot;Software&quot;),
+    to deal in the Software without restriction, including without limitation
+    the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    and/or sell copies of the Software, and to permit persons to whom the Software
+    is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+    OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</code></pre><h2 id="github">Github</h2>
+<p><a href="https://github.com/kn100/worldExplorer">https://github.com/kn100/worldExplorer</a></p>
+<h2 id="contact-me">Contact me</h2>
+<p>Twitter is your best bet, Feel free to leave hate mail at @normankev141.</p>
+ </div>
+    <footer class="post-footer">
+  <hr/>
+  <p> <b>Enjoyed this blog post?</b> Check out some of my other writing:</p>
+  <ul>
+    <li><a href="/usb-hub-bs">Why doesn't my computer boot with a USB Hub connected?</a></li>
+    <li><a href="/making-breaking-changes-in-go">How to make breaking changes in Golang</a></li>
+    <li><a href="/those-damn-romanians">Those damn romanians</a></li>
+    <li><a href="/redis-pipelining"> Beating Round-Trip Latency With Redis Pipelining </a></li>
+    <li><a href="/where-embedded-meets-the-internet-building-your-own-air-quality-meter">Use the ESP32 and BME680 to build your own Air Quality Meter</a></li>
+    <li><a href="/the-accidental-domain-squatter">Why suspect us?</a></li>
+    <li><a href="/exploiting-upnp-literally-childsplay">UPNP is insecure</a></li>
+    <li><a href="/">Or check out all of my writing</a></li>
+  </ul>
+
+  <p><b>Or, let me know what you thought!</b> Tweet me at <a href="https://twitter.com/normankev141">@normankev141</a> - I'd appreciate it!</p>
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="/tags/projects">#Projects</a>
+      </div>
+    
+      <div class="tag">
+        <a href="/tags/vr">#VR</a>
+      </div>
+    
+</div>
+
+    <div class="date"> 22 Jun 2016 </div>
+  </div>
+<a href="#">Back to top</a>
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+  <div class="social-link">
+  <a href="https://kn100.me/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright">  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

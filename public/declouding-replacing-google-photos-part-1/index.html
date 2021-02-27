@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116596166-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116596166-1');
+</script>
+
+<meta charset="utf-8" />
+<meta name="author" content="" />
+<meta name="description" content="Kevin Norman - or kn100 - a software engineer from London who likes to play about with embedded systems and sometimes blog about it. You&#39;ll find me playing around with Arduino, ESP32, Linux, and more. " />
+<meta name="keywords" content="kn100, tech, golang, redis, software engineering, computer science" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.80.0" />
+
+<link rel="canonical" href="https://kn100.me/declouding-replacing-google-photos-part-1/">
+<meta property="og:title" content="Declouding my life - Replacing Google Photos" />
+<meta property="og:description" content="Moving away from Google photos, while ensuring safe and secure backups and easy access." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kn100.me/declouding-replacing-google-photos-part-1/" />
+<meta property="og:image" content="https://kn100.me/images/pi.jpg" />
+<meta property="og:image" content="https://kn100.me/images/nas.jpg" />
+<meta property="og:image" content="https://kn100.me/images/rpi.jpg" />
+<meta property="og:image" content="https://kn100.me/images/tos.jpg" />
+<meta property="og:image" content="https://kn100.me/images/duplicati.png" />
+<meta property="article:published_time" content="2021-02-01T00:00:00+01:00" />
+<meta property="article:modified_time" content="2021-02-01T00:00:00+01:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kn100.me/images/pi.jpg"/>
+
+<meta name="twitter:title" content="Declouding my life - Replacing Google Photos"/>
+<meta name="twitter:description" content="Moving away from Google photos, while ensuring safe and secure backups and easy access."/>
+
+
+<meta itemprop="name" content="Declouding my life - Replacing Google Photos">
+<meta itemprop="description" content="Moving away from Google photos, while ensuring safe and secure backups and easy access.">
+<meta itemprop="datePublished" content="2021-02-01T00:00:00+01:00" />
+<meta itemprop="dateModified" content="2021-02-01T00:00:00+01:00" />
+<meta itemprop="wordCount" content="2229">
+<meta itemprop="image" content="https://kn100.me/images/pi.jpg">
+<meta itemprop="image" content="https://kn100.me/images/nas.jpg">
+<meta itemprop="image" content="https://kn100.me/images/rpi.jpg">
+<meta itemprop="image" content="https://kn100.me/images/tos.jpg">
+<meta itemprop="image" content="https://kn100.me/images/duplicati.png">
+
+
+
+<meta itemprop="keywords" content="Projects,pi,linux,photoprism," />
+
+
+<link rel="stylesheet" href="/css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+a { color: #000000; }
+
+pre {
+  background: #EEEEEE;
+  border: 1px solid #000000;
+  border-radius: 5px;
+}
+
+code {
+  background-color: transparent;
+}
+
+blockquote {
+  background: #EEEEEE;
+  border-left: 3px solid #000000;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #000000;
+}
+
+th {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.siteTitle a { color: #0d5a91; }
+
+.post .content h1{ color: #0d5a91; }
+.post .content h2{ color: #0d5a91; }
+.post .content h3{ color: #0d5a91; }
+.post .content h4{ color: #0d5a91; }
+.post .content h5{ color: #0d5a91; }
+.post .content h6{ color: #0d5a91; }
+.post .content a:hover { color: #0d5a91; }
+.social-link:hover { color: #0d5a91; }
+.nav-item-title:hover { color: #0d5a91; }
+.tag a:hover { color: #0d5a91; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #0d5a91; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #0d5a91;
+}
+.post-list .title { color: #0d5a91; }
+.rmore { color: #000000; }
+.rmore:hover { color: #0d5a91; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #0d5a91;
+}
+
+</style>
+
+
+
+<title>
+
+
+     Declouding my life - Replacing Google Photos 
+
+</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://kn100.me/">
+        <img class="logo" src="/nulogo.png" alt="KN100 | Kevin Norman">
+      </a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="/about/"><div class="nav-item-title">About me</div></a>
+    
+    <a class="nav-item" href="/tags/"><div class="nav-item-title">Tags</div></a>
+    
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+</div>
+ 
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> Declouding my life - Replacing Google Photos </h1>
+    <div class="content"> <p><em>Links to Amazon in this blog post are affiliate links - and I will potentially earn commission on you clicking them. Please bear that in mind!</em></p>
+<p>Over the last couple of years, I&rsquo;ve been trying to reduce my dependence on
+cloud services. This is purely ideological, I have no real reason to distrust
+the cloud, nor am I going to attempt to convince you to. I just made a decision a
+while ago that all my mission critical/sensitive stuff needed to be moved off of
+centralised cloud storage. <a href="https://www.pcgamer.com/uk/terraria-creator-cancels-stadia-port-after-being-locked-out-of-google-account/">The stories of people losing their Google accounts
+for practically no reason scare me</a>.</p>
+<p>One particularly scary change that happened recently was Google Photos deciding
+to change their &lsquo;unlimited&rsquo; storage plan to <a href="https://blog.google/products/photos/storage-changes/">not be unlimited anymore</a>. This was
+obviously going to happen at some point, but frankly I feel like companies need
+to stop pretending like they can offer unlimited use of something unless they
+plan to honour that for the lifetime of the service. Either way, I&rsquo;ve always
+felt pretty uncomfortable with having my photos being hosted and managed by
+someone else, so I started to explore alternatives.</p>
+<h1 id="storing-the-photos">Storing the photos</h1>
+<p>The first problem I had to solve is storing the photos. All in all, after doing
+a <a href="https://takeout.google.com/settings/takeout?pli=1">Google Takeout</a> (to get the photos out of Google Photos) - it turns out I have
+about 50GB of media. A lot of it is crap for sure. I didn&rsquo;t want to store these
+files on my main computer, since I regularly wipe and reinstall the operating
+system on my main computer, and therefore having to shift 50GB of data around to
+avoid wiping it would prove to be a pain. I also don&rsquo;t back the entirety of my
+computer up, given I feel no need to. I back up the most important stuff, and
+that is it.</p>
+<p>The solution I came upon was a NAS. I ended up purchasing the <a href="https://amzn.to/2N9qvoN">Terramaster F2-210
+NAS</a>. It&rsquo;s pretty much one of the cheapest NAS units one can get here in the UK,
+costing me around 100 GBP. I also picked up 2 <a href="https://amzn.to/3oZt2PT">4TB Toshiba N300</a> drives, being the
+cheapest CMR drives at that size range you could get. You absolutely should make
+sure you don&rsquo;t end up with SMR drives, they&rsquo;re inappropriate for this sort of
+use case and your NAS performance will suffer. To understand why, read <a href="https://www.servethehome.com/wd-red-smr-vs-cmr-tested-avoid-red-smr/">this
+excellent blog post from ServeTheHome</a>. If you need larger CMR drives,
+maybe consider the large <a href="https://amzn.to/3jwgP3O">8GB Toshiba N300 drive</a> or if
+money isn&rsquo;t too much of an issue they <a href="https://amzn.to/36T9iHf">go all the way to
+14TB</a>. The 4TB drives I got were around 100 GBP
+each, bringing the total cost for this setup to around 300GBP. Not cheap, but
+given I had no decent redundant storage, I felt it a price worth paying.</p>
+<p>This particular NAS is an ARM based unit, with a ARM V8 64-bit quad-core
+processor, with a frequency of up to 1.4 GHz, 1GB of RAM, and comes running
+Terramaster OS, which seems to just be a pretty light distribution of Linux. I&rsquo;d
+much prefer running my own OS on such a unit, but part of the reason I purchased
+a NAS rather than building my own was I wanted something that &ldquo;Just worked&rdquo; out
+of the box. It&rsquo;s got two hard drive bays, and supports both EXT4 and BTRFS for
+the underlying file system.</p>
+<p>If you&rsquo;re going deeper down this rabbit hole and want something a bit more
+extreme, you could get one of the Intel 5 bay NAS units, Like the <a href="https://amzn.to/2Oe8rul">Terramaster
+F5-220 unit</a> which sports an Intel processor which will
+be significantly faster, and some are even <a href="https://www.avforums.com/threads/unraid-on-terramaster-bargain-nas-f4-220-chassis.2245155/">experimenting with running FreeNAS on
+this unit!</a>.
+These Intel based NASes may even come with the possibility of RAM upgrades, as
+well as some interesting hardware hackability possibilities.</p>
+<figure>
+    <img src="/tos.jpg"/> <figcaption>
+            <h4>Terramaster OS does its best to look like Windows 10, in a browser. It works fine, though!</h4>
+        </figcaption>
+</figure>
+
+<p>It was pretty painless to set up, just pop the drives in, select whether you
+want RAID 0 (where all the storage is available to you) or RAID 1 (where the
+data is mirrored between both drives so if a drive fails the data is safe on the
+other drive), create some shares, and configure your users access to said
+shares. It also supports encryption of particular shares, although please note
+an encrypted share will have somewhat lower performance than an unencrypted
+share and also you cannot mount unencrypted shares via NFS. You&rsquo;ve gotta stick
+with SMB for them. Performance of the NAS was surprisingly good, easily maxing
+out the Gigabit ethernet connection it has.</p>
+<p>I then migrated all my photos over to the NAS, and was happy, as now they were
+somewhat more safely stored than they were prior.</p>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/0QDENx0-PSg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<h1 id="what-about-a-house-fire-what-if-the-nas-gets-stolen">What about a house fire? What if the NAS gets stolen?</h1>
+<p>One problem with storing your data locally is that if your NAS gets destroyed or
+goes missing, your data goes with it. This is why off site backup is important.
+I wanted to back my data up but for it to have the following properties:</p>
+<ul>
+<li>Important personal data is encrypted at rest on the NAS</li>
+<li>All data is encrypted at rest on the cloud backup solution</li>
+<li>The cloud backup solution is as cheap as possible</li>
+<li>The cloud backup solution doesn&rsquo;t do the whole Amazon Glacier thing of
+charging you a fortune to retrieve your data</li>
+<li>The backing up of data happens automatically</li>
+</ul>
+<p>For the cloud backup solution, I settled on Backblaze B2. The cost for backing
+your data up there is supremely cheap in comparison to Amazon S3, and Backblaze
+to me anyway seem like cool people. The cost for backing up 4 whole terabytes of
+information there with no retrieval over the course of a year would be around
+240$.</p>
+<p>I split the data on my nas into two categories: Stuff I&rsquo;d be okay to lose in a
+house fire, and stuff I would not be okay with losing in a house fire. The stuff
+I&rsquo;m worried about gets backed up to Backblaze, which is around 65GB of data
+total. The cost for backing this up over a year is $3.90 - a cost I can
+definitely stomach. <a href="https://www.backblaze.com/b2/cloud-storage-pricing.html">You can calculate the cost yourself
+here</a>.</p>
+<figure>
+    <img src="/nas.jpg"/> <figcaption>
+            <h4>The Terramaster F2-210. A Nice nas!</h4>
+        </figcaption>
+</figure>
+
+<p>As for getting the data to Backblaze, I picked <a href="https://www.duplicati.com/">Duplicati</a>. Duplicati is a great
+tool that provides support for many backends (places you back stuff up) along
+with many options for how you&rsquo;d like the backed up data to be managed, such as
+versioning of files and the such. It encrypts the data before it sends it to
+your chosen backend, and can run on a schedule, so it meets all of my
+requirements set out above.</p>
+<figure>
+    <img src="/duplicati.png"/> <figcaption>
+            <h4>Duplicati runs in a browser</h4>
+        </figcaption>
+</figure>
+
+<p>I initially tried to run Duplicati on a <a href="https://amzn.to/3q7edME">Raspberry Pi</a>, which turned out to be a
+hellish experience because of the dependencies it needs. I then tried running it
+on my main desktop computer, so it would read the files from the NAS and back
+them up to Backblaze, but it turns out Duplicati <em>really</em> doesn&rsquo;t like reading
+from SMB shares. I tried instead mounting the NAS share via NFS, but as
+mentioned previously you can&rsquo;t as far as I can tell mount NFS shares that are
+encrypted on the NAS. It was then I remembered that this NAS incredibly supports
+Docker, and therefore I could run Duplicati directly on the NAS itself.</p>
+<figure>
+    <img src="/rpi.jpg"/> <figcaption>
+            <h4>The Raspberry Pi in question</h4>
+        </figcaption>
+</figure>
+
+<p>I actually accidentally deleted all my photos from my local computer recently,
+which is what spurred this whole project in the first place. Duplicati did a
+wonderful job of restoring them, which I was very grateful for given I had not
+tested restoring from a backup yet.</p>
+<p>Terramaster kindly provides us with Root on the NAS, so setting up the
+LinuxServer Duplicati Docker image was a doddle, and the NAS quite happily runs
+this Docker image and backs my stuff up to Backblaze early every morning. I&rsquo;m
+honestly quite impressed with this little unit. It&rsquo;s built very well, the OS
+seems quite reliable, and it&rsquo;s done everything I&rsquo;ve asked of it well so far.</p>
+<h1 id="photo-accesssearch">Photo access/search</h1>
+<p>One of my favourite things about Google Photos was the fact it did image
+classification on images you supplied it so you could search for words like
+&ldquo;Cat&rdquo; or &ldquo;Giraffe&rdquo; and it would show you a mostly accurate list of photos of
+those specific things. Facial recognition was also creepy, but pretty useful
+too. I wanted to have this locally, and the project that spurred this whole
+thing was a wonderful open source project called Photoprism.</p>
+<p>Photoprism is a piece of software written in Golang which promises to be a photo
+organisation/access tool that can run on a Raspberry Pi. It does image
+classification using a Tensorflow model, and can manage large libraries of
+photos. Running it is as simple as pulling the Docker compose file and building
+it.</p>
+<p>It is a truly amazing piece of software, but where to run it? I purchased a
+<a href="https://amzn.to/3q7edME">Raspberry Pi 4 8GB variant</a> (since Photoprism says it wants at least 4GB of RAM,
+and I wanted to run other services on this Pi), and connected it up to a spare
+SSD (<a href="https://amzn.to/2MDfrRi">A Kingston A400 480GB drive</a>) in a USB enclosure
+(<a href="https://amzn.to/3cQE6fN">A Orico 2.5 inch USB 3 Enclosure</a>) I had lying around which it turns out Raspberry Pi can
+boot from now. This offers much improved performance over a MicroSD card and
+significantly better reliability. MicroSD cards are notorious for failing in a
+Pi, and various blog posts have talked about the improvements in performance and
+reliability that can be had by booting from an SSD.</p>
+<figure>
+    <img src="/photoprism.jpg"/> <figcaption>
+            <h4>Photoprism labelling works impressively well!</h4>
+        </figcaption>
+</figure>
+
+<p>One thing you should bear in mind is the thermals of your Pi. The Pi 4 runs
+pretty hot when working hard, and Photoprism will work it extremely hard. I
+purchased a <a href="https://amzn.to/36QWXDK">passive aluminium case</a> for my Pi which does an amazing job of
+keeping the Pi cool enough to continue operating at it&rsquo;s stock clock speed of
+1.5GHz, but I wanted to overclock my Pi and at a 2.1GHz overclock the case is
+overwhelmed. For this, I purchased a <a href="https://amzn.to/3cVGamC">50MM fan</a> which I attached to the GPIO pins
+of the Pi and blu-tac&rsquo;d it to the case, and now it does not exceed 60 degrees
+under extreme load and operates at 2.1GHz all day. You&rsquo;ll also want a decent
+power supply.</p>
+<p>After installing Raspbian and doing the standard hardening routine (disable root
+account, make a fresh user, disable &lsquo;pi&rsquo; user, fail2ban, etc), I set Photoprism
+up on it, and pointed it at my NAS as the photo storage directory, but told it
+to store its cache locally on the SSD - since decent performance is probably a
+good thing for that.</p>
+<p>It took around 3 days total for Photoprism to finish churning through all my
+photos and videos, where it generated almost 30GB of thumbnails, but after this
+process was complete I ended up with a lovely searchable indexed version of my
+photos, that while not quite as slick as Google Photos certainly meets my needs.</p>
+<h1 id="adding-more-photos">Adding more photos</h1>
+<p>Another problem is how do I back up new photos I&rsquo;ve taken? I decided to go
+somewhat oldschool on this in the interest of keeping things simple, and set up
+Shotwell, a piece of free software which can import photos from your camera or
+phone, and organises them into a YYYY/MM/DD folder structure. It avoids
+reimporting duplicates, and seems somewhat okay with reading and writing to a
+SMB share. This means about once a week, I&rsquo;ll dock my phone, import the photos
+using Shotwell, which will then put them on my NAS. At 4am the next day, those
+photos are backed up to Backblaze safely, and Photoprism will index them, making
+them available for search/retrieval.</p>
+<p>This solution isn&rsquo;t ideal, since Shotwell takes forever to be ready to import
+photos (assumedly because it&rsquo;s reading the file list and checking nothing has
+changed from the SMB share), but it works well enough for me right now.</p>
+<h1 id="deleting-the-photos-from-google-photos">Deleting the photos from Google Photos</h1>
+<p>Once I&rsquo;d done all this and was happy with the solution, I decided it was time to
+delete all the photos I had from Google Photos. Turns out, there is no button
+you can press to just delete all the photos you have, and instead I found a
+lovely script on Github called
+<a href="https://github.com/mrishab/google-photos-delete-tool">google-photos-delete-tool</a>
+which when pasted in the dev tools of your browser, will delete your photos by
+automating the process of selecting them and moving them to trash. Be careful
+while doing this, since photos which were previously stored under the
+&ldquo;Unlimited&rdquo; photo storage plan will now take up space in your bin, and therefore
+you&rsquo;ll need to empty your bin every now and then while the script is working. I
+had to regularly refresh the page and restart the script too, as it seemed to
+hang after deleting about 6 months of photos.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Thanks to a combination of a NAS, Raspberry Pi, Duplicati and Backblaze B2, I&rsquo;ve
+got a photo management solution that I am fully in control of, that is housefire
+proof, and is encrypted at rest everywhere. I&rsquo;m pretty happy about this, and
+given I use the Raspberry Pi and the NAS for other uses too (Plex, Home
+Assistant, etc) - it is fairly cost effective.</p>
+ </div>
+    <footer class="post-footer">
+  <hr/>
+  <p> <b>Enjoyed this blog post?</b> Check out some of my other writing:</p>
+  <ul>
+    <li><a href="/usb-hub-bs">Why doesn't my computer boot with a USB Hub connected?</a></li>
+    <li><a href="/making-breaking-changes-in-go">How to make breaking changes in Golang</a></li>
+    <li><a href="/those-damn-romanians">Those damn romanians</a></li>
+    <li><a href="/redis-pipelining"> Beating Round-Trip Latency With Redis Pipelining </a></li>
+    <li><a href="/where-embedded-meets-the-internet-building-your-own-air-quality-meter">Use the ESP32 and BME680 to build your own Air Quality Meter</a></li>
+    <li><a href="/the-accidental-domain-squatter">Why suspect us?</a></li>
+    <li><a href="/exploiting-upnp-literally-childsplay">UPNP is insecure</a></li>
+    <li><a href="/">Or check out all of my writing</a></li>
+  </ul>
+
+  <p><b>Or, let me know what you thought!</b> Tweet me at <a href="https://twitter.com/normankev141">@normankev141</a> - I'd appreciate it!</p>
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="/tags/projects">#Projects</a>
+      </div>
+    
+      <div class="tag">
+        <a href="/tags/pi">#pi</a>
+      </div>
+    
+      <div class="tag">
+        <a href="/tags/linux">#linux</a>
+      </div>
+    
+      <div class="tag">
+        <a href="/tags/photoprism">#photoprism</a>
+      </div>
+    
+</div>
+
+    <div class="date"> 1 Feb 2021 </div>
+  </div>
+<a href="#">Back to top</a>
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+  <div class="social-link">
+  <a href="https://kn100.me/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright">  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

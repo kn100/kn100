@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116596166-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116596166-1');
+</script>
+
+<meta charset="utf-8" />
+<meta name="author" content="" />
+<meta name="description" content="Kevin Norman - or kn100 - a software engineer from London who likes to play about with embedded systems and sometimes blog about it. You&#39;ll find me playing around with Arduino, ESP32, Linux, and more. " />
+<meta name="keywords" content="kn100, tech, golang, redis, software engineering, computer science" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.80.0" />
+
+<link rel="canonical" href="https://kn100.me/making-breaking-changes-in-go/">
+<meta property="og:title" content="How Do I Make Breaking Changes in Go Without Annoying People?" />
+<meta property="og:description" content="Knowing when and how to make breaking changes is tough normally, and even tougher in the Go ecosystem. Let&#39;s look at a few approaches to manage the pain." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kn100.me/making-breaking-changes-in-go/" />
+<meta property="article:published_time" content="2019-07-22T10:19:34+00:00" />
+<meta property="article:modified_time" content="2019-07-22T10:19:34+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="How Do I Make Breaking Changes in Go Without Annoying People?"/>
+<meta name="twitter:description" content="Knowing when and how to make breaking changes is tough normally, and even tougher in the Go ecosystem. Let&#39;s look at a few approaches to manage the pain."/>
+
+
+<meta itemprop="name" content="How Do I Make Breaking Changes in Go Without Annoying People?">
+<meta itemprop="description" content="Knowing when and how to make breaking changes is tough normally, and even tougher in the Go ecosystem. Let&#39;s look at a few approaches to manage the pain.">
+<meta itemprop="datePublished" content="2019-07-22T10:19:34+00:00" />
+<meta itemprop="dateModified" content="2019-07-22T10:19:34+00:00" />
+<meta itemprop="wordCount" content="2329">
+
+
+
+<meta itemprop="keywords" content="Golang,Stories," />
+
+
+<link rel="stylesheet" href="/css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+a { color: #000000; }
+
+pre {
+  background: #EEEEEE;
+  border: 1px solid #000000;
+  border-radius: 5px;
+}
+
+code {
+  background-color: transparent;
+}
+
+blockquote {
+  background: #EEEEEE;
+  border-left: 3px solid #000000;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #000000;
+}
+
+th {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.siteTitle a { color: #0d5a91; }
+
+.post .content h1{ color: #0d5a91; }
+.post .content h2{ color: #0d5a91; }
+.post .content h3{ color: #0d5a91; }
+.post .content h4{ color: #0d5a91; }
+.post .content h5{ color: #0d5a91; }
+.post .content h6{ color: #0d5a91; }
+.post .content a:hover { color: #0d5a91; }
+.social-link:hover { color: #0d5a91; }
+.nav-item-title:hover { color: #0d5a91; }
+.tag a:hover { color: #0d5a91; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #0d5a91; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #0d5a91;
+}
+.post-list .title { color: #0d5a91; }
+.rmore { color: #000000; }
+.rmore:hover { color: #0d5a91; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #0d5a91;
+}
+
+</style>
+
+
+
+<title>
+
+
+     How Do I Make Breaking Changes in Go Without Annoying People? 
+
+</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://kn100.me/">
+        <img class="logo" src="/nulogo.png" alt="KN100 | Kevin Norman">
+      </a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="/about/"><div class="nav-item-title">About me</div></a>
+    
+    <a class="nav-item" href="/tags/"><div class="nav-item-title">Tags</div></a>
+    
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+</div>
+ 
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> How Do I Make Breaking Changes in Go Without Annoying People? </h1>
+    <div class="content"> <p>Knowing when and how to make breaking changes is tough. It is even tougher in the Go ecosystem. After being burned by making a breaking change and annoying people, I&rsquo;m going to investigate how best to mitigate this annoyance.</p>
+<blockquote>
+<p><strong>Disclaimer</strong>: This is mostly opinion, and only my opinion. This post is not associated with my employer in any way. You can contact me <a href="twitter.com/normankev141">@normankev141</a></p>
+</blockquote>
+<h1 id="what-even-is-a-breaking-change-anyway">What even is a breaking change, anyway</h1>
+<p>A simple definition of a breaking change is any change you make to your code that could break other code which directly or indirectly depends on it.</p>
+<p>In all seriousness, almost anything you do within a Go library that others depend on could be considered a breaking change. Did your commits fix a bug that was reported, without changing the API? It&rsquo;s possible there is code out there that was depending on the presence of that bug, and you&rsquo;ve just broken their code. Did you update a dependency you depend on? Did your dependency fix a bug consumers of your library were depending on? You get the point.</p>
+<p>For the purposes of this article, I align my definition of a breaking change closely with the one given by Semver.org, which is any <a href="https://semver.org/">&ldquo;incompatible API change&rdquo;</a>. The key word there is API. This (to me at least) indicates that bug fixes or similar would be considered patch or minor version updates. If you anticipate that you&rsquo;ll break someones code through changing your API, that&rsquo;s a major version increment. Otherwise, it&rsquo;s a minor or patch. The clue is in the word &ldquo;semantic&rdquo;. A Semver number is intended to be read by humans, not computers. This does not guarantee that a minor version increment is going to be absolutely fine for everyone. Those edge cases where consumers rely on the presence of a bug are difficult to anticipate and therefore are not considered here. The more significant an increment, the more trouble the user is <em>likely</em> to have when upgrading.</p>
+<h1 id="a-story-on-making-a-breaking-change">A story on making a breaking change</h1>
+<p>I maintain a library that is written in Golang. It&rsquo;s a pretty standard library, and has a pretty simple API associated with it, maybe 7-8 functions that consumers can call. Nothing specialist. It was a library that had some small design issues as well as old code that was now dead. I&rsquo;d been planning to make a breaking change in the API for a few months, and waiting for an opportune time to do it. In total there were 3 distinct breaking changes I wanted to make, only one of which was really &lsquo;required&rsquo;, the others were stylistic/linter improvements that I wanted to make.</p>
+<p>I made three separate pull requests, had them approved by others who maintain said library, and made three separate releases on the same day, bumping the &lsquo;major&rsquo; version number three times on the same day. I respect that these could have all been rolled into one major version bump, but I personally did not see the harm in incrementing the major version. This looked a little ridiculous, but my thinking was that this would allow users to upgrade incrementally, rather than having to deal with 3 conceptually different breaking changes in one go.</p>
+<figure>
+    <img src="/images/breakingchanges-releasenotes.png"
+         alt="The releases page on Github looks a bit ridiculous."/> <figcaption>
+            <p>The releases page on Github looks a bit ridiculous.</p>
+        </figcaption>
+</figure>
+
+<p>I thought this was enough to indicate that changes had taken place. I tried to describe exactly the changes that were made - and give clear instructions as to what to do to migrate up to that version.</p>
+<p>What I had of course forgotten about is that Go ideally does not expect you to <em>ever</em> make breaking changes. A few of the libraries consumers rightly complained about the breaking changes, which is what inspired this article.</p>
+<blockquote>
+<p>&ldquo;You changed AppId to AppID and also UserId to UserID and it took me hours to figure out why my deployments weren&rsquo;t working. Come on guys lets not introduce breaking changes like this without some sort of heads up!&rdquo;</p>
+</blockquote>
+<h1 id="go-get">Go get</h1>
+<p>In the very early stages of development, when a consumer of a library wishes to consume it, they&rsquo;ll usually use <code>go get</code>, a tool which requires basically no thought to use. It will fetch whatever is on master at that point. Not what you&rsquo;ve released, and not whatever is on a release branch. go get is pretty much <code>git clone</code>, with Go tendencies.</p>
+<p>The consumer will then eventually run <code>go build</code> or <code>go run</code> and their software will build and run as normal, even if the library author makes a breaking change. The Built binary is, well, built, so it will be fine. The developers build environment will be fine since it effectively vendors the library code - and won&rsquo;t update it unless asked. If the user dares do a <code>go get -u</code> on the package, or recreates their build environment locally, they&rsquo;ll receive the breaking changes, and therefore will have to deal with them.</p>
+<p>The trouble starts when that consumer then either tries to build their code on another machine. The consumer <code>go get</code>s the packages they need again, except now there has been a slew of commits merged into libraries master branch, therefore inexplicably breaking their build.</p>
+<p>The user then spends a few minutes trying to figure out why what works on their machine does not work in their CI environment, or on their AWS instance, or in their Docker container. Eventually, they find log lines that indicate a variable has been renamed, or a functions return type has changed, or the function they were using is gone altogether!</p>
+<p>Frustrated, they either stop using your library, or they contact you and ask why you made such a change.</p>
+<p>This whole process was designed by Google, for Google. It was designed for how they manage their repositories. Of course, other organizations manage their source code differently, and conflicts were bound to happen. This lack of package management meant that breaking changes rendered once fine builds completely broken. In other languages where package management has been a first class citizen for longer - this is not an issue, but in Go, it is. No amount of Semver is going to dig us out of this hole.</p>
+<h1 id="the-fundamental-problem">The fundamental problem</h1>
+<p>I am not going to talk too much about the state of package management in Go. <a href="https://codeengineered.com/blog/2018/golang-godep-to-vgo/">Enough has</a> been <a href="https://hackernoon.com/the-state-of-go-dependency-management-6cc5f82a4bfa">said on</a> that <a href="https://peter.bourgon.org/blog/2018/07/27/a-response-about-dep-and-vgo.html">topic already</a>. What I will say is none of them really address this problem. Not really. It doesn&rsquo;t matter how good your package manager is. It makes no difference whether it vendors your dependencies. It is not the default, and therefore breaking changes are going to break someones code.</p>
+<p>Since anybody writing go today isn&rsquo;t likely to want to think about the intricacies of dependency management immediately, and it is certain that there are projects everywhere that do not use a package manager, it is crucial to consider the various factors that weigh into whether a breaking change is worth it or not.</p>
+<p>The problem is that you are going to have consumers who are going to consume your code and expect there to never be a breaking change. This is the unchangeable reality of Go.</p>
+<p>Are breaking changes possible then? This is a question that only the owners of the library can answer. How many consumers do you have? Does the benefit of making the breaking change outweigh the almost certain annoyance your consumers will face? Are there ways of making the change without breaking the build? Do you have a mechanism to warn users that breaking changes are coming? The factors which weigh in are numerous and each should be considered.</p>
+<h1 id="so-how-do-i-make-breaking-changes">So, How DO I make breaking changes</h1>
+<p>There are many approaches to making breaking changes in Go. This is part of the problem. Without unifying our approach as library maintainers, we&rsquo;ll struggle. I have no idea what the correct approach should be, and there are more than are listed below, but I hope this brief survey will be useful when you make your decision as to how to do it.</p>
+<h2 id="just-never-making-breaking-changes-ever">Just never making breaking changes ever</h2>
+<p>This is the only real solution. If not annoying users is your absolute top priority, then never make breaking changes! Design your API upfront to be as close to perfect as possible, and only ever add code that does not change the API.</p>
+<p>This is the approach that many crucial components of software take. Only ever add functionality, never take it away or change existing functionality. Never break the build. This approach ensures you&rsquo;ll annoy the fewest people, but of course has the disadvantage that you&rsquo;re unable to fix any mistakes in your original spec.</p>
+<h2 id="branch-off-for-breaking-changes">Branch off for breaking changes</h2>
+<p>Another approach that some libraries take is to maintain version branches. For example, see <a href="https://github.com/robfig/cron">github.com/robfig/cron</a>. Here we can see there is a master branch which I assume v0, and then branches for each breaking change. I expect that the idea is that a user who wants to ensure their code will build forever will move to the directory where Go checked out the code, and then move to the branch that their code is written to support.</p>
+<p>This ensures that (as long as the library author keeps their promises!) users who remember to check out the correct branch can expect their builds to continue working and their code to continue working.</p>
+<p>This has the same downside that users do not have an obvious way to know how to move up major versions, and puts the onus completely on them to determine if there has been a major version update. If they decide to update major versions on one build machine, they must then follow suit everywhere else. This isn&rsquo;t great.</p>
+<h2 id="somehow-notifying-consumers-of-breaking-changes">Somehow notifying consumers of breaking changes</h2>
+<p>I&rsquo;ve heard suggestions that maybe library authors should notify consumers about upcoming breaking changes. One approach is to release a version of your library where you log out that a given thing is changing on a certain date, and on that date release the next version which actually removes or modifies said functionality. This approach relies on the user consulting their logs frequently for these notices - something I&rsquo;m not particularly hopeful happens. I expect most developers including myself only ever really consult logs when things go wrong, and here they go wrong when the thing is changed, meaning the log lines helped nobody. Semver seems to advocate for this approach, suggesting that we &ldquo;issue a new minor release with the deprecation in place&rdquo;. What form this deprecation takes however is left undefined.</p>
+<p>Another suggestion I heard from other developers was to somehow contact the consumers of the library to inform them that the breaking change is coming. For instance, users who care about breaking changes could sign up to a mailing list. Maybe you have a method of identifying and contacting consumers already. Then, when you anticipate a breaking change, you contact the customer via email or something to let them know. This approach has a similar problem to the first, which is that I expect people signing up to said mailing list would only do so as a reaction, rather than proactively. Contacting your consumers with emails you&rsquo;ve already got somewhere else somewhat solves this, but will users really read this email? Will they action it? Will they even realize that the change affects them?</p>
+<h2 id="declaration-that-breaking-changes-are-to-be-expected">Declaration that breaking changes are to be expected</h2>
+<p>Given that almost every library that is not already well defined is likely to want to change its API at some point, I think the most realistic approach we&rsquo;ve got is to explicitly declare that breaking changes are to be expected in the README. Something along the lines of:</p>
+<blockquote>
+<p>This library, and any others that you are using, may make breaking changes at any time. These changes could unexpectedly break your build. To avoid this, we recommend you use a package manager such as the inbuilt Go Modules, a tutorial for which can be <a href="https://github.com/golang/go/wiki/Modules#quick-start">found here</a>.</p>
+</blockquote>
+<p>This is clearly not perfect. This requires your consumers to take action and do something in order to prevent this problem in the future - however I think it is fairly reasonable. If we look at other examples of how this problem is handled in other languages, we&rsquo;d see that libraries sometimes even include a snippet to copy into the Gradle file or the language itself will write a package lock file that locks to whatever the latest version was at the time of installation.</p>
+<p>This does however point Go consumers in the correct direction for safely using their libraries, and even better, thanks to the way Go modules works, even solves the problem automatically for other libraries that are installed! This doesn&rsquo;t solve the problem at all for consumers that will not or cannot use a package manager, so this, in use with a commitment to make breaking changes as infrequently as possible seems like a solution that will annoy the fewest people over time.</p>
+<p>In my humble opinion, use of a package manager should become the norm. Bare <code>go get</code> should be discouraged for everything except experimentation. I have been bitten by others making API breaking changes and I personally have inflicted that pain on others. It&rsquo;s an easy thing to miss - and there are many situations where using a package manager isn&rsquo;t ideal - but in a world where breaking changes are going to be made, pretending that they&rsquo;re not going to be is not a solution.</p>
+<p>Go mod has its own <a href="https://github.com/golang/go/issues/27643">idiosyncrasies</a>, but it&rsquo;s as close to a built in package manager Go has gotten so far. I think it&rsquo;s worth it in the long run for libraries to encourage its use and to make it the new normal for developers just starting out in Go. The thousands of unbuildable projects floating around that have depended on libraries that broke backwards compatibility will look on and smile.</p>
+<h1 id="your-thoughts">Your thoughts</h1>
+<p>I am really interested to hear what other Go developers think, please tweet <a href="https://twitter.com/normankev141">@normankev141</a> if you have something to say!</p>
+<h2 id="heading"></h2>
+ </div>
+    <footer class="post-footer">
+  <hr/>
+  <p> <b>Enjoyed this blog post?</b> Check out some of my other writing:</p>
+  <ul>
+    <li><a href="/usb-hub-bs">Why doesn't my computer boot with a USB Hub connected?</a></li>
+    <li><a href="/making-breaking-changes-in-go">How to make breaking changes in Golang</a></li>
+    <li><a href="/those-damn-romanians">Those damn romanians</a></li>
+    <li><a href="/redis-pipelining"> Beating Round-Trip Latency With Redis Pipelining </a></li>
+    <li><a href="/where-embedded-meets-the-internet-building-your-own-air-quality-meter">Use the ESP32 and BME680 to build your own Air Quality Meter</a></li>
+    <li><a href="/the-accidental-domain-squatter">Why suspect us?</a></li>
+    <li><a href="/exploiting-upnp-literally-childsplay">UPNP is insecure</a></li>
+    <li><a href="/">Or check out all of my writing</a></li>
+  </ul>
+
+  <p><b>Or, let me know what you thought!</b> Tweet me at <a href="https://twitter.com/normankev141">@normankev141</a> - I'd appreciate it!</p>
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="/tags/golang">#Golang</a>
+      </div>
+    
+      <div class="tag">
+        <a href="/tags/stories">#Stories</a>
+      </div>
+    
+</div>
+
+    <div class="date"> 22 Jul 2019 </div>
+  </div>
+<a href="#">Back to top</a>
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+  <div class="social-link">
+  <a href="https://kn100.me/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright">  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

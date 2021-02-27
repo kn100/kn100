@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116596166-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116596166-1');
+</script>
+
+<meta charset="utf-8" />
+<meta name="author" content="" />
+<meta name="description" content="Kevin Normans personal blog" />
+<meta name="keywords" content="blog, tech, golang, redis, software engineering, computer science" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.74.2" />
+
+<link rel="canonical" href="https://kn100.me/tags/ruby/">
+<meta property="og:title" content="ruby" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://kn100.me/tags/ruby/" />
+<meta property="og:updated_time" content="2019-04-16T19:59:23+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ruby"/>
+<meta name="twitter:description" content=""/>
+
+
+<meta itemprop="name" content="ruby">
+<meta itemprop="description" content="">
+
+<link rel="stylesheet" href="/css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #101010;
+  color: #dbdbdb;
+}
+
+a { color: #dbdbdb; }
+
+pre {
+  background: #1D1F21;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+}
+
+code {
+  background-color: transparent;
+}
+
+blockquote {
+  background: #1D1F21;
+  border-left: 3px solid #dbdbdb;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #dbdbdb;
+}
+
+th {
+  background: #dbdbdb;
+  color: #101010;
+}
+
+.siteTitle a { color: #ffb74d; }
+
+.post .content h1{ color: #ffb74d; }
+.post .content h2{ color: #ffb74d; }
+.post .content h3{ color: #ffb74d; }
+.post .content h4{ color: #ffb74d; }
+.post .content h5{ color: #ffb74d; }
+.post .content h6{ color: #ffb74d; }
+.post .content a:hover { color: #ffb74d; }
+.social-link:hover { color: #ffb74d; }
+.nav-item-title:hover { color: #ffb74d; }
+.tag a:hover { color: #ffb74d; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #ffb74d; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #ffb74d;
+}
+.post-list .title { color: #ffb74d; }
+.rmore { color: #dbdbdb; }
+.rmore:hover { color: #ffb74d; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #ffb74d;
+}
+
+</style>
+
+
+
+<title>
+
+
+     ruby 
+
+</title>
+
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://kn100.me/">
+        <img src="/logo.png" alt="KN100 - Kevin Norman">
+      </a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="/about/"><div class="nav-item-title">About me</div></a>
+    
+    <a class="nav-item" href="/cv/"><div class="nav-item-title">CV/Resume</div></a>
+    
+    <a class="nav-item" href="/tags/"><div class="nav-item-title">Tags</div></a>
+    
+
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+</div>
+
+
+</header>
+
+
+<h2 class="term-list-title">
+    <a href="https://kn100.me/tags/ruby/" class="linktopost">tag: ruby</a>
+</h2>
+
+
+    <article class="post-preview">
+
+  <header>
+    <h2 class="title"> <a href='https://kn100.me/redis-pipelining/'> Beating round-trip latency with Redis pipelining</a> </h2>
+    <div class="meta">
+      16 Apr 2019 - 5 minutes
+      
+<div class="tags">
+    
+      <div class="tag">
+        <a href="/tags/redis">#redis</a>
+      </div>
+    
+      <div class="tag">
+        <a href="/tags/pipelining">#pipelining</a>
+      </div>
+    
+      <div class="tag">
+        <a href="/tags/scripts">#scripts</a>
+      </div>
+    
+      <div class="tag">
+        <a href="/tags/ruby">#ruby</a>
+      </div>
+    
+      <div class="tag">
+        <a href="/tags/optimization">#optimization</a>
+      </div>
+    
+</div>
+
+    </div>
+
+  </header>
+
+  <div class="summary">
+    I worked on a task which involved checking every single value in a Redis instance, and modifying ones which matched a certain format. This script needed to run in a fairly timely fashion, as it would need to be run frequently. Making requests sequentially didn&rsquo;t cut it, so I learned about pipelining. This simple optimization meant that a script which I originally calculated to take over 50 hours to run ran in under 4 minutes.
+  </div>
+
+  <div class="rmore">
+    <a href='https://kn100.me/redis-pipelining/' class="rmore">Read more ...</a>
+  </div>
+
+
+</article>
+
+
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+  <div class="social-link">
+  <a href="https://kn100.me/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright">  </div>
+
+  <div class="poweredby">
+    Powered by <a href="https://gohugo.io/">Hugo</a>.
+  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

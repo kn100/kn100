@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pi on KN100 | Kevin Norman</title>
+    <link>https://kn100.me/categories/pi/</link>
+    <description>Recent content in Pi on KN100 | Kevin Norman</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Thu, 29 Mar 2018 00:24:13 +0000</lastBuildDate><atom:link href="https://kn100.me/categories/pi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spooky Ghost on a Pi, Because Why Not?</title>
+      <link>https://kn100.me/ghost-on-a-pi-because-why-not/</link>
+      <pubDate>Thu, 29 Mar 2018 00:24:13 +0000</pubDate>
+      
+      <guid>https://kn100.me/ghost-on-a-pi-because-why-not/</guid>
+      <description>This is a description of how this blog is currently hosted. Hopefully, I&amp;rsquo;d like to do more interesting stuff with the Pi and post about it here.
+Hardware The system currently hosting this blog is a Raspberry Pi 3b+. This is the (at the current time) latest revision of the single board computer, and features a slightly higher clock rate over the 3b, as well as better network performance. This is attached to a pretty standard 2 amp capable wall wart.</description>
+    </item>
+    
+  </channel>
+</rss>

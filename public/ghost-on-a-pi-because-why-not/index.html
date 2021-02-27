@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116596166-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116596166-1');
+</script>
+
+<meta charset="utf-8" />
+<meta name="author" content="" />
+<meta name="description" content="Kevin Norman - or kn100 - a software engineer from London who likes to play about with embedded systems and sometimes blog about it. You&#39;ll find me playing around with Arduino, ESP32, Linux, and more. " />
+<meta name="keywords" content="kn100, tech, golang, redis, software engineering, computer science" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.80.0" />
+
+<link rel="canonical" href="https://kn100.me/ghost-on-a-pi-because-why-not/">
+<meta property="og:title" content="Spooky Ghost on a Pi, Because Why Not?" />
+<meta property="og:description" content="This is a description of how this blog is currently hosted. Hopefully, I&rsquo;d like to do more interesting stuff with the Pi and post about it here.
+Hardware The system currently hosting this blog is a Raspberry Pi 3b&#43;. This is the (at the current time) latest revision of the single board computer, and features a slightly higher clock rate over the 3b, as well as better network performance. This is attached to a pretty standard 2 amp capable wall wart." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kn100.me/ghost-on-a-pi-because-why-not/" />
+<meta property="article:published_time" content="2018-03-29T00:24:13+00:00" />
+<meta property="article:modified_time" content="2018-03-29T00:24:13+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spooky Ghost on a Pi, Because Why Not?"/>
+<meta name="twitter:description" content="This is a description of how this blog is currently hosted. Hopefully, I&rsquo;d like to do more interesting stuff with the Pi and post about it here.
+Hardware The system currently hosting this blog is a Raspberry Pi 3b&#43;. This is the (at the current time) latest revision of the single board computer, and features a slightly higher clock rate over the 3b, as well as better network performance. This is attached to a pretty standard 2 amp capable wall wart."/>
+
+
+<meta itemprop="name" content="Spooky Ghost on a Pi, Because Why Not?">
+<meta itemprop="description" content="This is a description of how this blog is currently hosted. Hopefully, I&rsquo;d like to do more interesting stuff with the Pi and post about it here.
+Hardware The system currently hosting this blog is a Raspberry Pi 3b&#43;. This is the (at the current time) latest revision of the single board computer, and features a slightly higher clock rate over the 3b, as well as better network performance. This is attached to a pretty standard 2 amp capable wall wart.">
+<meta itemprop="datePublished" content="2018-03-29T00:24:13+00:00" />
+<meta itemprop="dateModified" content="2018-03-29T00:24:13+00:00" />
+<meta itemprop="wordCount" content="400">
+
+
+
+<meta itemprop="keywords" content="Projects,Pi,Ghost," />
+
+
+<link rel="stylesheet" href="/css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+a { color: #000000; }
+
+pre {
+  background: #EEEEEE;
+  border: 1px solid #000000;
+  border-radius: 5px;
+}
+
+code {
+  background-color: transparent;
+}
+
+blockquote {
+  background: #EEEEEE;
+  border-left: 3px solid #000000;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #000000;
+}
+
+th {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.siteTitle a { color: #0d5a91; }
+
+.post .content h1{ color: #0d5a91; }
+.post .content h2{ color: #0d5a91; }
+.post .content h3{ color: #0d5a91; }
+.post .content h4{ color: #0d5a91; }
+.post .content h5{ color: #0d5a91; }
+.post .content h6{ color: #0d5a91; }
+.post .content a:hover { color: #0d5a91; }
+.social-link:hover { color: #0d5a91; }
+.nav-item-title:hover { color: #0d5a91; }
+.tag a:hover { color: #0d5a91; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #0d5a91; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #0d5a91;
+}
+.post-list .title { color: #0d5a91; }
+.rmore { color: #000000; }
+.rmore:hover { color: #0d5a91; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #0d5a91;
+}
+
+</style>
+
+
+
+<title>
+
+
+     Spooky Ghost on a Pi, Because Why Not? 
+
+</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://kn100.me/">
+        <img class="logo" src="/nulogo.png" alt="KN100 | Kevin Norman">
+      </a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="/about/"><div class="nav-item-title">About me</div></a>
+    
+    <a class="nav-item" href="/tags/"><div class="nav-item-title">Tags</div></a>
+    
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+</div>
+ 
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> Spooky Ghost on a Pi, Because Why Not? </h1>
+    <div class="content"> <p>This is a description of how this blog is currently hosted. Hopefully, I&rsquo;d like to do more interesting stuff with the Pi and post about it here.</p>
+<h2 id="hardware">Hardware</h2>
+<p>The system currently hosting this blog is a Raspberry Pi 3b+. This is the (at the current time) latest revision of the single board computer, and features a slightly higher clock rate over the 3b, as well as better network performance. This is attached to a pretty standard 2 amp capable wall wart.</p>
+<h2 id="networking">Networking</h2>
+<p>The Pi is connected to my home network (a 80mbit down 20mbit up VDSL service) via WiFi. This is mainly for convenience, and does limit my performance somewhat. Anecdotally speaking, I get about 30-35mbit/s of throughput either way. This is greater than my upload speed, so this is fine for me. Currently, the domain is pointing at DigitalOcean Name servers, which then in turn point at my local IP. Not ideal since that can change, but I&rsquo;ll sort out a DynDNS like service up later. My router then forwards specific ports through to the Pi.</p>
+<h2 id="software">Software</h2>
+<p>I wanted something fairly simple, so I went with the following. I firstly formatted the MicroSD card of the Pi with Raspbian Stretch. The Pi is running NGINX, which handles SSL termination. The SSL certificate came from <a href="https://letsencrypt.org/">Lets Encrypt</a>. Nginx reverse proxies to Varnish, which is configured to use 20% of whatever RAM is available on the Pi, which at the current time would be around 170mb of ram for Varnish. Plenty, for a basic blog! The blog itself is running on the very nice (but somewhat fiddly to set up) Ghost. I&rsquo;d recommend anyone who is attempting to set Ghost up on a Pi to not use their CLI. It&rsquo;s not that difficult to set it up without and the CLI obscured a bunch of random permissions issues I was not expecting.</p>
+<h2 id="future-plans">Future plans</h2>
+<p>I want to host other stuff on the Pi, as well as fitting the Pi inside of my main computer. This is mainly to have a machine that remains on when the main machine is off. This is useful for a number of reasons. For me specifically, I look forward to having an IRC bouncer that I own running on the local machine, as well as configuring it to record some radio shows I sometimes want to listen to, but generally not at the time they air!</p>
+ </div>
+    <footer class="post-footer">
+  <hr/>
+  <p> <b>Enjoyed this blog post?</b> Check out some of my other writing:</p>
+  <ul>
+    <li><a href="/usb-hub-bs">Why doesn't my computer boot with a USB Hub connected?</a></li>
+    <li><a href="/making-breaking-changes-in-go">How to make breaking changes in Golang</a></li>
+    <li><a href="/those-damn-romanians">Those damn romanians</a></li>
+    <li><a href="/redis-pipelining"> Beating Round-Trip Latency With Redis Pipelining </a></li>
+    <li><a href="/where-embedded-meets-the-internet-building-your-own-air-quality-meter">Use the ESP32 and BME680 to build your own Air Quality Meter</a></li>
+    <li><a href="/the-accidental-domain-squatter">Why suspect us?</a></li>
+    <li><a href="/exploiting-upnp-literally-childsplay">UPNP is insecure</a></li>
+    <li><a href="/">Or check out all of my writing</a></li>
+  </ul>
+
+  <p><b>Or, let me know what you thought!</b> Tweet me at <a href="https://twitter.com/normankev141">@normankev141</a> - I'd appreciate it!</p>
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="/tags/projects">#Projects</a>
+      </div>
+    
+      <div class="tag">
+        <a href="/tags/pi">#Pi</a>
+      </div>
+    
+      <div class="tag">
+        <a href="/tags/ghost">#Ghost</a>
+      </div>
+    
+</div>
+
+    <div class="date"> 29 Mar 2018 </div>
+  </div>
+<a href="#">Back to top</a>
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+  <div class="social-link">
+  <a href="https://kn100.me/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright">  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

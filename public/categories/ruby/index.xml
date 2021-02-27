@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ruby on KN100 | Kevin Norman</title>
+    <link>https://kn100.me/categories/ruby/</link>
+    <description>Recent content in ruby on KN100 | Kevin Norman</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Tue, 16 Apr 2019 19:59:23 +0000</lastBuildDate><atom:link href="https://kn100.me/categories/ruby/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Beating Round-Trip Latency With Redis Pipelining</title>
+      <link>https://kn100.me/redis-pipelining/</link>
+      <pubDate>Tue, 16 Apr 2019 19:59:23 +0000</pubDate>
+      
+      <guid>https://kn100.me/redis-pipelining/</guid>
+      <description>I worked on a task which involved checking every single value in a Redis instance, and modifying ones which matched a certain format. This script needed to run in a fairly timely fashion, as it would need to be run frequently. Making requests sequentially didn&amp;rsquo;t cut it, so I learned about pipelining. This simple optimization meant that a script which I originally calculated to take over 50 hours to run ran in under 4 minutes.</description>
+    </item>
+    
+  </channel>
+</rss>

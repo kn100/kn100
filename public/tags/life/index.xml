@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>life on KN100 - Kevin Norman</title>
+    <link>https://kn100.me/tags/life/</link>
+    <description>Recent content in life on KN100 - Kevin Norman</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 24 Apr 2019 18:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://kn100.me/tags/life/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Stories from previous jobs: Those damn Romanians and their damn data protection laws.</title>
+      <link>https://kn100.me/those-damn-romanians/</link>
+      <pubDate>Wed, 24 Apr 2019 18:00:00 +0000</pubDate>
+      
+      <guid>https://kn100.me/those-damn-romanians/</guid>
+      <description>A long time ago I worked for an ISP as Tier 1 technical support. This is just one of many stories I have from my time here. These were originally published elsewhere on the internet, but are being reworked and republished here.
+Sometimes, the degree of insanity in a conversation can reach such a fever pitch that it is hard to recover. Sometimes, people can say things that leave you so flabbergasted that you aren&amp;rsquo;t sure if you&amp;rsquo;re being trolled or not.</description>
+    </item>
+    
+    <item>
+      <title>That time a sticker made me an accidental domain squatter</title>
+      <link>https://kn100.me/the-accidental-domain-squatter/</link>
+      <pubDate>Wed, 10 Apr 2019 22:56:28 +0000</pubDate>
+      
+      <guid>https://kn100.me/the-accidental-domain-squatter/</guid>
+      <description>It all started with my noticing of these stickers absolutely everywhere all over London. I&amp;rsquo;d also seen them in other European cities. I was never curious enough to actually search for it, so I just noticed and moved on. The method by which I discovered their true meaning was something I never expected.
+  The sticker in question
+  Every now and then I&amp;rsquo;d come across one and the question would briefly pop back into my head, but it&amp;rsquo;s surprising how high the barrier to looking something up is for me.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hardware on KN100 | Kevin Norman</title>
+    <link>https://kn100.me/tags/hardware/</link>
+    <description>Recent content in Hardware on KN100 | Kevin Norman</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Thu, 01 Oct 2020 21:00:00 +0100</lastBuildDate><atom:link href="https://kn100.me/tags/hardware/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why Does My Computer Not Boot with a USB Hub Attached?</title>
+      <link>https://kn100.me/usb-hub-bs/</link>
+      <pubDate>Thu, 01 Oct 2020 21:00:00 +0100</pubDate>
+      
+      <guid>https://kn100.me/usb-hub-bs/</guid>
+      <description>My trusty old USB 3 hub has failed. It was only around a year old, but it was cheap and it worked. It wasn&amp;rsquo;t powered, but most of the time it didn&amp;rsquo;t need to be. One day I began having very strange issues with USB on my computer. Devices randomly disconnecting, devices never connecting until the computer was rebooted and so on. I eventually narrowed it down to the hub. I tossed it out after a quick internal inspection had revealed nothing obviously wrong, and went shopping for a new hub.</description>
+    </item>
+    
+    <item>
+      <title>News in the Morning: A Simple Hack</title>
+      <link>https://kn100.me/news-in-the-morning-a-simple-hack/</link>
+      <pubDate>Sun, 03 Jun 2018 19:43:56 +0000</pubDate>
+      
+      <guid>https://kn100.me/news-in-the-morning-a-simple-hack/</guid>
+      <description>Like many people, I find it difficult to wake up in the morning. I want to automate some of the things I do in the morning in order to continue to hack away at my laziness.
+To this effect, I want my television to switch on and over to BBC news in the morning. Unfortunately, Hisense do not provide a way to control the television remotely as far as I can tell, and nmapping it doesn&amp;rsquo;t give me anything too interesting.</description>
+    </item>
+    
+    <item>
+      <title>The Cybiko, a Forgotten Gem</title>
+      <link>https://kn100.me/the-cybiko-a-forgotten-gem/</link>
+      <pubDate>Thu, 29 Mar 2018 11:59:49 +0000</pubDate>
+      
+      <guid>https://kn100.me/the-cybiko-a-forgotten-gem/</guid>
+      <description>Few remember the Cybiko. In the year 2000, a Russian company unveiled a very strange looking device, adorned with a comically small keyboard and a retro antenna. They called it a handheld computer. They marketed it towards teens with some of themost insane advertising I&amp;rsquo;d personally ever seen.
+The device was an interesting one, and to describe just how far ahead of its time it really was, it will be useful to draw comparisons against smartphones of today.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,16 @@
+
+{{ partial "header.html" . }}
+
+<main>
+{{ partial "intro.html" . }}
+<span class="post-header">Posts</span>
+{{ $paginator := .Paginate (where site.RegularPages "Type" "in" site.Params.mainSections) }}
+  {{ range $paginator.Pages }}
+    {{ .Render "summary" }}
+{{ end }}
+
+{{ partial "paginator-menu.html" . }}
+
+</main>
+
+{{ partial "footer.html" . }}

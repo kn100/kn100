@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116596166-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116596166-1');
+</script>
+
+<meta charset="utf-8" />
+<meta name="author" content="" />
+<meta name="description" content="Kevin Norman - or kn100 - a software engineer from London who likes to play about with embedded systems and sometimes blog about it. You&#39;ll find me playing around with Arduino, ESP32, Linux, and more. " />
+<meta name="keywords" content="kn100, tech, golang, redis, software engineering, computer science" />
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.80.0" />
+
+<link rel="canonical" href="https://kn100.me/redis-pipelining/">
+<meta property="og:title" content="Beating Round-Trip Latency With Redis Pipelining" />
+<meta property="og:description" content="Without Redis Pipelining, when making many requests to a Redis, we are at the mercy of the latency between ourselves and the Redis server in question, or we&#39;re forced to use threading. To avoid this, we can pipeline our requests." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kn100.me/redis-pipelining/" />
+<meta property="article:published_time" content="2019-04-16T19:59:23+00:00" />
+<meta property="article:modified_time" content="2019-04-16T19:59:23+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Beating Round-Trip Latency With Redis Pipelining"/>
+<meta name="twitter:description" content="Without Redis Pipelining, when making many requests to a Redis, we are at the mercy of the latency between ourselves and the Redis server in question, or we&#39;re forced to use threading. To avoid this, we can pipeline our requests."/>
+
+
+<meta itemprop="name" content="Beating Round-Trip Latency With Redis Pipelining">
+<meta itemprop="description" content="Without Redis Pipelining, when making many requests to a Redis, we are at the mercy of the latency between ourselves and the Redis server in question, or we&#39;re forced to use threading. To avoid this, we can pipeline our requests.">
+<meta itemprop="datePublished" content="2019-04-16T19:59:23+00:00" />
+<meta itemprop="dateModified" content="2019-04-16T19:59:23+00:00" />
+<meta itemprop="wordCount" content="1060">
+
+
+
+<meta itemprop="keywords" content="Redis,Stories," />
+
+
+<link rel="stylesheet" href="/css/layout.css" />
+<style type="text/css">
+body {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+a { color: #000000; }
+
+pre {
+  background: #EEEEEE;
+  border: 1px solid #000000;
+  border-radius: 5px;
+}
+
+code {
+  background-color: transparent;
+}
+
+blockquote {
+  background: #EEEEEE;
+  border-left: 3px solid #000000;
+}
+
+table {
+  margin: 1em auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #000000;
+}
+
+th {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.siteTitle a { color: #0d5a91; }
+
+.post .content h1{ color: #0d5a91; }
+.post .content h2{ color: #0d5a91; }
+.post .content h3{ color: #0d5a91; }
+.post .content h4{ color: #0d5a91; }
+.post .content h5{ color: #0d5a91; }
+.post .content h6{ color: #0d5a91; }
+.post .content a:hover { color: #0d5a91; }
+.social-link:hover { color: #0d5a91; }
+.nav-item-title:hover { color: #0d5a91; }
+.tag a:hover { color: #0d5a91; }
+.copyright { color: #404040 }
+.poweredby { color: #404040 }
+.poweredby a { color: #404040; }
+.post-preview .title a{ color: #0d5a91; }
+.content-item a:hover{
+  text-decoration: underline;
+  color: #0d5a91;
+}
+.post-list .title { color: #0d5a91; }
+.rmore { color: #000000; }
+.rmore:hover { color: #0d5a91; }
+.terms .term a:hover {
+  text-decoration: underline;
+  color: #0d5a91;
+}
+
+</style>
+
+
+
+<title>
+
+
+     Beating Round-Trip Latency With Redis Pipelining 
+
+</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+</head>
+
+
+<body>
+<div class="main">
+<header>
+
+<div class="header-bar">
+
+  <nav>
+    <div class="siteTitle">
+      <a href="https://kn100.me/">
+        <img class="logo" src="/nulogo.png" alt="KN100 | Kevin Norman">
+      </a>
+    </div> 
+
+    
+    
+    <a class="nav-item" href="/about/"><div class="nav-item-title">About me</div></a>
+    
+    <a class="nav-item" href="/tags/"><div class="nav-item-title">Tags</div></a>
+    
+  </nav>
+</div>
+
+  
+<div class="social-links-header">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+</div>
+ 
+
+</header>
+
+
+<article class="post">
+    <h1 class="title"> Beating Round-Trip Latency With Redis Pipelining </h1>
+    <div class="content"> <p>I worked on a task which involved checking every single value in a Redis instance, and modifying ones which matched a certain format. This script needed to run in a fairly timely fashion, as it would need to be run frequently. Making requests sequentially didn&rsquo;t cut it, so I learned about pipelining. This simple optimization meant that a script which I originally calculated to take over 50 hours to run ran in under 4 minutes.</p>
+<p>The two approaches for doing this in a timely fashion I considered are as follows:</p>
+<ol>
+<li>Write some script that makes use of pipelining in order to stream requests to the Redis instance without waiting for the response</li>
+<li>Writing some Lua script which redis can execute itself, an amazing ability that I should learn to take advantage of more often! This approach would likely have been much more efficient, but there were time constraints on this and my knowledge of Lua is nada, so I decided to go with the script approach.</li>
+</ol>
+<h1 id="life-without-pipelining">Life without pipelining</h1>
+<p>Without pipelining, when making many requests to a Redis, we are at the mercy of the latency between ourselves and the server in question, or are forced to do threading of some sort. Let&rsquo;s look at some code. In this code, we want to get the ttl, or time to live for each key. If you&rsquo;re unsure what a ttl is, the <a href="https://redis.io/commands/ttl">Redis docs</a> do a good job of explaining it, but the long and short of it is that you can set an expiry on a key that Redis stores. The Redis ttl is the number of seconds before the key is deleted.</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">keys = [<span style="color:#ed9d13">&#39;apple&#39;</span>, <span style="color:#ed9d13">&#39;orange&#39;</span>, <span style="color:#ed9d13">&#39;banana&#39;</span>, <span style="color:#ed9d13">&#39;pineapple&#39;</span>]
+values = []
+keys.each { |key|
+    values &lt;&lt; redis.ttl(key)
+}
+</code></pre></div><p>In this code, we are getting the ttl for 4 keys. Every time we call <code>redis.ttl()</code>, our code blocks. This is because we need to wait for Redis to respond to our request for the ttl. This is usually fine for small numbers of keys, but when you&rsquo;ve got millions, and the Redis you&rsquo;re talking to is not on your local machine, every single key takes <em>at least</em> the network latency between you and the Redis to retrieve.</p>
+<p>In the above example, we are retrieving 4 keys ttls. Lets assume that I, in London am talking to a Redis in the US somewhere. Let&rsquo;s assume a minimum network latency of 100ms. This means, to retrieve these 4 keys, it will take <em>at least</em> 400ms. 40 keys will take at least 4000ms, and so on. You can see how this doesn&rsquo;t scale.</p>
+<h1 id="enter-pipelining">Enter pipelining</h1>
+<p>Lets look at the code changes required to pipeline our requests.</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">keys = [<span style="color:#ed9d13">&#39;apple&#39;</span>, <span style="color:#ed9d13">&#39;orange&#39;</span>, <span style="color:#ed9d13">&#39;banana&#39;</span>, <span style="color:#ed9d13">&#39;pineapple&#39;</span>]
+values = []
+redis.pipelined <span style="color:#6ab825;font-weight:bold">do</span>
+  keys.each{ |key|
+    values &lt;&lt; redis.ttl(key)
+  }
+<span style="color:#6ab825;font-weight:bold">end</span>
+</code></pre></div><p>That&rsquo;s simpler than expected right? What is actually different here? Instead of sequentially doing the requests, we <strong>pipeline</strong> them. This means we send the requests without waiting on the responses. We send as many requests as our machine can, and the responses come in whenever they&rsquo;re ready from the server. This means if we take the same latency figures as above, we can assume the time to retrieve all these ttls is going to be around 100ms! for 40 keys, the latency will probably be a bit higher, but closer to 100ms than 400ms for sure! 400 keys? Much closer to 100ms than 4000ms!</p>
+<p>Here&rsquo;s a diagram I stole from Wikipedia that does a great job of illustrating the difference this makes to how the requests are made.</p>
+<figure>
+    <img src="/images/redis-pipelining-diagram.PNG"/> 
+</figure>
+
+<p>In this library, the <code>redis.pipelined</code> block will block until all the responses come back, and the <code>values</code> array will be populated with Redis::futures. You can wait on these in a separate thread and do work as soon as results come in, but if you don&rsquo;t care about that and just want to start your work once you&rsquo;ve gotten all your responses, you can just let the <code>redis.pipelined</code> block continue to block until all the responses have come back, and then call <code>value()</code> on each element in the values array. For example:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#24909d">puts</span> keys[<span style="color:#3677a9">0</span>].value <span style="color:#999;font-style:italic"># returns the ttl, ie 3600</span>
+</code></pre></div><h1 id="how-does-this-work-though">How does this work, though?</h1>
+<p>At a fairly high level, what happens is the server buffers these requests we&rsquo;re sending to it in the order that we sent them. This is why we can depend on the order they&rsquo;re returned in. It processes the requests as it normally does and returns them to our client as normal. There are some important caveats which might matter to your use case though:</p>
+<ul>
+<li>Pipelining does not make your requests atomic. If you&rsquo;re making millions of requests for the ttls of all your keys, then we can assume it&rsquo;s going to take longer than a few seconds. This means that if keys you request expire in the time it takes for Redis to process all these requests, you&rsquo;re not going to be able to retrieve them again. If you need atomicity, you&rsquo;re going to need to do a <a href="https://redis.io/topics/transactions">transaction</a>.</li>
+<li>The buffering of requests on the server takes up memory. If your requests each take a non-trivial amount of time to process by Redis, this buffer can grow very large quickly. If you&rsquo;re making millions of queries, you might want to consider batching your requests. For example, you might pipeline 10000 calls to the ttl method, and once that lot succeeds pipeline another 10000 calls. This means your buffer will never exceed 10000 requests, and you&rsquo;ve ensured you&rsquo;re not going to OOM your Redis. The size of your batches will decide how many times you&rsquo;ll need to pay the RTT penalty.</li>
+<li>Redis has lots of lovely methods which somewhat negate the need for pipelining. For example, if you&rsquo;re just getting the values of keys, consider using <code>mget</code> instead of pipelining.</li>
+</ul>
+<h1 id="conclusion">Conclusion</h1>
+<p>Redis pipelining allows us to make many requests without waiting for the responses or worrying about the order of the responses. It offers huge performance benefits if your service that talks to Redis is far away from the Redis instance. Regarding my use of it, even with this optimization, the majority of the time my script executed was spent on the machine running the script making the modifications to the keys. I am certain more performance could be gotten, but this was more than fast enough for my purposes - and was a very significant improvement.</p>
+ </div>
+    <footer class="post-footer">
+  <hr/>
+  <p> <b>Enjoyed this blog post?</b> Check out some of my other writing:</p>
+  <ul>
+    <li><a href="/usb-hub-bs">Why doesn't my computer boot with a USB Hub connected?</a></li>
+    <li><a href="/making-breaking-changes-in-go">How to make breaking changes in Golang</a></li>
+    <li><a href="/those-damn-romanians">Those damn romanians</a></li>
+    <li><a href="/redis-pipelining"> Beating Round-Trip Latency With Redis Pipelining </a></li>
+    <li><a href="/where-embedded-meets-the-internet-building-your-own-air-quality-meter">Use the ESP32 and BME680 to build your own Air Quality Meter</a></li>
+    <li><a href="/the-accidental-domain-squatter">Why suspect us?</a></li>
+    <li><a href="/exploiting-upnp-literally-childsplay">UPNP is insecure</a></li>
+    <li><a href="/">Or check out all of my writing</a></li>
+  </ul>
+
+  <p><b>Or, let me know what you thought!</b> Tweet me at <a href="https://twitter.com/normankev141">@normankev141</a> - I'd appreciate it!</p>
+  <div class="post-footer-data">
+    
+<div class="tags">
+    
+      <div class="tag">
+        <a href="/tags/redis">#Redis</a>
+      </div>
+    
+      <div class="tag">
+        <a href="/tags/stories">#Stories</a>
+      </div>
+    
+</div>
+
+    <div class="date"> 16 Apr 2019 </div>
+  </div>
+<a href="#">Back to top</a>
+</footer>
+
+
+  
+
+
+</article>
+
+  <footer>
+
+  <div class="social-links-footer">
+
+  
+  <a href="mailto:kn100&#43;blog@kn100.me"><div class="social-link">Email</div></a>
+  
+
+  
+  <a href="https://github.com/kn100" target="_blank"><div class="social-link">GitHub</div></a>
+  
+
+  
+
+  
+  <a href="https://twitter.com/@normankev141" target="_blank"><div class="social-link">Twitter</div></a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/kevin-norman" target="_blank"><div class="social-link">LinkedIn</div></a>
+  
+
+  <div class="social-link">
+  <a href="https://kn100.me/index.xml" target="_blank">RSS</a>
+  </div>
+
+</div>
+
+
+  <div class="copyright">  </div>
+
+  </footer>
+
+</div> 
+
+</body>
+</html>
+

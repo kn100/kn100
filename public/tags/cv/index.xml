@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cv on KN100 - Kevin Norman</title>
+    <link>https://kn100.me/tags/cv/</link>
+    <description>Recent content in cv on KN100 - Kevin Norman</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 10 Apr 2019 19:28:49 +0000</lastBuildDate>
+    
+	<atom:link href="https://kn100.me/tags/cv/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kevin Normans CV</title>
+      <link>https://kn100.me/cv/</link>
+      <pubDate>Wed, 10 Apr 2019 19:28:49 +0000</pubDate>
+      
+      <guid>https://kn100.me/cv/</guid>
+      <description>My CV can be found here:
+[https://docs.google.com/document/d/1xVBMfoEMW78eKx1blu3z95V5hZWHbD0BmYDehQHUQJI/edit?usp=sharing](Google Docs link)</description>
+    </item>
+    
+  </channel>
+</rss>

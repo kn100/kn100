@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on KN100 | Kevin Norman</title>
+    <link>https://kn100.me/categories/projects/</link>
+    <description>Recent content in Projects on KN100 | Kevin Norman</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 03 Jun 2018 19:43:56 +0000</lastBuildDate><atom:link href="https://kn100.me/categories/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>News in the Morning: A Simple Hack</title>
+      <link>https://kn100.me/news-in-the-morning-a-simple-hack/</link>
+      <pubDate>Sun, 03 Jun 2018 19:43:56 +0000</pubDate>
+      
+      <guid>https://kn100.me/news-in-the-morning-a-simple-hack/</guid>
+      <description>Like many people, I find it difficult to wake up in the morning. I want to automate some of the things I do in the morning in order to continue to hack away at my laziness.
+To this effect, I want my television to switch on and over to BBC news in the morning. Unfortunately, Hisense do not provide a way to control the television remotely as far as I can tell, and nmapping it doesn&amp;rsquo;t give me anything too interesting.</description>
+    </item>
+    
+    <item>
+      <title>NotSoEducated – A Project From a While Ago</title>
+      <link>https://kn100.me/notsoeducated-a-project-from-a-while-ago/</link>
+      <pubDate>Sat, 02 Jun 2018 21:22:22 +0000</pubDate>
+      
+      <guid>https://kn100.me/notsoeducated-a-project-from-a-while-ago/</guid>
+      <description>A while ago, I and a friend of mine got rather annoyed at a ridiculous propaganda attempt regarding e-cigarettes, so we countered it by parodying the complete lies with a well cited, truthful account. They&amp;rsquo;ve long since taken the site down, I suspect in response, but you can somewhat experience it thanks to the Wayback Machine.
+  A poster designed for the project   </description>
+    </item>
+    
+    <item>
+      <title>Spooky Ghost on a Pi, Because Why Not?</title>
+      <link>https://kn100.me/ghost-on-a-pi-because-why-not/</link>
+      <pubDate>Thu, 29 Mar 2018 00:24:13 +0000</pubDate>
+      
+      <guid>https://kn100.me/ghost-on-a-pi-because-why-not/</guid>
+      <description>This is a description of how this blog is currently hosted. Hopefully, I&amp;rsquo;d like to do more interesting stuff with the Pi and post about it here.
+Hardware The system currently hosting this blog is a Raspberry Pi 3b+. This is the (at the current time) latest revision of the single board computer, and features a slightly higher clock rate over the 3b, as well as better network performance. This is attached to a pretty standard 2 amp capable wall wart.</description>
+    </item>
+    
+    <item>
+      <title>World Explorer</title>
+      <link>https://kn100.me/world-explorer/</link>
+      <pubDate>Wed, 22 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://kn100.me/world-explorer/</guid>
+      <description>World Explorer This project provides you with two main scripts. The first is a player controller which was designed with the Oculus Rift DK2 in mind, but should work perfectly with more modern hardware. This player controller will attempt to keep the player locked to the surface of whatever three dimensional shape they are walking on, similar to Super Mario Galaxy. ##Video demos For some video demos of it in action, please see these three videos:     Assets A player controller that:  Allows for forwards, backwards, and rotation motion Keeps the player locked to the surface of any given geometry, provided that it has a mesh collider (Think Super Mario Galaxy) Is compatible with VR headsets - tested with Oculus Home and Rift DK2.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on KN100 | Kevin Norman</title>
+    <link>https://kn100.me/tags/projects/</link>
+    <description>Recent content in Projects on KN100 | Kevin Norman</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Mon, 01 Feb 2021 00:00:00 +0100</lastBuildDate><atom:link href="https://kn100.me/tags/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Declouding my life - Replacing Google Photos</title>
+      <link>https://kn100.me/declouding-replacing-google-photos-part-1/</link>
+      <pubDate>Mon, 01 Feb 2021 00:00:00 +0100</pubDate>
+      
+      <guid>https://kn100.me/declouding-replacing-google-photos-part-1/</guid>
+      <description>Links to Amazon in this blog post are affiliate links - and I will potentially earn commission on you clicking them. Please bear that in mind!
+Over the last couple of years, I&amp;rsquo;ve been trying to reduce my dependence on cloud services. This is purely ideological, I have no real reason to distrust the cloud, nor am I going to attempt to convince you to. I just made a decision a while ago that all my mission critical/sensitive stuff needed to be moved off of centralised cloud storage.</description>
+    </item>
+    
+    <item>
+      <title>Declouding Chinese WIFi plugs</title>
+      <link>https://kn100.me/declouding-chinese-wifi-plugs/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +0100</pubDate>
+      
+      <guid>https://kn100.me/declouding-chinese-wifi-plugs/</guid>
+      <description>So, it turns out that a lot of smart gear from many manufacturers, including ones you&amp;rsquo;ve almost certainly heard of, comes from a company called Tuya. They seem to make all sorts of fun IOT gear, which all connects to the Tuya cloud. What Tuya seem to do is sell whitelabeled &amp;lsquo;versions&amp;rsquo; of their products to various brands who then sell them as if they&amp;rsquo;d manufactured them themselves. Very interesting right?</description>
+    </item>
+    
+    <item>
+      <title>Improving Bluetooth Audio Quality on Ubuntu Linux</title>
+      <link>https://kn100.me/improving-bluetooth-audio-linux/</link>
+      <pubDate>Mon, 12 Oct 2020 00:25:47 +0100</pubDate>
+      
+      <guid>https://kn100.me/improving-bluetooth-audio-linux/</guid>
+      <description>Hacker News Discussion | Reddit Discussion
+Bluetooth Audio is generally considered convenient, but not &amp;lsquo;audiophile&amp;rsquo;. Any self respecting audiophile is probably connecting their fancy headphones to some Digital to Analog Converter/Amp combo which might be connected to their computer using some fancy gold plated USB Cable. More power to them, I am not self respecting. I made a decision a few months ago to switch entirely to Bluetooth Audio as the convenience and tidiness of having a wireless headset just appealed to me so much.</description>
+    </item>
+    
+    <item>
+      <title>Why Does My Computer Not Boot with a USB Hub Attached?</title>
+      <link>https://kn100.me/usb-hub-bs/</link>
+      <pubDate>Thu, 01 Oct 2020 21:00:00 +0100</pubDate>
+      
+      <guid>https://kn100.me/usb-hub-bs/</guid>
+      <description>My trusty old USB 3 hub has failed. It was only around a year old, but it was cheap and it worked. It wasn&amp;rsquo;t powered, but most of the time it didn&amp;rsquo;t need to be. One day I began having very strange issues with USB on my computer. Devices randomly disconnecting, devices never connecting until the computer was rebooted and so on. I eventually narrowed it down to the hub. I tossed it out after a quick internal inspection had revealed nothing obviously wrong, and went shopping for a new hub.</description>
+    </item>
+    
+    <item>
+      <title>Diyode.com published a feature about the air quality meter!</title>
+      <link>https://kn100.me/diyode-air-quality-meter/</link>
+      <pubDate>Tue, 01 Sep 2020 10:00:00 +0100</pubDate>
+      
+      <guid>https://kn100.me/diyode-air-quality-meter/</guid>
+      <description>The introductory page   You may have seen my article on the air quality meter I built a while ago. Diyode, a print magazine in Australia kindly published an article discussing the process I took to create the thing! It&amp;rsquo;s a really cool feeling to be featured somewhere like this. The article is a great read, check it out over on Diyode: Sense of Smell.</description>
+    </item>
+    
+    <item>
+      <title>Embedded Meets the Internet: Build Your Own Air Quality Meter</title>
+      <link>https://kn100.me/where-embedded-meets-the-internet-building-your-own-air-quality-meter/</link>
+      <pubDate>Sun, 05 Jul 2020 00:25:47 +0100</pubDate>
+      
+      <guid>https://kn100.me/where-embedded-meets-the-internet-building-your-own-air-quality-meter/</guid>
+      <description>The Finished Product - quite rustic!   This article was recently featured in Hackaday and Diyode!
+I&amp;rsquo;m bored. I&amp;rsquo;m sure you are too. I&amp;rsquo;m personally very thankful that I can still work through this strange period - but there are still hours in the day to fill. I wanted a personal project, so I thought about remote working and the health impacts. Most offices here have air handling units, air conditioners, and fans to keep air circulating.</description>
+    </item>
+    
+    <item>
+      <title>News in the Morning: A Simple Hack</title>
+      <link>https://kn100.me/news-in-the-morning-a-simple-hack/</link>
+      <pubDate>Sun, 03 Jun 2018 19:43:56 +0000</pubDate>
+      
+      <guid>https://kn100.me/news-in-the-morning-a-simple-hack/</guid>
+      <description>Like many people, I find it difficult to wake up in the morning. I want to automate some of the things I do in the morning in order to continue to hack away at my laziness.
+To this effect, I want my television to switch on and over to BBC news in the morning. Unfortunately, Hisense do not provide a way to control the television remotely as far as I can tell, and nmapping it doesn&amp;rsquo;t give me anything too interesting.</description>
+    </item>
+    
+    <item>
+      <title>NotSoEducated – A Project From a While Ago</title>
+      <link>https://kn100.me/notsoeducated-a-project-from-a-while-ago/</link>
+      <pubDate>Sat, 02 Jun 2018 21:22:22 +0000</pubDate>
+      
+      <guid>https://kn100.me/notsoeducated-a-project-from-a-while-ago/</guid>
+      <description>A while ago, I and a friend of mine got rather annoyed at a ridiculous propaganda attempt regarding e-cigarettes, so we countered it by parodying the complete lies with a well cited, truthful account. They&amp;rsquo;ve long since taken the site down, I suspect in response, but you can somewhat experience it thanks to the Wayback Machine.
+  A poster designed for the project   </description>
+    </item>
+    
+    <item>
+      <title>Spooky Ghost on a Pi, Because Why Not?</title>
+      <link>https://kn100.me/ghost-on-a-pi-because-why-not/</link>
+      <pubDate>Thu, 29 Mar 2018 00:24:13 +0000</pubDate>
+      
+      <guid>https://kn100.me/ghost-on-a-pi-because-why-not/</guid>
+      <description>This is a description of how this blog is currently hosted. Hopefully, I&amp;rsquo;d like to do more interesting stuff with the Pi and post about it here.
+Hardware The system currently hosting this blog is a Raspberry Pi 3b+. This is the (at the current time) latest revision of the single board computer, and features a slightly higher clock rate over the 3b, as well as better network performance. This is attached to a pretty standard 2 amp capable wall wart.</description>
+    </item>
+    
+    <item>
+      <title>World Explorer</title>
+      <link>https://kn100.me/world-explorer/</link>
+      <pubDate>Wed, 22 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://kn100.me/world-explorer/</guid>
+      <description>World Explorer This project provides you with two main scripts. The first is a player controller which was designed with the Oculus Rift DK2 in mind, but should work perfectly with more modern hardware. This player controller will attempt to keep the player locked to the surface of whatever three dimensional shape they are walking on, similar to Super Mario Galaxy. ##Video demos For some video demos of it in action, please see these three videos:     Assets A player controller that:  Allows for forwards, backwards, and rotation motion Keeps the player locked to the surface of any given geometry, provided that it has a mesh collider (Think Super Mario Galaxy) Is compatible with VR headsets - tested with Oculus Home and Rift DK2.</description>
+    </item>
+    
+  </channel>
+</rss>
